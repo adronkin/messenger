@@ -4,8 +4,8 @@ import re
 import sys
 import time
 from socket import socket, SOCK_STREAM, AF_INET
-from lesson_3.common_files.function import send_message, get_message
-from lesson_3.common_files.variables import DEFAULT_PORT, DEFAULT_IP, IP_REGEX, ACTION, \
+from common_files.function import send_message, get_message
+from common_files.variables import DEFAULT_PORT, DEFAULT_IP, IP_REGEX, ACTION, \
     PRESENCE, TIME, USER, RESPONSE, ERROR
 
 

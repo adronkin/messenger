@@ -1,6 +1,6 @@
 """Функции для использования server.py и client.py"""
 import json
-from lesson_3.common_files.variables import MAX_DATA, ENCODING
+from common_files.variables import MAX_DATA, ENCODING
 
 
 def get_message(client_server):

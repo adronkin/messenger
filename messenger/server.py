@@ -3,26 +3,41 @@
 import sys
 import re
 from socket import socket, AF_INET, SOCK_STREAM
-from lesson_3.common_files.function import get_message, send_message
-from lesson_3.common_files.variables import DEFAULT_IP, DEFAULT_PORT, MAX_QUEUE, IP_REGEX, ACTION, \
+from common_files.function import get_message, send_message
+from common_files.variables import DEFAULT_IP, DEFAULT_PORT, MAX_QUEUE, IP_REGEX, ACTION, \
     PRESENCE, TIME, RESPONSE, ERROR, USER
 
 
 def identify_ip_port():
-    """Если в командной строке введены порт и IP-адресс, то привязывает к ним сокет"""
+    """Если в командной строке введены порт и/или IP-адресс, то привязывает к ним сокет"""
     sys_args = sys.argv
-    if len(sys_args) == 1:
-        # Привязываем сокет к IP-адресу и порту
-        return SERVER_SOCK.bind((DEFAULT_IP, DEFAULT_PORT))
-    if len(sys_args) == 5:
-        if sys_args[1] == '-p' and sys_args[3] == '-a':
-            if sys_args[2].isdigit() and 1024 < int(sys_args[2]) < 65535 and \
-                    re.match(IP_REGEX, sys_args[4]):
-                return SERVER_SOCK.bind((sys_args[4], int(sys_args[2])))
-    print(f'Параметры введены некорректно, пример корректного ввода -'
-          f' "имя_скрипта.py -p <port> -a <ip_address>. \n'
-          f'Будут использованы стандартные параметры - {DEFAULT_IP}:{DEFAULT_PORT}')
-    return SERVER_SOCK.bind((DEFAULT_IP, DEFAULT_PORT))
+    if '-p' in sys_args:
+        try:
+            temp_port = sys_args[sys_args.index('-p') + 1]
+            if temp_port.isdigit() and 1024 < int(temp_port) < 65535:
+                listen_port = int(temp_port)
+            else:
+                print('Порт введен некорректно.')
+                sys.exit(1)
+        except IndexError:
+            print('После параметра "-p" необходимо указать номер порта.')
+            sys.exit(1)
+    else:
+        listen_port = DEFAULT_PORT
+    if '-a' in sys_args:
+        try:
+            temp_ip = sys_args[sys_args.index('-a') + 1]
+            if re.match(IP_REGEX, temp_ip):
+                listen_ip = temp_ip
+            else:
+                print('IP-адрес введен некорректно.')
+                sys.exit(1)
+        except IndexError:
+            print('После параметра "-a" необходимо указать ip-адрес.')
+            sys.exit(1)
+    else:
+        listen_ip = DEFAULT_IP
+    return SERVER_SOCK.bind((listen_ip, listen_port))
 
 
 def processing_message(data):
