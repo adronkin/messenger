@@ -21,4 +21,4 @@ def send_message(recipient, message):
     """Принимает словарь message, сериальзует его в json и отправляет"""
     json_message = json.dumps(message)
     encode_message = json_message.encode(ENCODING)
-    return recipient.send(encode_message)
+    recipient.send(encode_message)

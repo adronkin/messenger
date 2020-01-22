@@ -8,8 +8,20 @@ from common_files.variables import DEFAULT_IP, DEFAULT_PORT, MAX_QUEUE, IP_REGEX
     PRESENCE, TIME, RESPONSE, ERROR, USER
 
 
-def identify_ip_port():
-    """Если в командной строке введены порт и/или IP-адресс, то привязывает к ним сокет"""
+def processing_message(data):
+    """Проверяет корректность сообщения data и возвращает ответ для клиента в формате dict"""
+    if ACTION in data and data[ACTION] == PRESENCE and TIME in data \
+            and USER in data and data[USER] == 'Guest':
+        return {RESPONSE: 200}
+    return {
+        RESPONSE: 400,
+        ERROR: 'Bad request'
+    }
+
+
+def main():
+    """Код запуска server"""
+    # Если в командной строке введены порт и/или IP-адресс, то привязывает к ним сокет
     sys_args = sys.argv
     if '-p' in sys_args:
         try:
@@ -37,37 +49,29 @@ def identify_ip_port():
             sys.exit(1)
     else:
         listen_ip = DEFAULT_IP
-    return SERVER_SOCK.bind((listen_ip, listen_port))
+
+    # Создаем сокет TCP (AF_INET - сетевой сокет, SOCK_STREAM - работа с TCP
+    # пакетами)
+    server_sock = socket(AF_INET, SOCK_STREAM)
+    server_sock.bind((listen_ip, listen_port))
+
+    # Переводим сервер в режим ожидания запросов.
+    server_sock.listen(MAX_QUEUE)
+
+    while True:
+        # Принимаем запрос на соединение
+        client_sock, address = server_sock.accept()
+        try:
+            # Получаем данные от клиента и преобразовываем в словарь
+            data = get_message(client_sock)
+            print(data)
+            msg = processing_message(data)
+            send_message(client_sock, msg)
+            client_sock.close()
+        except ValueError:
+            print('Принято некорректное сообщение')
+            client_sock.close()
 
 
-def processing_message(data):
-    """Проверяет корректность сообщения data и возвращает ответ для клиента в формате dict"""
-    if ACTION in data and data[ACTION] == PRESENCE and TIME in data \
-            and USER in data and data[USER] == 'Guest':
-        return {RESPONSE: 200}
-    return {
-        RESPONSE: 400,
-        ERROR: 'Bad request'
-    }
-
-
-# Создаем сокет TCP (AF_INET - сетевой сокет, SOCK_STREAM - работа с TCP пакетами)
-SERVER_SOCK = socket(AF_INET, SOCK_STREAM)
-identify_ip_port()
-
-# Переводим сервер в режим ожидания запросов.
-SERVER_SOCK.listen(MAX_QUEUE)
-
-while True:
-    # Принимаем запрос на соединение
-    CLIENT_SOCK, ADDRESS = SERVER_SOCK.accept()
-    try:
-        # Получаем данные от клиента и преобразовываем в словарь
-        DATA = get_message(CLIENT_SOCK)
-        print(DATA)
-        MSG = processing_message(DATA)
-        send_message(CLIENT_SOCK, MSG)
-        CLIENT_SOCK.close()
-    except ValueError:
-        print('Принято некорректное сообщение')
-        CLIENT_SOCK.close()
+if __name__ == '__main__':
+    main()
