@@ -1,7 +1,9 @@
 """Unit-тесты для модуля server.py"""
 
+import os
+import sys
 import unittest
-
+sys.path.append(os.path.join(os.getcwd(), '..'))
 from common_files.variables import ACTION, PRESENCE, TIME, USER, RESPONSE, ERROR
 from server import processing_message
 

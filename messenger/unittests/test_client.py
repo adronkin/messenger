@@ -1,6 +1,9 @@
 """Unit-тесты для модуля client.py"""
 
+import os
+import sys
 import unittest
+sys.path.append(os.path.join(os.getcwd(), '..'))
 from client import confirm_presence, receive_message
 from common_files.variables import TIME, ACTION, PRESENCE, USER, RESPONSE, ERROR
 

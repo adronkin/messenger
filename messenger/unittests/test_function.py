@@ -1,7 +1,10 @@
 """Unit-тесты для модуля function.py"""
-import json
-import unittest
 
+import json
+import os
+import sys
+import unittest
+sys.path.append(os.path.join(os.getcwd(), '..'))
 from common_files.variables import ENCODING, RESPONSE, ERROR, ACTION, PRESENCE, TIME, USER
 from common_files.function import send_message, get_message
 
