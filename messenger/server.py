@@ -1,75 +1,75 @@
 """Программа-сервер"""
 
-import sys
 import re
+import sys
+from argparse import ArgumentParser
 from socket import socket, AF_INET, SOCK_STREAM
+from logging import getLogger
+import logs.server_log_config
 from common_files.function import get_message, send_message
 from common_files.variables import DEFAULT_IP, DEFAULT_PORT, MAX_QUEUE, IP_REGEX, ACTION, \
     PRESENCE, TIME, RESPONSE, ERROR, USER
 
+# Инициализируем логгера
+LOGGER = getLogger('server_logger')
+
 
 def processing_message(data):
     """Проверяет корректность сообщения data и возвращает ответ для клиента в формате dict"""
+    LOGGER.debug(f'Обработка сообщения от клиента - {data}')
     if ACTION in data and data[ACTION] == PRESENCE and TIME in data \
             and USER in data and data[USER] == 'Guest':
+        LOGGER.info(f'Сообщение корректно. Отправлен ответ "RESPONSE: 200"')
         return {RESPONSE: 200}
+    LOGGER.debug(f'Сообщение некорректно. Отправлен ответ "RESPONSE: 400"')
     return {
         RESPONSE: 400,
         ERROR: 'Bad request'
     }
 
 
+def args_parser():
+    """Парсит аргументы командной строки"""
+    parser = ArgumentParser()
+    parser.add_argument('-p', default=DEFAULT_PORT, type=int)
+    parser.add_argument('-a', default=DEFAULT_IP)
+    return parser
+
+
 def main():
     """Код запуска server"""
     # Если в командной строке введены порт и/или IP-адресс, то привязывает к ним сокет
-    sys_args = sys.argv
-    if '-p' in sys_args:
-        try:
-            temp_port = sys_args[sys_args.index('-p') + 1]
-            if temp_port.isdigit() and 1024 < int(temp_port) < 65535:
-                listen_port = int(temp_port)
-            else:
-                print('Порт введен некорректно.')
-                sys.exit(1)
-        except IndexError:
-            print('После параметра "-p" необходимо указать номер порта.')
-            sys.exit(1)
-    else:
-        listen_port = DEFAULT_PORT
-    if '-a' in sys_args:
-        try:
-            temp_ip = sys_args[sys_args.index('-a') + 1]
-            if re.match(IP_REGEX, temp_ip):
-                listen_ip = temp_ip
-            else:
-                print('IP-адрес введен некорректно.')
-                sys.exit(1)
-        except IndexError:
-            print('После параметра "-a" необходимо указать ip-адрес.')
-            sys.exit(1)
-    else:
-        listen_ip = DEFAULT_IP
+    parser = args_parser()
+    namespace = parser.parse_args(sys.argv[1:])
+    if not 1023 < namespace.p < 65536:
+        LOGGER.critical(f'Порт "{namespace.p}" введен некорректно. '
+                        f'Необходимо ввести значение от 1024 до 65535')
+        sys.exit(1)
+    if not re.match(IP_REGEX, namespace.a):
+        LOGGER.critical(f'IP-адрес "{namespace.a}" введен некорректно')
+        sys.exit(1)
+    LOGGER.debug(f'Сервер запущен с параметрами - {namespace.a}:{namespace.p}')
 
-    # Создаем сокет TCP (AF_INET - сетевой сокет, SOCK_STREAM - работа с TCP
-    # пакетами)
+    # Создаем сокет TCP (AF_INET - сетевой сокет, SOCK_STREAM - работа с TCP пакетами)
     server_sock = socket(AF_INET, SOCK_STREAM)
-    server_sock.bind((listen_ip, listen_port))
-
-    # Переводим сервер в режим ожидания запросов.
+    server_sock.bind((namespace.a, namespace.p))
+    # Переводим сервер в режим ожидания запросов (слушаем порт).
     server_sock.listen(MAX_QUEUE)
 
     while True:
         # Принимаем запрос на соединение
         client_sock, address = server_sock.accept()
+        LOGGER.info(f'Установлено соединение с клиентом {address}')
         try:
             # Получаем данные от клиента и преобразовываем в словарь
             data = get_message(client_sock)
-            print(data)
             msg = processing_message(data)
             send_message(client_sock, msg)
+            LOGGER.debug(f'Соединение с клиентом {address} закрыто')
             client_sock.close()
         except ValueError:
-            print('Принято некорректное сообщение')
+            LOGGER.error(f'От клиента {address} приняты некорректные данные. '
+                         f'Соединение закрыто')
             client_sock.close()
 
 

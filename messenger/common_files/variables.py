@@ -1,5 +1,7 @@
 """Переменные для использования server.py и client.py"""
 
+from logging import DEBUG
+
 # IP-адрес по умолчанию
 DEFAULT_IP = '127.0.0.1'
 # Сетевой порт по умолчанию
@@ -10,6 +12,10 @@ ENCODING = 'utf-8'
 MAX_QUEUE = 3
 # Максимальная длина сообщения (байт)
 MAX_DATA = 1024
+# Уровень логирования
+LOGGING_LEVEL = DEBUG
+# Формат сообщений лога
+LOGGING_FORMAT = '%(asctime)s - %(levelname)-8s - %(module)s - %(message)s'
 
 # Ключи JIM протокола
 ACTION = 'action'
