@@ -1,8 +1,10 @@
 """Функции для использования server.py и client.py"""
 import json
 from common_files.variables import MAX_DATA, ENCODING
+from decorators import Log
 
 
+@Log()
 def get_message(client_server):
     """Функция принимает сообщение в байтах и возвращает словарь.
     Если преобразование неудалось, то вызывает исключение ValueError."""
@@ -17,6 +19,7 @@ def get_message(client_server):
     raise ValueError
 
 
+@Log()
 def send_message(recipient, message):
     """Принимает словарь message, сериальзует его в json и отправляет"""
     json_message = json.dumps(message)

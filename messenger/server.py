@@ -6,6 +6,7 @@ from argparse import ArgumentParser
 from socket import socket, AF_INET, SOCK_STREAM
 from logging import getLogger
 import logs.server_log_config
+from decorators import Log
 from common_files.function import get_message, send_message
 from common_files.variables import DEFAULT_IP, DEFAULT_PORT, MAX_QUEUE, IP_REGEX, ACTION, \
     PRESENCE, TIME, RESPONSE, ERROR, USER
@@ -14,6 +15,7 @@ from common_files.variables import DEFAULT_IP, DEFAULT_PORT, MAX_QUEUE, IP_REGEX
 LOGGER = getLogger('server_logger')
 
 
+@Log()
 def processing_message(data):
     """Проверяет корректность сообщения data и возвращает ответ для клиента в формате dict"""
     LOGGER.debug(f'Обработка сообщения от клиента - {data}')
@@ -28,6 +30,7 @@ def processing_message(data):
     }
 
 
+@Log()
 def args_parser():
     """Парсит аргументы командной строки"""
     parser = ArgumentParser()

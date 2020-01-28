@@ -6,6 +6,7 @@ import time
 from logging import getLogger
 from socket import socket, SOCK_STREAM, AF_INET
 import logs.client_log_config
+from decorators import Log
 from common_files.function import send_message, get_message
 from common_files.variables import DEFAULT_PORT, DEFAULT_IP, IP_REGEX, ACTION, \
     PRESENCE, TIME, USER, RESPONSE, ERROR
@@ -14,6 +15,7 @@ from common_files.variables import DEFAULT_PORT, DEFAULT_IP, IP_REGEX, ACTION, \
 LOGGER = getLogger('client_logger')
 
 
+@Log()
 def confirm_presence(user_name='Guest'):
     """Функция генерирует словарь для отправки сообщения о присутствии пользователя"""
     message = {
@@ -25,6 +27,7 @@ def confirm_presence(user_name='Guest'):
     return message
 
 
+@Log()
 def receive_message(msg):
     """Функция парсит ответ от сервера"""
     LOGGER.debug(f'Обработка сообщения от сервера {msg}')
