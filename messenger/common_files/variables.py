@@ -25,6 +25,9 @@ ROOM = 'room'
 RESPONSE = 'response'
 PRESENCE = 'presence'
 ERROR = 'error'
+MESSAGE = 'message'
+MESSAGE_TEXT = 'message_text'
+SENDER = 'sender'
 
 # Реглярное выражение для проверки корректности IP
 IP_REGEX = r'^([0-9]\.|[1]?[0-9][0-9]\.|[2][0-4][0-9]\.|[2][5][0-5]\.){3}([0-9]|[1]?[0-9][0-9]|[2][0-4][0-9]|[2][5][0-5])$'
