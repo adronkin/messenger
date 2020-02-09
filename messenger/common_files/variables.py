@@ -28,6 +28,19 @@ ERROR = 'error'
 MESSAGE = 'message'
 MESSAGE_TEXT = 'message_text'
 SENDER = 'sender'
+EXIT = 'exit'
+RECIPIENT = 'recipient'
 
 # Реглярное выражение для проверки корректности IP
 IP_REGEX = r'^([0-9]\.|[1]?[0-9][0-9]\.|[2][0-4][0-9]\.|[2][5][0-5]\.){3}([0-9]|[1]?[0-9][0-9]|[2][0-4][0-9]|[2][5][0-5])$'
+
+# Ответы
+RESPONSE_200 = {RESPONSE: 200}
+RESPONSE_300 = {
+    RESPONSE: 300,
+    ERROR: None
+}
+RESPONSE_400 = {
+    RESPONSE: 400,
+    ERROR: None
+}

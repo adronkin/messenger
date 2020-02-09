@@ -1,8 +1,8 @@
 """Ошибки"""
 
 
-class ClientError(Exception):
-    """Исключение - ошибка на стороне клиента"""
+class ServerError(Exception):
+    """Исключение - ошибка на стороне сервера"""
     def __init__(self, text):
         self.text = text
 
@@ -17,3 +17,9 @@ class ReqFieldMissingError(Exception):
 
     def __str__(self):
         return f'В принятом словаре отсутствует обязательное поле: {self.missing_field}.'
+
+
+class IncorrectDataReceivedError(Exception):
+    """Исключение - из сокета получены некорректные данные"""
+    def __str__(self):
+        return 'От удаленного компьютера принято некорректное сообщение.'
