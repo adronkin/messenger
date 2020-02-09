@@ -108,29 +108,29 @@ def user_menu(sock, username):
 
 
 @Log()
-def confirm_presence(user_name):
+def confirm_presence(username):
     """Функция генерирует словарь для отправки сообщения о присутствии пользователя"""
     message = {
         ACTION: PRESENCE,
         TIME: time(),
-        USER: user_name
+        USER: username
     }
-    LOGGER.info(f'Сгенерировано {PRESENCE} сообщение для пользователя {user_name}')
+    LOGGER.info(f'Сгенерировано {PRESENCE} сообщение для пользователя {username}')
     return message
 
 
 @Log()
-def receive_message(msg):
+def receive_message(message):
     """Функция парсит ответ от сервера"""
-    LOGGER.debug(f'Обработка сообщения от сервера {msg}')
-    if RESPONSE in msg:
-        if msg[RESPONSE] == 200:
+    LOGGER.debug(f'Обработка сообщения от сервера {message}')
+    if RESPONSE in message:
+        if message[RESPONSE] == 200:
             LOGGER.info('Сообщение корректно обработано. Response 200: OK')
             return 'Response 200: OK'
-        elif msg[RESPONSE] == 400:
+        elif message[RESPONSE] == 400 and ERROR in message:
             LOGGER.error(f'Сервер не смог отбратать клиентский запрос. '
-                         f'Получен отвен "Response 400: {msg[ERROR]}".')
-            raise ServerError(f' 400: {msg[ERROR]}')
+                         f'Получен отвен "Response 400: {message[ERROR]}".')
+            raise ServerError(f'400: {message[ERROR]}')
     raise ReqFieldMissingError(RESPONSE)
 
 
