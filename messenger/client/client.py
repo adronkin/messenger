@@ -1,20 +1,18 @@
 """Программа-клиент"""
 
-import re
 import sys
 from time import strftime, strptime, ctime, time, sleep
 from logging import getLogger
-from argparse import ArgumentParser
 from json import JSONDecodeError
 from socket import socket, SOCK_STREAM, AF_INET
 from threading import Thread
 import logs.client_log_config
 from decorators import Log
+from parse_args import get_command_args
 from errors import ServerError, ReqFieldMissingError, IncorrectDataReceivedError
 from common_files.function import send_message, get_message
-from common_files.variables import DEFAULT_PORT, DEFAULT_IP, IP_REGEX, ACTION, \
-    PRESENCE, TIME, USER, RESPONSE, ERROR, MESSAGE, MESSAGE_TEXT, SENDER, RECIPIENT, \
-    EXIT
+from common_files.variables import ACTION, PRESENCE, TIME, USER, RESPONSE, ERROR, \
+    MESSAGE, MESSAGE_TEXT, SENDER, RECIPIENT, EXIT
 
 # Инициализируем логгера
 LOGGER = getLogger('client_logger')
@@ -134,28 +132,10 @@ def receive_message(message):
     raise ReqFieldMissingError(RESPONSE)
 
 
-@Log()
-def args_parser():
-    """Парсит аргументы командной строки, проверяет корректность порта и IP-адреса.
-    Возвращает IP-адрес и порт, если параметры введены корретно"""
-    parser = ArgumentParser()
-    parser.add_argument('address', default=DEFAULT_IP, nargs='?')
-    parser.add_argument('port', default=DEFAULT_PORT, type=int, nargs='?')
-    parser.add_argument('-n', '--name', default=None, nargs='?')
-    namespace = parser.parse_args(sys.argv[1:])
-    if not 1023 < namespace.port < 65536:
-        LOGGER.critical(f'Порт "{namespace.port}" введен некорректно. '
-                        f'Необходимо ввести значение от 1024 до 65535.')
-        sys.exit(1)
-    if not re.match(IP_REGEX, namespace.address):
-        LOGGER.critical(f'IP-адрес "{namespace.address}" введен некорректно.')
-        sys.exit(1)
-    return namespace.address, namespace.port, namespace.name
-
-
 def main():
     """Код запуска client"""
-    server_ip, server_port, client_name = args_parser()
+    parser = get_command_args()
+    server_ip, server_port, client_name = parser.address, parser.port, parser.name
     if not client_name:
         client_name = input('Введите имя пользователя: ')
     LOGGER.info(f'Запущено клиентское приложение. IP-адрес сервера: {server_ip},'

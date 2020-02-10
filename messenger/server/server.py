@@ -1,17 +1,15 @@
 """Программа-сервер"""
 
-import re
-import sys
-from argparse import ArgumentParser
 from socket import socket, AF_INET, SOCK_STREAM
 from select import select
 from logging import getLogger
 import logs.server_log_config
 from decorators import Log
+from parse_args import get_command_args
 from common_files.function import get_message, send_message
-from common_files.variables import DEFAULT_IP, DEFAULT_PORT, MAX_QUEUE, IP_REGEX, ACTION, \
-    PRESENCE, TIME, ERROR, USER, MESSAGE, MESSAGE_TEXT, SENDER, RESPONSE_200, \
-    RESPONSE_300, RESPONSE_400, EXIT, RECIPIENT
+from common_files.variables import MAX_QUEUE, ACTION, PRESENCE, TIME, ERROR, \
+    USER, MESSAGE, MESSAGE_TEXT, SENDER, RESPONSE_200, RESPONSE_300, RESPONSE_400, \
+    EXIT, RECIPIENT
 
 # Инициализируем логгера
 LOGGER = getLogger('server_logger')
@@ -60,24 +58,6 @@ def processing_message(data, client, message_lst, clients, names):
 
 
 @Log()
-def args_parser():
-    """Парсит аргументы командной строки, проверяет корректность порта и IP-адреса.
-    Возвращает IP-адрес и порт, если параметры введены корретно"""
-    parser = ArgumentParser()
-    parser.add_argument('-p', default=DEFAULT_PORT, type=int)
-    parser.add_argument('-a', default=DEFAULT_IP)
-    namespace = parser.parse_args(sys.argv[1:])
-    if not 1023 < namespace.p < 65536:
-        LOGGER.critical(f'Порт "{namespace.p}" введен некорректно. '
-                        f'Необходимо ввести значение от 1024 до 65535')
-        sys.exit(1)
-    if not re.match(IP_REGEX, namespace.a):
-        LOGGER.critical(f'IP-адрес "{namespace.a}" введен некорректно')
-        sys.exit(1)
-    return namespace.a, namespace.p
-
-
-@Log()
 def message_handler(message, names, listen_sock):
     """Функция обрабатывает сообщение. Принимает словарь сообщения,
     список пользователей и слушащие сокеты. Отправляет сообщение адресату."""
@@ -99,7 +79,8 @@ def message_handler(message, names, listen_sock):
 def main():
     """Код запуска server"""
     # Инициализируем переменные IP-адреса и порта
-    listen_address, listen_port = args_parser()
+    parser = get_command_args()
+    listen_address, listen_port = parser.address, parser.port
     LOGGER.info(
         f'Сервер запущен с параметрами - {listen_address}:{listen_port}')
     # Создаем сокет TCP (AF_INET - сетевой сокет, SOCK_STREAM - работа с TCP пакетами)
@@ -157,7 +138,6 @@ def main():
                 no_user_dict = RESPONSE_300
                 no_user_dict[ERROR] = f'Пользователь {message[RECIPIENT]} отключился от сервера.'
                 send_message(names[message[SENDER]], no_user_dict)
-                # clients.remove(names[message[RECIPIENT]])
                 del names[message[RECIPIENT]]
         messages.clear()
 

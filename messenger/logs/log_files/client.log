@@ -37,3 +37,667 @@
 2020-01-26 14:26:57,495 - INFO     - client - Сообщение отправлено на сервер 127.0.0.1:127.0.0.1
 2020-01-26 14:26:57,496 - DEBUG    - client - Обработка сообщения от сервера {'response': 200}
 2020-01-26 14:26:57,497 - INFO     - client - Сообщение корректно обработано. Response 200: OK
+2020-02-09 17:08:49,412 - DEBUG    - client - Обработка сообщения от сервера {'response': 200}
+2020-02-09 17:08:49,413 - INFO     - client - Сообщение корректно обработано. Response 200: OK
+2020-02-09 17:08:49,452 - INFO     - decorators - Выполнен вызов функции "receive_message" из функции "test_receive_message_200"
+2020-02-09 17:08:49,453 - INFO     - decorators - Функция "receive_message" из модуля "client" с аргументами (({'response': 200},), {})
+2020-02-09 17:08:49,453 - DEBUG    - client - Обработка сообщения от сервера {'response': 400, 'error': 'Bad request'}
+2020-02-09 17:08:49,453 - ERROR    - client - Сервер не смог отбратать клиентский запрос. Получен отвен "Response 400: Bad request".
+2020-02-09 17:08:49,455 - DEBUG    - client - Обработка сообщения от сервера {'response': 444, 'error': 'Bad request'}
+2020-02-09 17:08:49,457 - DEBUG    - client - Обработка сообщения от сервера {'error': 'Bad request'}
+2020-02-09 17:10:52,268 - INFO     - client - Сгенерировано presence сообщение для пользователя Test_user
+2020-02-09 17:10:52,301 - INFO     - decorators - Выполнен вызов функции "confirm_presence" из функции "test_confirm_presence"
+2020-02-09 17:10:52,301 - INFO     - decorators - Функция "confirm_presence" из модуля "client" с аргументами (('Test_user',), {})
+2020-02-09 17:11:17,904 - INFO     - client - Сгенерировано presence сообщение для пользователя Test_user
+2020-02-09 17:11:17,942 - INFO     - decorators - Выполнен вызов функции "confirm_presence" из функции "test_confirm_presence"
+2020-02-09 17:11:17,942 - INFO     - decorators - Функция "confirm_presence" из модуля "client" с аргументами (('Test_user',), {})
+2020-02-09 17:11:33,812 - INFO     - client - Сгенерировано presence сообщение для пользователя Test_user
+2020-02-09 17:11:33,849 - INFO     - decorators - Выполнен вызов функции "confirm_presence" из функции "test_confirm_presence"
+2020-02-09 17:11:33,849 - INFO     - decorators - Функция "confirm_presence" из модуля "client" с аргументами (('Test_user',), {})
+2020-02-09 17:11:40,548 - INFO     - client - Сгенерировано presence сообщение для пользователя Test_user
+2020-02-09 17:11:40,584 - INFO     - decorators - Выполнен вызов функции "confirm_presence" из функции "test_confirm_presence"
+2020-02-09 17:11:40,584 - INFO     - decorators - Функция "confirm_presence" из модуля "client" с аргументами (('Test_user',), {})
+2020-02-09 17:11:47,504 - INFO     - client - Сгенерировано presence сообщение для пользователя Test_user
+2020-02-09 17:11:47,530 - INFO     - decorators - Выполнен вызов функции "confirm_presence" из функции "test_confirm_presence"
+2020-02-09 17:11:47,530 - INFO     - decorators - Функция "confirm_presence" из модуля "client" с аргументами (('Test_user',), {})
+2020-02-09 17:16:05,548 - INFO     - decorators - Выполнен вызов функции "exit_message" из функции "test_exit_message"
+2020-02-09 17:16:05,549 - INFO     - decorators - Функция "exit_message" из модуля "client" с аргументами (('Test_user',), {})
+2020-02-09 18:03:06,861 - INFO     - client - Сгенерировано presence сообщение для пользователя Test_user
+2020-02-09 18:03:06,894 - INFO     - decorators - Выполнен вызов функции "confirm_presence" из функции "test_confirm_presence"
+2020-02-09 18:03:06,895 - INFO     - decorators - Функция "confirm_presence" из модуля "client" с аргументами (('Test_user',), {})
+2020-02-09 18:03:06,897 - INFO     - decorators - Выполнен вызов функции "exit_message" из функции "test_exit_message"
+2020-02-09 18:03:06,897 - INFO     - decorators - Функция "exit_message" из модуля "client" с аргументами (('Test_user',), {})
+2020-02-09 18:03:06,897 - DEBUG    - client - Обработка сообщения от сервера {'response': 200}
+2020-02-09 18:03:06,897 - INFO     - client - Сообщение корректно обработано. Response 200: OK
+2020-02-09 18:03:06,898 - INFO     - decorators - Выполнен вызов функции "receive_message" из функции "test_receive_message_200"
+2020-02-09 18:03:06,899 - INFO     - decorators - Функция "receive_message" из модуля "client" с аргументами (({'response': 200},), {})
+2020-02-09 18:03:06,899 - DEBUG    - client - Обработка сообщения от сервера {'response': 400, 'error': 'Bad request'}
+2020-02-09 18:03:06,899 - ERROR    - client - Сервер не смог отбратать клиентский запрос. Получен отвен "Response 400: Bad request".
+2020-02-09 18:03:06,906 - DEBUG    - client - Обработка сообщения от сервера {'response': 444, 'error': 'Bad request'}
+2020-02-09 18:03:06,911 - DEBUG    - client - Обработка сообщения от сервера {'error': 'Bad request'}
+2020-02-09 18:03:21,928 - DEBUG    - client - Обработка сообщения от сервера {'response': 400, 'error': 'Bad request'}
+2020-02-09 18:03:21,929 - ERROR    - client - Сервер не смог отбратать клиентский запрос. Получен отвен "Response 400: Bad request".
+2020-02-09 18:03:21,934 - DEBUG    - client - Обработка сообщения от сервера {'response': 444, 'error': 'Bad request'}
+2020-02-09 18:03:21,936 - INFO     - client - Сгенерировано presence сообщение для пользователя Test_user
+2020-02-09 18:03:21,965 - INFO     - decorators - Выполнен вызов функции "confirm_presence" из функции "test_confirm_presence"
+2020-02-09 18:03:21,966 - INFO     - decorators - Функция "confirm_presence" из модуля "client" с аргументами (('Test_user',), {})
+2020-02-09 18:03:21,967 - INFO     - decorators - Выполнен вызов функции "exit_message" из функции "test_exit_message"
+2020-02-09 18:03:21,967 - INFO     - decorators - Функция "exit_message" из модуля "client" с аргументами (('Test_user',), {})
+2020-02-09 18:03:21,968 - DEBUG    - client - Обработка сообщения от сервера {'response': 200}
+2020-02-09 18:03:21,968 - INFO     - client - Сообщение корректно обработано. Response 200: OK
+2020-02-09 18:03:21,969 - INFO     - decorators - Выполнен вызов функции "receive_message" из функции "test_receive_message_200"
+2020-02-09 18:03:21,969 - INFO     - decorators - Функция "receive_message" из модуля "client" с аргументами (({'response': 200},), {})
+2020-02-09 18:03:21,972 - DEBUG    - client - Обработка сообщения от сервера {'response': 400, 'error': 'Bad request'}
+2020-02-09 18:03:21,972 - ERROR    - client - Сервер не смог отбратать клиентский запрос. Получен отвен "Response 400: Bad request".
+2020-02-09 18:03:21,979 - DEBUG    - client - Обработка сообщения от сервера {'response': 444, 'error': 'Bad request'}
+2020-02-09 18:03:23,563 - DEBUG    - client - Обработка сообщения от сервера {'response': 400, 'error': 'Bad request'}
+2020-02-09 18:03:23,563 - ERROR    - client - Сервер не смог отбратать клиентский запрос. Получен отвен "Response 400: Bad request".
+2020-02-09 18:03:23,565 - DEBUG    - client - Обработка сообщения от сервера {'response': 444, 'error': 'Bad request'}
+2020-02-09 18:03:23,566 - INFO     - client - Сгенерировано presence сообщение для пользователя Test_user
+2020-02-09 18:03:23,595 - INFO     - decorators - Выполнен вызов функции "confirm_presence" из функции "test_confirm_presence"
+2020-02-09 18:03:23,595 - INFO     - decorators - Функция "confirm_presence" из модуля "client" с аргументами (('Test_user',), {})
+2020-02-09 18:03:23,597 - INFO     - decorators - Выполнен вызов функции "exit_message" из функции "test_exit_message"
+2020-02-09 18:03:23,597 - INFO     - decorators - Функция "exit_message" из модуля "client" с аргументами (('Test_user',), {})
+2020-02-09 18:03:23,597 - DEBUG    - client - Обработка сообщения от сервера {'response': 200}
+2020-02-09 18:03:23,597 - INFO     - client - Сообщение корректно обработано. Response 200: OK
+2020-02-09 18:03:23,598 - INFO     - decorators - Выполнен вызов функции "receive_message" из функции "test_receive_message_200"
+2020-02-09 18:03:23,598 - INFO     - decorators - Функция "receive_message" из модуля "client" с аргументами (({'response': 200},), {})
+2020-02-09 18:03:23,599 - DEBUG    - client - Обработка сообщения от сервера {'response': 400, 'error': 'Bad request'}
+2020-02-09 18:03:23,599 - ERROR    - client - Сервер не смог отбратать клиентский запрос. Получен отвен "Response 400: Bad request".
+2020-02-09 18:03:23,606 - DEBUG    - client - Обработка сообщения от сервера {'response': 444, 'error': 'Bad request'}
+2020-02-09 18:05:32,770 - INFO     - client - Сгенерировано presence сообщение для пользователя Test_user
+2020-02-09 18:05:32,804 - INFO     - decorators - Выполнен вызов функции "confirm_presence" из функции "test_confirm_presence"
+2020-02-09 18:05:32,804 - INFO     - decorators - Функция "confirm_presence" из модуля "client" с аргументами (('Test_user',), {})
+2020-02-09 18:05:32,809 - INFO     - decorators - Выполнен вызов функции "exit_message" из функции "test_exit_message"
+2020-02-09 18:05:32,810 - INFO     - decorators - Функция "exit_message" из модуля "client" с аргументами (('Test_user',), {})
+2020-02-09 18:05:32,812 - DEBUG    - client - Обработка сообщения от сервера {'response': 200}
+2020-02-09 18:05:32,813 - INFO     - client - Сообщение корректно обработано. Response 200: OK
+2020-02-09 18:05:32,816 - INFO     - decorators - Выполнен вызов функции "receive_message" из функции "test_receive_message_200"
+2020-02-09 18:05:32,816 - INFO     - decorators - Функция "receive_message" из модуля "client" с аргументами (({'response': 200},), {})
+2020-02-09 18:05:32,817 - DEBUG    - client - Обработка сообщения от сервера {'response': 400, 'error': 'Bad request'}
+2020-02-09 18:05:32,818 - ERROR    - client - Сервер не смог отбратать клиентский запрос. Получен отвен "Response 400: Bad request".
+2020-02-09 18:05:32,825 - DEBUG    - client - Обработка сообщения от сервера {'response': 444, 'error': 'Bad request'}
+2020-02-09 18:05:32,827 - DEBUG    - client - Обработка сообщения от сервера {'error': 'Bad request'}
+2020-02-09 18:05:45,949 - DEBUG    - client - Обработка сообщения от сервера {'response': 400, 'error': 'Bad request'}
+2020-02-09 18:05:45,949 - ERROR    - client - Сервер не смог отбратать клиентский запрос. Получен отвен "Response 400: Bad request".
+2020-02-09 18:05:57,289 - INFO     - client - Сгенерировано presence сообщение для пользователя Test_user
+2020-02-09 18:05:57,314 - INFO     - decorators - Выполнен вызов функции "confirm_presence" из функции "test_confirm_presence"
+2020-02-09 18:05:57,314 - INFO     - decorators - Функция "confirm_presence" из модуля "client" с аргументами (('Test_user',), {})
+2020-02-09 18:05:57,316 - INFO     - decorators - Выполнен вызов функции "exit_message" из функции "test_exit_message"
+2020-02-09 18:05:57,316 - INFO     - decorators - Функция "exit_message" из модуля "client" с аргументами (('Test_user',), {})
+2020-02-09 18:05:57,317 - DEBUG    - client - Обработка сообщения от сервера {'response': 200}
+2020-02-09 18:05:57,317 - INFO     - client - Сообщение корректно обработано. Response 200: OK
+2020-02-09 18:05:57,321 - INFO     - decorators - Выполнен вызов функции "receive_message" из функции "test_receive_message_200"
+2020-02-09 18:05:57,322 - INFO     - decorators - Функция "receive_message" из модуля "client" с аргументами (({'response': 200},), {})
+2020-02-09 18:08:56,145 - DEBUG    - client - Обработка сообщения от сервера {'response': 400, 'error': 'Bad request'}
+2020-02-09 18:08:56,148 - ERROR    - client - Сервер не смог отбратать клиентский запрос. Получен отвен "Response 400: Bad request".
+2020-02-09 18:09:06,745 - DEBUG    - client - Обработка сообщения от сервера {'response': 400, 'error': 'Bad request'}
+2020-02-09 18:09:06,745 - ERROR    - client - Сервер не смог отбратать клиентский запрос. Получен отвен "Response 400: Bad request".
+2020-02-09 18:10:43,792 - DEBUG    - client - Обработка сообщения от сервера {'response': 400, 'error': 'Bad request'}
+2020-02-09 18:10:43,792 - ERROR    - client - Сервер не смог отбратать клиентский запрос. Получен отвен "Response 400: Bad request".
+2020-02-09 18:12:25,499 - DEBUG    - client - Обработка сообщения от сервера {'response': 400, 'error': 'Bad request'}
+2020-02-09 18:12:25,499 - ERROR    - client - Сервер не смог отбратать клиентский запрос. Получен отвен "Response 400: Bad request".
+2020-02-09 18:12:37,912 - DEBUG    - client - Обработка сообщения от сервера {'response': 400, 'error': 'Bad request'}
+2020-02-09 18:12:37,912 - ERROR    - client - Сервер не смог отбратать клиентский запрос. Получен отвен "Response 400: Bad request".
+2020-02-09 18:12:56,332 - DEBUG    - client - Обработка сообщения от сервера {'response': 400, 'error': 'Bad request'}
+2020-02-09 18:12:56,333 - ERROR    - client - Сервер не смог отбратать клиентский запрос. Получен отвен "Response 400: Bad request".
+2020-02-09 18:13:06,061 - DEBUG    - client - Обработка сообщения от сервера {'response': 400, 'error': 'Bad request'}
+2020-02-09 18:13:06,061 - ERROR    - client - Сервер не смог отбратать клиентский запрос. Получен отвен "Response 400: Bad request".
+2020-02-09 18:13:21,142 - DEBUG    - client - Обработка сообщения от сервера {'response': 400, 'error': 'Bad request'}
+2020-02-09 18:13:21,142 - ERROR    - client - Сервер не смог отбратать клиентский запрос. Получен отвен "Response 400: Bad request".
+2020-02-09 18:13:27,857 - DEBUG    - client - Обработка сообщения от сервера {'response': 400, 'error': 'Bad request'}
+2020-02-09 18:13:27,857 - ERROR    - client - Сервер не смог отбратать клиентский запрос. Получен отвен "Response 400: Bad request".
+2020-02-09 18:14:07,536 - DEBUG    - client - Обработка сообщения от сервера {'response': 400, 'error': 'Bad request'}
+2020-02-09 18:14:07,536 - ERROR    - client - Сервер не смог отбратать клиентский запрос. Получен отвен "Response 400: Bad request".
+2020-02-09 18:16:47,691 - DEBUG    - client - Обработка сообщения от сервера {'response': 400, 'error': 'Bad request'}
+2020-02-09 18:16:47,692 - ERROR    - client - Сервер не смог отбратать клиентский запрос. Получен отвен "Response 400: Bad request".
+2020-02-09 18:17:06,016 - DEBUG    - client - Обработка сообщения от сервера {'response': 400, 'error': 'Bad request'}
+2020-02-09 18:17:06,017 - ERROR    - client - Сервер не смог отбратать клиентский запрос. Получен отвен "Response 400: Bad request".
+2020-02-09 18:19:05,801 - DEBUG    - client - Обработка сообщения от сервера {'response': 400, 'error': 'Bad request'}
+2020-02-09 18:19:05,803 - ERROR    - client - Сервер не смог отбратать клиентский запрос. Получен отвен "Response 400: Bad request".
+2020-02-09 18:21:48,224 - DEBUG    - client - Обработка сообщения от сервера {'response': 400, 'error': 'Bad request'}
+2020-02-09 18:21:48,225 - ERROR    - client - Сервер не смог отбратать клиентский запрос. Получен отвен "Response 400: Bad request".
+2020-02-09 18:22:34,762 - DEBUG    - client - Обработка сообщения от сервера {'response': 400, 'error': 'Bad request'}
+2020-02-09 18:22:34,763 - ERROR    - client - Сервер не смог отбратать клиентский запрос. Получен отвен "Response 400: Bad request".
+2020-02-09 18:24:05,468 - DEBUG    - client - Обработка сообщения от сервера {'response': 400, 'error': 'Bad request'}
+2020-02-09 18:24:05,469 - ERROR    - client - Сервер не смог отбратать клиентский запрос. Получен отвен "Response 400: Bad request".
+2020-02-09 18:27:10,508 - DEBUG    - client - Обработка сообщения от сервера {'response': 400, 'error': 'Bad request'}
+2020-02-09 18:27:10,509 - ERROR    - client - Сервер не смог отбратать клиентский запрос. Получен отвен "Response 400: Bad request".
+2020-02-09 18:28:43,148 - DEBUG    - client - Обработка сообщения от сервера {'response': 400, 'error': 'Bad request'}
+2020-02-09 18:28:43,150 - ERROR    - client - Сервер не смог отбратать клиентский запрос. Получен отвен "Response 400: Bad request".
+2020-02-09 18:40:15,306 - DEBUG    - client - Обработка сообщения от сервера {'response': 400}
+2020-02-09 18:56:18,648 - DEBUG    - client - Обработка сообщения от сервера {'response': 400}
+2020-02-09 18:56:57,487 - INFO     - client - Сгенерировано presence сообщение для пользователя Test_user
+2020-02-09 18:56:57,536 - INFO     - decorators - Выполнен вызов функции "confirm_presence" из функции "test_confirm_presence"
+2020-02-09 18:56:57,536 - INFO     - decorators - Функция "confirm_presence" из модуля "client" с аргументами (('Test_user',), {})
+2020-02-09 18:56:57,538 - INFO     - decorators - Выполнен вызов функции "exit_message" из функции "test_exit_message"
+2020-02-09 18:56:57,538 - INFO     - decorators - Функция "exit_message" из модуля "client" с аргументами (('Test_user',), {})
+2020-02-09 18:56:57,539 - DEBUG    - client - Обработка сообщения от сервера {'response': 200}
+2020-02-09 18:56:57,539 - INFO     - client - Сообщение корректно обработано. Response 200: OK
+2020-02-09 18:56:57,540 - INFO     - decorators - Выполнен вызов функции "receive_message" из функции "test_receive_message_200"
+2020-02-09 18:56:57,540 - INFO     - decorators - Функция "receive_message" из модуля "client" с аргументами (({'response': 200},), {})
+2020-02-09 18:56:57,540 - DEBUG    - client - Обработка сообщения от сервера {'response': 400, 'error': 'Bad request'}
+2020-02-09 18:56:57,540 - ERROR    - client - Сервер не смог отбратать клиентский запрос. Получен отвен "Response 400: Bad request".
+2020-02-09 18:56:57,541 - DEBUG    - client - Обработка сообщения от сервера {'error': 'Bad request'}
+2020-02-09 18:56:57,541 - DEBUG    - client - Обработка сообщения от сервера {'response': 444, 'error': 'Bad request'}
+2020-02-09 18:57:04,383 - INFO     - client - Сгенерировано presence сообщение для пользователя Test_user
+2020-02-09 18:57:04,407 - INFO     - decorators - Выполнен вызов функции "confirm_presence" из функции "test_confirm_presence"
+2020-02-09 18:57:04,407 - INFO     - decorators - Функция "confirm_presence" из модуля "client" с аргументами (('Test_user',), {})
+2020-02-09 18:57:04,408 - INFO     - decorators - Выполнен вызов функции "exit_message" из функции "test_exit_message"
+2020-02-09 18:57:04,409 - INFO     - decorators - Функция "exit_message" из модуля "client" с аргументами (('Test_user',), {})
+2020-02-09 18:57:04,409 - DEBUG    - client - Обработка сообщения от сервера {'response': 200}
+2020-02-09 18:57:04,409 - INFO     - client - Сообщение корректно обработано. Response 200: OK
+2020-02-09 18:57:04,410 - INFO     - decorators - Выполнен вызов функции "receive_message" из функции "test_receive_message_200"
+2020-02-09 18:57:04,410 - INFO     - decorators - Функция "receive_message" из модуля "client" с аргументами (({'response': 200},), {})
+2020-02-09 18:57:04,411 - DEBUG    - client - Обработка сообщения от сервера {'response': 400, 'error': 'Bad request'}
+2020-02-09 18:57:04,411 - ERROR    - client - Сервер не смог отбратать клиентский запрос. Получен отвен "Response 400: Bad request".
+2020-02-09 18:57:04,411 - DEBUG    - client - Обработка сообщения от сервера {'error': 'Bad request'}
+2020-02-09 18:57:04,412 - DEBUG    - client - Обработка сообщения от сервера {'response': 444, 'error': 'Bad request'}
+2020-02-09 18:57:22,358 - DEBUG    - client - Обработка сообщения от сервера {'response': 400}
+2020-02-09 18:59:25,313 - INFO     - client - Сгенерировано presence сообщение для пользователя Test_user
+2020-02-09 18:59:25,340 - INFO     - decorators - Выполнен вызов функции "confirm_presence" из функции "test_confirm_presence"
+2020-02-09 18:59:25,340 - INFO     - decorators - Функция "confirm_presence" из модуля "client" с аргументами (('Test_user',), {})
+2020-02-09 18:59:25,341 - INFO     - decorators - Выполнен вызов функции "exit_message" из функции "test_exit_message"
+2020-02-09 18:59:25,342 - INFO     - decorators - Функция "exit_message" из модуля "client" с аргументами (('Test_user',), {})
+2020-02-09 18:59:25,342 - DEBUG    - client - Обработка сообщения от сервера {'response': 200}
+2020-02-09 18:59:25,342 - INFO     - client - Сообщение корректно обработано. Response 200: OK
+2020-02-09 18:59:25,343 - INFO     - decorators - Выполнен вызов функции "receive_message" из функции "test_receive_message_200"
+2020-02-09 18:59:25,343 - INFO     - decorators - Функция "receive_message" из модуля "client" с аргументами (({'response': 200},), {})
+2020-02-09 18:59:25,344 - DEBUG    - client - Обработка сообщения от сервера {'response': 400, 'error': 'Bad request'}
+2020-02-09 18:59:25,344 - ERROR    - client - Сервер не смог отбратать клиентский запрос. Получен отвен "Response 400: Bad request".
+2020-02-09 18:59:25,344 - DEBUG    - client - Обработка сообщения от сервера {'response': 400}
+2020-02-09 18:59:25,345 - DEBUG    - client - Обработка сообщения от сервера {'error': 'Bad request'}
+2020-02-09 18:59:25,345 - DEBUG    - client - Обработка сообщения от сервера {'response': 444, 'error': 'Bad request'}
+2020-02-09 18:59:32,743 - INFO     - client - Сгенерировано presence сообщение для пользователя Test_user
+2020-02-09 18:59:32,770 - INFO     - decorators - Выполнен вызов функции "confirm_presence" из функции "test_confirm_presence"
+2020-02-09 18:59:32,770 - INFO     - decorators - Функция "confirm_presence" из модуля "client" с аргументами (('Test_user',), {})
+2020-02-09 18:59:32,771 - INFO     - decorators - Выполнен вызов функции "exit_message" из функции "test_exit_message"
+2020-02-09 18:59:32,771 - INFO     - decorators - Функция "exit_message" из модуля "client" с аргументами (('Test_user',), {})
+2020-02-09 18:59:32,772 - DEBUG    - client - Обработка сообщения от сервера {'response': 200}
+2020-02-09 18:59:32,772 - INFO     - client - Сообщение корректно обработано. Response 200: OK
+2020-02-09 18:59:32,773 - INFO     - decorators - Выполнен вызов функции "receive_message" из функции "test_receive_message_200"
+2020-02-09 18:59:32,773 - INFO     - decorators - Функция "receive_message" из модуля "client" с аргументами (({'response': 200},), {})
+2020-02-09 18:59:32,773 - DEBUG    - client - Обработка сообщения от сервера {'response': 400, 'error': 'Bad request'}
+2020-02-09 18:59:32,773 - ERROR    - client - Сервер не смог отбратать клиентский запрос. Получен отвен "Response 400: Bad request".
+2020-02-09 18:59:32,774 - DEBUG    - client - Обработка сообщения от сервера {'response': 400}
+2020-02-09 18:59:32,774 - DEBUG    - client - Обработка сообщения от сервера {'error': 'Bad request'}
+2020-02-09 18:59:32,775 - DEBUG    - client - Обработка сообщения от сервера {'response': 444, 'error': 'Bad request'}
+2020-02-09 18:59:39,336 - INFO     - client - Сгенерировано presence сообщение для пользователя Test_user
+2020-02-09 18:59:39,361 - INFO     - decorators - Выполнен вызов функции "confirm_presence" из функции "test_confirm_presence"
+2020-02-09 18:59:39,361 - INFO     - decorators - Функция "confirm_presence" из модуля "client" с аргументами (('Test_user',), {})
+2020-02-09 18:59:39,363 - INFO     - decorators - Выполнен вызов функции "exit_message" из функции "test_exit_message"
+2020-02-09 18:59:39,363 - INFO     - decorators - Функция "exit_message" из модуля "client" с аргументами (('Test_user',), {})
+2020-02-09 18:59:39,363 - DEBUG    - client - Обработка сообщения от сервера {'response': 200}
+2020-02-09 18:59:39,363 - INFO     - client - Сообщение корректно обработано. Response 200: OK
+2020-02-09 18:59:39,364 - INFO     - decorators - Выполнен вызов функции "receive_message" из функции "test_receive_message_200"
+2020-02-09 18:59:39,364 - INFO     - decorators - Функция "receive_message" из модуля "client" с аргументами (({'response': 200},), {})
+2020-02-09 18:59:39,365 - DEBUG    - client - Обработка сообщения от сервера {'response': 400, 'error': 'Bad request'}
+2020-02-09 18:59:39,365 - ERROR    - client - Сервер не смог отбратать клиентский запрос. Получен отвен "Response 400: Bad request".
+2020-02-09 18:59:39,371 - DEBUG    - client - Обработка сообщения от сервера {'response': 400}
+2020-02-09 18:59:39,376 - DEBUG    - client - Обработка сообщения от сервера {'error': 'Bad request'}
+2020-02-09 18:59:39,378 - DEBUG    - client - Обработка сообщения от сервера {'response': 444, 'error': 'Bad request'}
+2020-02-09 19:04:24,686 - INFO     - client - Сгенерировано presence сообщение для пользователя Test_user
+2020-02-09 19:04:24,720 - INFO     - decorators - Выполнен вызов функции "confirm_presence" из функции "test_confirm_presence"
+2020-02-09 19:04:24,720 - INFO     - decorators - Функция "confirm_presence" из модуля "client" с аргументами (('Test_user',), {})
+2020-02-09 19:04:24,722 - INFO     - decorators - Выполнен вызов функции "exit_message" из функции "test_exit_message"
+2020-02-09 19:04:24,722 - INFO     - decorators - Функция "exit_message" из модуля "client" с аргументами (('Test_user',), {})
+2020-02-09 19:04:24,723 - DEBUG    - client - Обработка сообщения от сервера {'response': 200}
+2020-02-09 19:04:24,723 - INFO     - client - Сообщение корректно обработано. Response 200: OK
+2020-02-09 19:04:24,724 - INFO     - decorators - Выполнен вызов функции "receive_message" из функции "test_receive_message_200"
+2020-02-09 19:04:24,724 - INFO     - decorators - Функция "receive_message" из модуля "client" с аргументами (({'response': 200},), {})
+2020-02-09 19:04:24,724 - DEBUG    - client - Обработка сообщения от сервера {'response': 400, 'error': 'Bad request'}
+2020-02-09 19:04:24,724 - ERROR    - client - Сервер не смог отбратать клиентский запрос. Получен отвен "Response 400: Bad request".
+2020-02-09 19:04:24,725 - DEBUG    - client - Обработка сообщения от сервера {'response': 400}
+2020-02-09 19:04:24,726 - DEBUG    - client - Обработка сообщения от сервера {'error': 'Bad request'}
+2020-02-09 19:04:24,727 - DEBUG    - client - Обработка сообщения от сервера {'response': 444, 'error': 'Bad request'}
+2020-02-09 19:20:57,449 - INFO     - client - Сгенерировано presence сообщение для пользователя Test_user
+2020-02-09 19:20:57,486 - INFO     - decorators - Выполнен вызов функции "confirm_presence" из функции "test_confirm_presence"
+2020-02-09 19:20:57,486 - INFO     - decorators - Функция "confirm_presence" из модуля "client" с аргументами (('Test_user',), {})
+2020-02-09 19:20:57,489 - INFO     - decorators - Выполнен вызов функции "exit_message" из функции "test_exit_message"
+2020-02-09 19:20:57,489 - INFO     - decorators - Функция "exit_message" из модуля "client" с аргументами (('Test_user',), {})
+2020-02-09 19:20:57,489 - DEBUG    - client - Обработка сообщения от сервера {'response': 200}
+2020-02-09 19:20:57,489 - INFO     - client - Сообщение корректно обработано. Response 200: OK
+2020-02-09 19:20:57,491 - INFO     - decorators - Выполнен вызов функции "receive_message" из функции "test_receive_message_200"
+2020-02-09 19:20:57,492 - INFO     - decorators - Функция "receive_message" из модуля "client" с аргументами (({'response': 200},), {})
+2020-02-09 19:20:57,495 - DEBUG    - client - Обработка сообщения от сервера {'response': 400, 'error': 'Bad request'}
+2020-02-09 19:20:57,495 - ERROR    - client - Сервер не смог отбратать клиентский запрос. Получен отвен "Response 400: Bad request".
+2020-02-09 19:20:57,495 - DEBUG    - client - Обработка сообщения от сервера {'response': 400}
+2020-02-09 19:20:57,497 - DEBUG    - client - Обработка сообщения от сервера {'error': 'Bad request'}
+2020-02-09 19:20:57,498 - DEBUG    - client - Обработка сообщения от сервера {'response': 444, 'error': 'Bad request'}
+2020-02-09 19:21:04,858 - INFO     - client - Сгенерировано presence сообщение для пользователя Test_user
+2020-02-09 19:21:04,886 - INFO     - decorators - Выполнен вызов функции "confirm_presence" из функции "test_confirm_presence"
+2020-02-09 19:21:04,886 - INFO     - decorators - Функция "confirm_presence" из модуля "client" с аргументами (('Test_user',), {})
+2020-02-09 19:21:04,888 - INFO     - decorators - Выполнен вызов функции "exit_message" из функции "test_exit_message"
+2020-02-09 19:21:04,888 - INFO     - decorators - Функция "exit_message" из модуля "client" с аргументами (('Test_user',), {})
+2020-02-09 19:21:04,888 - DEBUG    - client - Обработка сообщения от сервера {'response': 200}
+2020-02-09 19:21:04,889 - INFO     - client - Сообщение корректно обработано. Response 200: OK
+2020-02-09 19:21:04,891 - INFO     - decorators - Выполнен вызов функции "receive_message" из функции "test_receive_message_200"
+2020-02-09 19:21:04,892 - INFO     - decorators - Функция "receive_message" из модуля "client" с аргументами (({'response': 200},), {})
+2020-02-09 19:21:04,894 - DEBUG    - client - Обработка сообщения от сервера {'response': 400, 'error': 'Bad request'}
+2020-02-09 19:21:04,895 - ERROR    - client - Сервер не смог отбратать клиентский запрос. Получен отвен "Response 400: Bad request".
+2020-02-09 19:21:04,897 - DEBUG    - client - Обработка сообщения от сервера {'response': 400}
+2020-02-09 19:21:04,900 - DEBUG    - client - Обработка сообщения от сервера {'error': 'Bad request'}
+2020-02-09 19:21:04,901 - DEBUG    - client - Обработка сообщения от сервера {'response': 444, 'error': 'Bad request'}
+2020-02-09 19:22:01,856 - INFO     - client - Сгенерировано presence сообщение для пользователя Test_user
+2020-02-09 19:22:01,894 - INFO     - decorators - Выполнен вызов функции "confirm_presence" из функции "test_confirm_presence"
+2020-02-09 19:22:01,894 - INFO     - decorators - Функция "confirm_presence" из модуля "client" с аргументами (('Test_user',), {})
+2020-02-09 19:22:01,896 - INFO     - decorators - Выполнен вызов функции "exit_message" из функции "test_exit_message"
+2020-02-09 19:22:01,896 - INFO     - decorators - Функция "exit_message" из модуля "client" с аргументами (('Test_user',), {})
+2020-02-09 19:22:01,896 - DEBUG    - client - Обработка сообщения от сервера {'response': 200}
+2020-02-09 19:22:01,896 - INFO     - client - Сообщение корректно обработано. Response 200: OK
+2020-02-09 19:22:01,897 - INFO     - decorators - Выполнен вызов функции "receive_message" из функции "test_receive_message_200"
+2020-02-09 19:22:01,897 - INFO     - decorators - Функция "receive_message" из модуля "client" с аргументами (({'response': 200},), {})
+2020-02-09 19:22:01,898 - DEBUG    - client - Обработка сообщения от сервера {'response': 400, 'error': 'Bad request'}
+2020-02-09 19:22:01,898 - ERROR    - client - Сервер не смог отбратать клиентский запрос. Получен отвен "Response 400: Bad request".
+2020-02-09 19:22:01,898 - DEBUG    - client - Обработка сообщения от сервера {'response': 400}
+2020-02-09 19:22:01,900 - DEBUG    - client - Обработка сообщения от сервера {'error': 'Bad request'}
+2020-02-09 19:22:01,905 - DEBUG    - client - Обработка сообщения от сервера {'response': 444, 'error': 'Bad request'}
+2020-02-09 19:22:08,826 - INFO     - decorators - Выполнен вызов функции "exit_message" из функции "user_menu"
+2020-02-09 19:22:08,826 - INFO     - decorators - Функция "exit_message" из модуля "client" с аргументами (('Test_user',), {})
+2020-02-09 19:22:27,804 - INFO     - client - Сгенерировано presence сообщение для пользователя Test_user
+2020-02-09 19:22:27,839 - INFO     - decorators - Выполнен вызов функции "confirm_presence" из функции "test_confirm_presence"
+2020-02-09 19:22:27,839 - INFO     - decorators - Функция "confirm_presence" из модуля "client" с аргументами (('Test_user',), {})
+2020-02-09 19:22:27,841 - INFO     - decorators - Выполнен вызов функции "exit_message" из функции "test_exit_message"
+2020-02-09 19:22:27,841 - INFO     - decorators - Функция "exit_message" из модуля "client" с аргументами (('Test_user',), {})
+2020-02-09 19:22:27,842 - DEBUG    - client - Обработка сообщения от сервера {'response': 200}
+2020-02-09 19:22:27,842 - INFO     - client - Сообщение корректно обработано. Response 200: OK
+2020-02-09 19:22:27,843 - INFO     - decorators - Выполнен вызов функции "receive_message" из функции "test_receive_message_200"
+2020-02-09 19:22:27,843 - INFO     - decorators - Функция "receive_message" из модуля "client" с аргументами (({'response': 200},), {})
+2020-02-09 19:22:27,844 - DEBUG    - client - Обработка сообщения от сервера {'response': 400, 'error': 'Bad request'}
+2020-02-09 19:22:27,844 - ERROR    - client - Сервер не смог отбратать клиентский запрос. Получен отвен "Response 400: Bad request".
+2020-02-09 19:22:27,844 - DEBUG    - client - Обработка сообщения от сервера {'response': 400}
+2020-02-09 19:22:27,845 - DEBUG    - client - Обработка сообщения от сервера {'error': 'Bad request'}
+2020-02-09 19:22:27,846 - DEBUG    - client - Обработка сообщения от сервера {'response': 444, 'error': 'Bad request'}
+2020-02-09 22:27:39,576 - INFO     - client - Сгенерировано presence сообщение для пользователя Test_user
+2020-02-09 22:27:39,614 - INFO     - decorators - Выполнен вызов функции "confirm_presence" из функции "test_confirm_presence"
+2020-02-09 22:27:39,615 - INFO     - decorators - Функция "confirm_presence" из модуля "client" с аргументами (('Test_user',), {})
+2020-02-09 22:27:39,617 - INFO     - decorators - Выполнен вызов функции "exit_message" из функции "test_exit_message"
+2020-02-09 22:27:39,617 - INFO     - decorators - Функция "exit_message" из модуля "client" с аргументами (('Test_user',), {})
+2020-02-09 22:27:39,618 - DEBUG    - client - Обработка сообщения от сервера {'response': 200}
+2020-02-09 22:27:39,618 - INFO     - client - Сообщение корректно обработано. Response 200: OK
+2020-02-09 22:27:39,624 - INFO     - decorators - Выполнен вызов функции "receive_message" из функции "test_receive_message_200"
+2020-02-09 22:27:39,624 - INFO     - decorators - Функция "receive_message" из модуля "client" с аргументами (({'response': 200},), {})
+2020-02-09 22:27:39,625 - DEBUG    - client - Обработка сообщения от сервера {'response': 400, 'error': 'Bad request'}
+2020-02-09 22:27:39,625 - ERROR    - client - Сервер не смог отбратать клиентский запрос. Получен отвен "Response 400: Bad request".
+2020-02-09 22:27:39,626 - DEBUG    - client - Обработка сообщения от сервера {'response': 400}
+2020-02-09 22:27:39,628 - DEBUG    - client - Обработка сообщения от сервера {'error': 'Bad request'}
+2020-02-09 22:27:39,630 - DEBUG    - client - Обработка сообщения от сервера {'response': 444, 'error': 'Bad request'}
+2020-02-09 22:43:11,290 - INFO     - client - Сгенерировано presence сообщение для пользователя Test_user
+2020-02-09 22:43:11,325 - INFO     - decorators - Выполнен вызов функции "confirm_presence" из функции "test_confirm_presence"
+2020-02-09 22:43:11,325 - INFO     - decorators - Функция "confirm_presence" из модуля "client" с аргументами (('Test_user',), {})
+2020-02-09 22:43:11,327 - INFO     - decorators - Выполнен вызов функции "exit_message" из функции "test_exit_message"
+2020-02-09 22:43:11,327 - INFO     - decorators - Функция "exit_message" из модуля "client" с аргументами (('Test_user',), {})
+2020-02-09 22:43:11,328 - DEBUG    - client - Обработка сообщения от сервера {'response': 200}
+2020-02-09 22:43:11,328 - INFO     - client - Сообщение корректно обработано. Response 200: OK
+2020-02-09 22:43:11,329 - INFO     - decorators - Выполнен вызов функции "receive_message" из функции "test_receive_message_200"
+2020-02-09 22:43:11,329 - INFO     - decorators - Функция "receive_message" из модуля "client" с аргументами (({'response': 200},), {})
+2020-02-09 22:43:11,329 - DEBUG    - client - Обработка сообщения от сервера {'response': 400, 'error': 'Bad request'}
+2020-02-09 22:43:11,329 - ERROR    - client - Сервер не смог отбратать клиентский запрос. Получен отвен "Response 400: Bad request".
+2020-02-09 22:43:11,330 - DEBUG    - client - Обработка сообщения от сервера {'response': 400}
+2020-02-09 22:43:11,330 - DEBUG    - client - Обработка сообщения от сервера {'error': 'Bad request'}
+2020-02-09 22:43:11,332 - DEBUG    - client - Обработка сообщения от сервера {'response': 444, 'error': 'Bad request'}
+2020-02-09 22:44:31,790 - INFO     - client - Сгенерировано presence сообщение для пользователя Test_user
+2020-02-09 22:44:31,819 - INFO     - decorators - Выполнен вызов функции "confirm_presence" из функции "test_confirm_presence"
+2020-02-09 22:44:31,819 - INFO     - decorators - Функция "confirm_presence" из модуля "client" с аргументами (('Test_user',), {})
+2020-02-09 22:44:31,821 - INFO     - decorators - Выполнен вызов функции "exit_message" из функции "test_exit_message"
+2020-02-09 22:44:31,821 - INFO     - decorators - Функция "exit_message" из модуля "client" с аргументами (('Test_user',), {})
+2020-02-09 22:44:31,821 - DEBUG    - client - Обработка сообщения от сервера {'response': 200}
+2020-02-09 22:44:31,821 - INFO     - client - Сообщение корректно обработано. Response 200: OK
+2020-02-09 22:44:31,823 - INFO     - decorators - Выполнен вызов функции "receive_message" из функции "test_receive_message_200"
+2020-02-09 22:44:31,823 - INFO     - decorators - Функция "receive_message" из модуля "client" с аргументами (({'response': 200},), {})
+2020-02-09 22:44:31,827 - DEBUG    - client - Обработка сообщения от сервера {'response': 400, 'error': 'Bad request'}
+2020-02-09 22:44:31,827 - ERROR    - client - Сервер не смог отбратать клиентский запрос. Получен отвен "Response 400: Bad request".
+2020-02-09 22:44:31,831 - DEBUG    - client - Обработка сообщения от сервера {'response': 400}
+2020-02-09 22:44:31,834 - DEBUG    - client - Обработка сообщения от сервера {'error': 'Bad request'}
+2020-02-09 22:44:31,839 - DEBUG    - client - Обработка сообщения от сервера {'response': 444, 'error': 'Bad request'}
+2020-02-09 22:49:03,782 - INFO     - decorators - Выполнен вызов функции "args_parser" из функции "test_args_parser"
+2020-02-09 22:49:03,782 - INFO     - decorators - Функция "args_parser" из модуля "client" с аргументами ((), {})
+2020-02-09 22:49:03,783 - INFO     - client - Сгенерировано presence сообщение для пользователя Test_user
+2020-02-09 22:49:03,784 - INFO     - decorators - Выполнен вызов функции "confirm_presence" из функции "test_confirm_presence"
+2020-02-09 22:49:03,784 - INFO     - decorators - Функция "confirm_presence" из модуля "client" с аргументами (('Test_user',), {})
+2020-02-09 22:49:03,790 - INFO     - decorators - Выполнен вызов функции "exit_message" из функции "test_exit_message"
+2020-02-09 22:49:03,790 - INFO     - decorators - Функция "exit_message" из модуля "client" с аргументами (('Test_user',), {})
+2020-02-09 22:49:03,790 - DEBUG    - client - Обработка сообщения от сервера {'response': 200}
+2020-02-09 22:49:03,790 - INFO     - client - Сообщение корректно обработано. Response 200: OK
+2020-02-09 22:49:03,791 - INFO     - decorators - Выполнен вызов функции "receive_message" из функции "test_receive_message_200"
+2020-02-09 22:49:03,791 - INFO     - decorators - Функция "receive_message" из модуля "client" с аргументами (({'response': 200},), {})
+2020-02-09 22:49:03,792 - DEBUG    - client - Обработка сообщения от сервера {'response': 400, 'error': 'Bad request'}
+2020-02-09 22:49:03,792 - ERROR    - client - Сервер не смог отбратать клиентский запрос. Получен отвен "Response 400: Bad request".
+2020-02-09 22:49:03,793 - DEBUG    - client - Обработка сообщения от сервера {'response': 400}
+2020-02-09 22:49:03,795 - DEBUG    - client - Обработка сообщения от сервера {'error': 'Bad request'}
+2020-02-09 22:49:03,798 - DEBUG    - client - Обработка сообщения от сервера {'response': 444, 'error': 'Bad request'}
+2020-02-09 22:51:07,581 - INFO     - decorators - Выполнен вызов функции "args_parser" из функции "test_args_parser"
+2020-02-09 22:51:07,582 - INFO     - decorators - Функция "args_parser" из модуля "server" с аргументами ((), {})
+2020-02-09 23:13:11,163 - INFO     - decorators - Выполнен вызов функции "args_parser" из функции "test_args_parser"
+2020-02-09 23:13:11,165 - INFO     - decorators - Функция "args_parser" из модуля "server" с аргументами ((), {})
+2020-02-09 23:13:25,885 - INFO     - decorators - Выполнен вызов функции "args_parser" из функции "test_args_parser"
+2020-02-09 23:13:25,886 - INFO     - decorators - Функция "args_parser" из модуля "server" с аргументами ((), {})
+2020-02-09 23:13:33,661 - INFO     - decorators - Выполнен вызов функции "args_parser" из функции "test_args_parser"
+2020-02-09 23:13:33,661 - INFO     - decorators - Функция "args_parser" из модуля "client" с аргументами ((), {})
+2020-02-09 23:13:33,663 - INFO     - client - Сгенерировано presence сообщение для пользователя Test_user
+2020-02-09 23:13:33,664 - INFO     - decorators - Выполнен вызов функции "confirm_presence" из функции "test_confirm_presence"
+2020-02-09 23:13:33,664 - INFO     - decorators - Функция "confirm_presence" из модуля "client" с аргументами (('Test_user',), {})
+2020-02-09 23:13:33,672 - INFO     - decorators - Выполнен вызов функции "exit_message" из функции "test_exit_message"
+2020-02-09 23:13:33,673 - INFO     - decorators - Функция "exit_message" из модуля "client" с аргументами (('Test_user',), {})
+2020-02-09 23:13:33,676 - DEBUG    - client - Обработка сообщения от сервера {'response': 200}
+2020-02-09 23:13:33,676 - INFO     - client - Сообщение корректно обработано. Response 200: OK
+2020-02-09 23:13:33,678 - INFO     - decorators - Выполнен вызов функции "receive_message" из функции "test_receive_message_200"
+2020-02-09 23:13:33,678 - INFO     - decorators - Функция "receive_message" из модуля "client" с аргументами (({'response': 200},), {})
+2020-02-09 23:13:33,680 - DEBUG    - client - Обработка сообщения от сервера {'response': 400, 'error': 'Bad request'}
+2020-02-09 23:13:33,680 - ERROR    - client - Сервер не смог отбратать клиентский запрос. Получен отвен "Response 400: Bad request".
+2020-02-09 23:13:33,681 - DEBUG    - client - Обработка сообщения от сервера {'response': 400}
+2020-02-09 23:13:33,682 - DEBUG    - client - Обработка сообщения от сервера {'error': 'Bad request'}
+2020-02-09 23:13:33,683 - DEBUG    - client - Обработка сообщения от сервера {'response': 444, 'error': 'Bad request'}
+2020-02-09 23:14:01,309 - INFO     - decorators - Выполнен вызов функции "args_parser" из функции "test_args_parser"
+2020-02-09 23:14:01,309 - INFO     - decorators - Функция "args_parser" из модуля "client" с аргументами ((), {})
+2020-02-09 23:14:01,310 - INFO     - client - Сгенерировано presence сообщение для пользователя Test_user
+2020-02-09 23:14:01,311 - INFO     - decorators - Выполнен вызов функции "confirm_presence" из функции "test_confirm_presence"
+2020-02-09 23:14:01,311 - INFO     - decorators - Функция "confirm_presence" из модуля "client" с аргументами (('Test_user',), {})
+2020-02-09 23:14:01,313 - INFO     - decorators - Выполнен вызов функции "exit_message" из функции "test_exit_message"
+2020-02-09 23:14:01,313 - INFO     - decorators - Функция "exit_message" из модуля "client" с аргументами (('Test_user',), {})
+2020-02-09 23:14:01,314 - DEBUG    - client - Обработка сообщения от сервера {'response': 200}
+2020-02-09 23:14:01,314 - INFO     - client - Сообщение корректно обработано. Response 200: OK
+2020-02-09 23:14:01,325 - INFO     - decorators - Выполнен вызов функции "receive_message" из функции "test_receive_message_200"
+2020-02-09 23:14:01,325 - INFO     - decorators - Функция "receive_message" из модуля "client" с аргументами (({'response': 200},), {})
+2020-02-09 23:14:01,327 - DEBUG    - client - Обработка сообщения от сервера {'response': 400, 'error': 'Bad request'}
+2020-02-09 23:14:01,327 - ERROR    - client - Сервер не смог отбратать клиентский запрос. Получен отвен "Response 400: Bad request".
+2020-02-09 23:14:01,330 - DEBUG    - client - Обработка сообщения от сервера {'response': 400}
+2020-02-09 23:14:01,333 - DEBUG    - client - Обработка сообщения от сервера {'error': 'Bad request'}
+2020-02-09 23:14:01,337 - DEBUG    - client - Обработка сообщения от сервера {'response': 444, 'error': 'Bad request'}
+2020-02-09 23:20:28,327 - INFO     - decorators - Выполнен вызов функции "args_parser" из функции "main"
+2020-02-09 23:20:28,329 - INFO     - decorators - Функция "args_parser" из модуля "__main__" с аргументами ((), {})
+2020-02-09 23:21:20,995 - INFO     - decorators - Выполнен вызов функции "args_parser" из функции "main"
+2020-02-09 23:21:20,995 - INFO     - decorators - Функция "args_parser" из модуля "__main__" с аргументами ((), {})
+2020-02-09 23:37:29,530 - INFO     - decorators - Выполнен вызов функции "args_parser" из функции "main"
+2020-02-09 23:37:29,531 - INFO     - decorators - Функция "args_parser" из модуля "__main__" с аргументами ((), {})
+2020-02-09 23:37:32,571 - INFO     - client - Запущено клиентское приложение. IP-адрес сервера: 127.0.0.1, порт сервера: 7777, имя пользователя: qwer.
+2020-02-09 23:37:32,573 - INFO     - client - Сгенерировано presence сообщение для пользователя qwer
+2020-02-09 23:37:32,574 - INFO     - decorators - Выполнен вызов функции "confirm_presence" из функции "main"
+2020-02-09 23:37:32,574 - INFO     - decorators - Функция "confirm_presence" из модуля "__main__" с аргументами (('qwer',), {})
+2020-02-09 23:37:32,575 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "main"
+2020-02-09 23:37:32,575 - INFO     - decorators - Функция "send_message" из модуля "common_files.function" с аргументами ((<socket.socket fd=5, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 59480), raddr=('127.0.0.1', 7777)>, {'action': 'presence', 'time': 1581280652.572957, 'user': 'qwer'}), {})
+2020-02-09 23:37:33,081 - INFO     - decorators - Выполнен вызов функции "get_message" из функции "main"
+2020-02-09 23:37:33,081 - INFO     - decorators - Функция "get_message" из модуля "common_files.function" с аргументами ((<socket.socket fd=5, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 59480), raddr=('127.0.0.1', 7777)>,), {})
+2020-02-09 23:37:33,081 - DEBUG    - client - Обработка сообщения от сервера {'response': 200}
+2020-02-09 23:37:33,081 - INFO     - client - Сообщение корректно обработано. Response 200: OK
+2020-02-09 23:37:33,082 - INFO     - decorators - Выполнен вызов функции "receive_message" из функции "main"
+2020-02-09 23:37:33,082 - INFO     - decorators - Функция "receive_message" из модуля "__main__" с аргументами (({'response': 200},), {})
+2020-02-09 23:37:33,082 - INFO     - client - Установлено соединение с сервером 127.0.0.1:7777. Ответ сервера: Response 200: OK
+2020-02-09 23:39:49,219 - INFO     - decorators - Выполнен вызов функции "args_parser" из функции "main"
+2020-02-09 23:39:49,219 - INFO     - decorators - Функция "args_parser" из модуля "__main__" с аргументами ((), {})
+2020-02-09 23:39:53,358 - INFO     - client - Запущено клиентское приложение. IP-адрес сервера: 127.0.0.1, порт сервера: 7777, имя пользователя: qwert.
+2020-02-09 23:39:53,359 - INFO     - client - Сгенерировано presence сообщение для пользователя qwert
+2020-02-09 23:39:53,360 - INFO     - decorators - Выполнен вызов функции "confirm_presence" из функции "main"
+2020-02-09 23:39:53,361 - INFO     - decorators - Функция "confirm_presence" из модуля "__main__" с аргументами (('qwert',), {})
+2020-02-09 23:39:53,362 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "main"
+2020-02-09 23:39:53,362 - INFO     - decorators - Функция "send_message" из модуля "common_files.function" с аргументами ((<socket.socket fd=5, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 59492), raddr=('127.0.0.1', 7777)>, {'action': 'presence', 'time': 1581280793.359392, 'user': 'qwert'}), {})
+2020-02-09 23:39:53,864 - INFO     - decorators - Выполнен вызов функции "get_message" из функции "main"
+2020-02-09 23:39:53,864 - INFO     - decorators - Функция "get_message" из модуля "common_files.function" с аргументами ((<socket.socket fd=5, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 59492), raddr=('127.0.0.1', 7777)>,), {})
+2020-02-09 23:39:53,864 - DEBUG    - client - Обработка сообщения от сервера {'response': 200}
+2020-02-09 23:39:53,864 - INFO     - client - Сообщение корректно обработано. Response 200: OK
+2020-02-09 23:39:53,865 - INFO     - decorators - Выполнен вызов функции "receive_message" из функции "main"
+2020-02-09 23:39:53,865 - INFO     - decorators - Функция "receive_message" из модуля "__main__" с аргументами (({'response': 200},), {})
+2020-02-09 23:39:53,865 - INFO     - client - Установлено соединение с сервером 127.0.0.1:7777. Ответ сервера: Response 200: OK
+2020-02-09 23:40:02,862 - INFO     - decorators - Выполнен вызов функции "args_parser" из функции "main"
+2020-02-09 23:40:02,862 - INFO     - decorators - Функция "args_parser" из модуля "__main__" с аргументами ((), {})
+2020-02-10 07:15:27,424 - INFO     - decorators - Выполнен вызов функции "args_parser" из функции "<module>"
+2020-02-10 07:15:27,425 - INFO     - decorators - Функция "args_parser" из модуля "__main__" с аргументами ((), {})
+2020-02-10 07:15:46,141 - INFO     - decorators - Выполнен вызов функции "args_parser" из функции "<module>"
+2020-02-10 07:15:46,141 - INFO     - decorators - Функция "args_parser" из модуля "__main__" с аргументами ((), {})
+2020-02-10 20:08:53,809 - INFO     - decorators - Выполнен вызов функции "args_parser" из функции "get_command_args"
+2020-02-10 20:08:53,810 - INFO     - decorators - Функция "args_parser" из модуля "__main__" с аргументами (((),), {})
+2020-02-10 20:08:53,811 - INFO     - decorators - Выполнен вызов функции "get_command_args" из функции "<module>"
+2020-02-10 20:08:53,811 - INFO     - decorators - Функция "get_command_args" из модуля "__main__" с аргументами ((), {})
+2020-02-10 20:10:56,810 - INFO     - decorators - Выполнен вызов функции "args_parser" из функции "get_command_args"
+2020-02-10 20:10:56,811 - INFO     - decorators - Функция "args_parser" из модуля "__main__" с аргументами (((),), {})
+2020-02-10 20:10:56,812 - INFO     - decorators - Выполнен вызов функции "check_address" из функции "get_command_args"
+2020-02-10 20:10:56,812 - INFO     - decorators - Функция "check_address" из модуля "__main__" с аргументами (('127.0.0.1',), {})
+2020-02-10 20:10:56,812 - INFO     - decorators - Выполнен вызов функции "check_port" из функции "get_command_args"
+2020-02-10 20:10:56,812 - INFO     - decorators - Функция "check_port" из модуля "__main__" с аргументами ((7777,), {})
+2020-02-10 20:10:56,812 - INFO     - decorators - Выполнен вызов функции "get_command_args" из функции "<module>"
+2020-02-10 20:10:56,812 - INFO     - decorators - Функция "get_command_args" из модуля "__main__" с аргументами ((), {})
+2020-02-10 20:11:43,423 - INFO     - decorators - Выполнен вызов функции "args_parser" из функции "get_command_args"
+2020-02-10 20:11:43,424 - INFO     - decorators - Функция "args_parser" из модуля "__main__" с аргументами (((),), {})
+2020-02-10 20:11:43,424 - INFO     - decorators - Выполнен вызов функции "check_address" из функции "get_command_args"
+2020-02-10 20:11:43,425 - INFO     - decorators - Функция "check_address" из модуля "__main__" с аргументами (('127.0.0.1',), {})
+2020-02-10 20:11:43,425 - INFO     - decorators - Выполнен вызов функции "check_port" из функции "get_command_args"
+2020-02-10 20:11:43,425 - INFO     - decorators - Функция "check_port" из модуля "__main__" с аргументами ((7777,), {})
+2020-02-10 20:11:43,425 - INFO     - decorators - Выполнен вызов функции "get_command_args" из функции "<module>"
+2020-02-10 20:11:43,425 - INFO     - decorators - Функция "get_command_args" из модуля "__main__" с аргументами ((), {})
+2020-02-10 20:12:21,882 - INFO     - decorators - Выполнен вызов функции "args_parser" из функции "get_command_args"
+2020-02-10 20:12:21,882 - INFO     - decorators - Функция "args_parser" из модуля "__main__" с аргументами (((),), {})
+2020-02-10 20:12:39,555 - INFO     - decorators - Выполнен вызов функции "args_parser" из функции "get_command_args"
+2020-02-10 20:12:39,555 - INFO     - decorators - Функция "args_parser" из модуля "__main__" с аргументами (((),), {})
+2020-02-10 20:12:39,556 - INFO     - decorators - Выполнен вызов функции "check_address" из функции "get_command_args"
+2020-02-10 20:12:39,556 - INFO     - decorators - Функция "check_address" из модуля "__main__" с аргументами (('127.0.0.1',), {})
+2020-02-10 20:12:39,556 - INFO     - decorators - Выполнен вызов функции "check_port" из функции "get_command_args"
+2020-02-10 20:12:39,556 - INFO     - decorators - Функция "check_port" из модуля "__main__" с аргументами ((7777,), {})
+2020-02-10 20:12:39,556 - INFO     - decorators - Выполнен вызов функции "get_command_args" из функции "<module>"
+2020-02-10 20:12:39,556 - INFO     - decorators - Функция "get_command_args" из модуля "__main__" с аргументами ((), {})
+2020-02-10 20:12:51,057 - INFO     - decorators - Выполнен вызов функции "args_parser" из функции "get_command_args"
+2020-02-10 20:12:51,057 - INFO     - decorators - Функция "args_parser" из модуля "__main__" с аргументами (((),), {})
+2020-02-10 20:12:51,057 - INFO     - decorators - Выполнен вызов функции "get_command_args" из функции "<module>"
+2020-02-10 20:12:51,057 - INFO     - decorators - Функция "get_command_args" из модуля "__main__" с аргументами ((), {})
+2020-02-10 20:13:40,653 - INFO     - decorators - Выполнен вызов функции "args_parser" из функции "get_command_args"
+2020-02-10 20:13:40,653 - INFO     - decorators - Функция "args_parser" из модуля "__main__" с аргументами ((), {})
+2020-02-10 20:13:40,654 - INFO     - decorators - Выполнен вызов функции "check_address" из функции "get_command_args"
+2020-02-10 20:13:40,654 - INFO     - decorators - Функция "check_address" из модуля "__main__" с аргументами (('192.168.1.2',), {})
+2020-02-10 20:13:40,654 - INFO     - decorators - Выполнен вызов функции "check_port" из функции "get_command_args"
+2020-02-10 20:13:40,654 - INFO     - decorators - Функция "check_port" из модуля "__main__" с аргументами ((8888,), {})
+2020-02-10 20:13:40,654 - INFO     - decorators - Выполнен вызов функции "get_command_args" из функции "<module>"
+2020-02-10 20:13:40,654 - INFO     - decorators - Функция "get_command_args" из модуля "__main__" с аргументами ((), {})
+2020-02-10 20:17:13,676 - INFO     - decorators - Выполнен вызов функции "args_parser" из функции "get_command_args"
+2020-02-10 20:17:13,676 - INFO     - decorators - Функция "args_parser" из модуля "__main__" с аргументами ((), {})
+2020-02-10 20:17:13,677 - INFO     - decorators - Выполнен вызов функции "check_address" из функции "get_command_args"
+2020-02-10 20:17:13,677 - INFO     - decorators - Функция "check_address" из модуля "__main__" с аргументами (('192.168.1.2',), {})
+2020-02-10 20:17:13,677 - INFO     - decorators - Выполнен вызов функции "check_port" из функции "get_command_args"
+2020-02-10 20:17:13,677 - INFO     - decorators - Функция "check_port" из модуля "__main__" с аргументами ((8888,), {})
+2020-02-10 20:17:13,677 - INFO     - decorators - Выполнен вызов функции "get_command_args" из функции "<module>"
+2020-02-10 20:17:13,678 - INFO     - decorators - Функция "get_command_args" из модуля "__main__" с аргументами ((), {})
+2020-02-10 20:18:25,661 - INFO     - decorators - Выполнен вызов функции "args_parser" из функции "<module>"
+2020-02-10 20:18:25,662 - INFO     - decorators - Функция "args_parser" из модуля "__main__" с аргументами ((), {})
+2020-02-10 20:18:49,644 - INFO     - decorators - Выполнен вызов функции "args_parser" из функции "<module>"
+2020-02-10 20:18:49,645 - INFO     - decorators - Функция "args_parser" из модуля "__main__" с аргументами ((), {})
+2020-02-10 20:18:56,770 - INFO     - decorators - Выполнен вызов функции "args_parser" из функции "get_command_args"
+2020-02-10 20:18:56,770 - INFO     - decorators - Функция "args_parser" из модуля "__main__" с аргументами ((), {})
+2020-02-10 20:18:56,771 - INFO     - decorators - Выполнен вызов функции "check_address" из функции "get_command_args"
+2020-02-10 20:18:56,771 - INFO     - decorators - Функция "check_address" из модуля "__main__" с аргументами (('192.168.1.2',), {})
+2020-02-10 20:18:56,771 - INFO     - decorators - Выполнен вызов функции "check_port" из функции "get_command_args"
+2020-02-10 20:18:56,771 - INFO     - decorators - Функция "check_port" из модуля "__main__" с аргументами ((8888,), {})
+2020-02-10 20:18:56,771 - INFO     - decorators - Выполнен вызов функции "get_command_args" из функции "<module>"
+2020-02-10 20:18:56,772 - INFO     - decorators - Функция "get_command_args" из модуля "__main__" с аргументами ((), {})
+2020-02-10 20:19:05,941 - INFO     - decorators - Выполнен вызов функции "args_parser" из функции "<module>"
+2020-02-10 20:19:05,941 - INFO     - decorators - Функция "args_parser" из модуля "__main__" с аргументами ((), {})
+2020-02-10 20:20:02,146 - INFO     - decorators - Выполнен вызов функции "args_parser" из функции "<module>"
+2020-02-10 20:20:02,146 - INFO     - decorators - Функция "args_parser" из модуля "__main__" с аргументами ((), {})
+2020-02-10 20:20:18,188 - INFO     - decorators - Выполнен вызов функции "args_parser" из функции "<module>"
+2020-02-10 20:20:18,188 - INFO     - decorators - Функция "args_parser" из модуля "__main__" с аргументами ((), {})
+2020-02-10 20:20:34,382 - INFO     - decorators - Выполнен вызов функции "args_parser" из функции "<module>"
+2020-02-10 20:20:34,383 - INFO     - decorators - Функция "args_parser" из модуля "__main__" с аргументами ((), {})
+2020-02-10 20:20:49,428 - INFO     - decorators - Выполнен вызов функции "args_parser" из функции "<module>"
+2020-02-10 20:20:49,428 - INFO     - decorators - Функция "args_parser" из модуля "__main__" с аргументами ((), {})
+2020-02-10 20:20:49,429 - INFO     - decorators - Выполнен вызов функции "check_port" из функции "<module>"
+2020-02-10 20:20:49,429 - INFO     - decorators - Функция "check_port" из модуля "__main__" с аргументами ((8888,), {})
+2020-02-10 20:21:03,384 - INFO     - decorators - Выполнен вызов функции "args_parser" из функции "<module>"
+2020-02-10 20:21:03,384 - INFO     - decorators - Функция "args_parser" из модуля "__main__" с аргументами ((), {})
+2020-02-10 20:21:31,083 - INFO     - decorators - Выполнен вызов функции "args_parser" из функции "<module>"
+2020-02-10 20:21:31,083 - INFO     - decorators - Функция "args_parser" из модуля "__main__" с аргументами ((), {})
+2020-02-10 20:21:31,084 - INFO     - decorators - Выполнен вызов функции "args_parser" из функции "get_command_args"
+2020-02-10 20:21:31,084 - INFO     - decorators - Функция "args_parser" из модуля "__main__" с аргументами ((), {})
+2020-02-10 20:21:31,085 - INFO     - decorators - Выполнен вызов функции "check_address" из функции "get_command_args"
+2020-02-10 20:21:31,085 - INFO     - decorators - Функция "check_address" из модуля "__main__" с аргументами (('192.168.1.2',), {})
+2020-02-10 20:21:31,085 - INFO     - decorators - Выполнен вызов функции "check_port" из функции "get_command_args"
+2020-02-10 20:21:31,085 - INFO     - decorators - Функция "check_port" из модуля "__main__" с аргументами ((8888,), {})
+2020-02-10 20:21:31,085 - INFO     - decorators - Выполнен вызов функции "get_command_args" из функции "<module>"
+2020-02-10 20:21:31,085 - INFO     - decorators - Функция "get_command_args" из модуля "__main__" с аргументами ((), {})
+2020-02-10 20:22:30,816 - INFO     - decorators - Выполнен вызов функции "args_parser" из функции "get_command_args"
+2020-02-10 20:22:30,816 - INFO     - decorators - Функция "args_parser" из модуля "__main__" с аргументами ((), {})
+2020-02-10 20:22:30,817 - INFO     - decorators - Выполнен вызов функции "check_address" из функции "get_command_args"
+2020-02-10 20:22:30,817 - INFO     - decorators - Функция "check_address" из модуля "__main__" с аргументами (('127.0.0.1',), {})
+2020-02-10 20:22:30,818 - INFO     - decorators - Выполнен вызов функции "check_port" из функции "get_command_args"
+2020-02-10 20:22:30,818 - INFO     - decorators - Функция "check_port" из модуля "__main__" с аргументами ((8888,), {})
+2020-02-10 20:22:30,818 - INFO     - decorators - Выполнен вызов функции "get_command_args" из функции "<module>"
+2020-02-10 20:22:30,818 - INFO     - decorators - Функция "get_command_args" из модуля "__main__" с аргументами ((), {})
+2020-02-10 20:26:25,842 - INFO     - decorators - Выполнен вызов функции "args_parser" из функции "get_command_args"
+2020-02-10 20:26:25,843 - INFO     - decorators - Функция "args_parser" из модуля "__main__" с аргументами ((), {})
+2020-02-10 20:26:25,843 - INFO     - decorators - Выполнен вызов функции "check_address" из функции "get_command_args"
+2020-02-10 20:26:25,843 - INFO     - decorators - Функция "check_address" из модуля "__main__" с аргументами (('127.0.0.1',), {})
+2020-02-10 20:26:25,844 - INFO     - decorators - Выполнен вызов функции "check_port" из функции "get_command_args"
+2020-02-10 20:26:25,844 - INFO     - decorators - Функция "check_port" из модуля "__main__" с аргументами ((8888,), {})
+2020-02-10 20:26:25,844 - INFO     - decorators - Выполнен вызов функции "get_command_args" из функции "<module>"
+2020-02-10 20:26:25,844 - INFO     - decorators - Функция "get_command_args" из модуля "__main__" с аргументами ((), {})
+2020-02-10 20:26:38,140 - INFO     - decorators - Выполнен вызов функции "args_parser" из функции "get_command_args"
+2020-02-10 20:26:38,140 - INFO     - decorators - Функция "args_parser" из модуля "__main__" с аргументами ((), {})
+2020-02-10 20:26:38,141 - INFO     - decorators - Выполнен вызов функции "check_address" из функции "get_command_args"
+2020-02-10 20:26:38,141 - INFO     - decorators - Функция "check_address" из модуля "__main__" с аргументами (('127.0.0.1',), {})
+2020-02-10 20:26:38,141 - INFO     - decorators - Выполнен вызов функции "check_port" из функции "get_command_args"
+2020-02-10 20:26:38,141 - INFO     - decorators - Функция "check_port" из модуля "__main__" с аргументами ((90000,), {})
+2020-02-10 20:26:38,143 - INFO     - decorators - Выполнен вызов функции "get_command_args" из функции "<module>"
+2020-02-10 20:26:38,143 - INFO     - decorators - Функция "get_command_args" из модуля "__main__" с аргументами ((), {})
+2020-02-10 20:27:19,590 - INFO     - decorators - Выполнен вызов функции "args_parser" из функции "get_command_args"
+2020-02-10 20:27:19,590 - INFO     - decorators - Функция "args_parser" из модуля "__main__" с аргументами ((), {})
+2020-02-10 20:27:19,591 - INFO     - decorators - Выполнен вызов функции "check_address" из функции "get_command_args"
+2020-02-10 20:27:19,591 - INFO     - decorators - Функция "check_address" из модуля "__main__" с аргументами (('0.500.200.1',), {})
+2020-02-10 20:33:00,873 - INFO     - decorators - Выполнен вызов функции "args_parser" из функции "get_command_args"
+2020-02-10 20:33:00,874 - INFO     - decorators - Функция "args_parser" из модуля "__main__" с аргументами ((), {})
+2020-02-10 20:33:00,877 - INFO     - decorators - Выполнен вызов функции "check_address" из функции "get_command_args"
+2020-02-10 20:33:00,877 - INFO     - decorators - Функция "check_address" из модуля "__main__" с аргументами (('0.500.200.1',), {})
+2020-02-10 20:33:17,658 - INFO     - decorators - Выполнен вызов функции "args_parser" из функции "get_command_args"
+2020-02-10 20:33:17,659 - INFO     - decorators - Функция "args_parser" из модуля "__main__" с аргументами ((), {})
+2020-02-10 20:33:17,661 - INFO     - decorators - Выполнен вызов функции "check_address" из функции "get_command_args"
+2020-02-10 20:33:17,661 - INFO     - decorators - Функция "check_address" из модуля "__main__" с аргументами (('127.0.0.1',), {})
+2020-02-10 20:33:17,662 - INFO     - decorators - Выполнен вызов функции "check_port" из функции "get_command_args"
+2020-02-10 20:33:17,662 - INFO     - decorators - Функция "check_port" из модуля "__main__" с аргументами ((500,), {})
+2020-02-10 20:33:37,184 - INFO     - decorators - Выполнен вызов функции "args_parser" из функции "get_command_args"
+2020-02-10 20:33:37,184 - INFO     - decorators - Функция "args_parser" из модуля "__main__" с аргументами ((), {})
+2020-02-10 20:33:37,185 - INFO     - decorators - Выполнен вызов функции "check_address" из функции "get_command_args"
+2020-02-10 20:33:37,185 - INFO     - decorators - Функция "check_address" из модуля "__main__" с аргументами (('127.0.0.5',), {})
+2020-02-10 20:33:37,185 - INFO     - decorators - Выполнен вызов функции "check_port" из функции "get_command_args"
+2020-02-10 20:33:37,185 - INFO     - decorators - Функция "check_port" из модуля "__main__" с аргументами ((8888,), {})
+2020-02-10 20:33:37,186 - INFO     - decorators - Выполнен вызов функции "get_command_args" из функции "<module>"
+2020-02-10 20:33:37,186 - INFO     - decorators - Функция "get_command_args" из модуля "__main__" с аргументами ((), {})
+2020-02-10 20:33:45,957 - INFO     - decorators - Выполнен вызов функции "args_parser" из функции "get_command_args"
+2020-02-10 20:33:45,958 - INFO     - decorators - Функция "args_parser" из модуля "__main__" с аргументами ((), {})
+2020-02-10 20:33:45,959 - INFO     - decorators - Выполнен вызов функции "check_address" из функции "get_command_args"
+2020-02-10 20:33:45,959 - INFO     - decorators - Функция "check_address" из модуля "__main__" с аргументами (('127.0.0.1',), {})
+2020-02-10 20:33:45,960 - INFO     - decorators - Выполнен вызов функции "check_port" из функции "get_command_args"
+2020-02-10 20:33:45,960 - INFO     - decorators - Функция "check_port" из модуля "__main__" с аргументами ((7777,), {})
+2020-02-10 20:33:45,960 - INFO     - decorators - Выполнен вызов функции "get_command_args" из функции "<module>"
+2020-02-10 20:33:45,960 - INFO     - decorators - Функция "get_command_args" из модуля "__main__" с аргументами ((), {})
+2020-02-10 20:38:24,612 - INFO     - decorators - Выполнен вызов функции "args_parser" из функции "get_command_args"
+2020-02-10 20:38:24,612 - INFO     - decorators - Функция "args_parser" из модуля "__main__" с аргументами ((), {})
+2020-02-10 20:38:24,613 - INFO     - decorators - Выполнен вызов функции "check_address" из функции "get_command_args"
+2020-02-10 20:38:24,613 - INFO     - decorators - Функция "check_address" из модуля "__main__" с аргументами (('127.0.0.1',), {})
+2020-02-10 20:38:24,614 - INFO     - decorators - Выполнен вызов функции "check_port" из функции "get_command_args"
+2020-02-10 20:38:24,614 - INFO     - decorators - Функция "check_port" из модуля "__main__" с аргументами ((7777,), {})
+2020-02-10 20:38:24,614 - INFO     - decorators - Выполнен вызов функции "get_command_args" из функции "<module>"
+2020-02-10 20:38:24,614 - INFO     - decorators - Функция "get_command_args" из модуля "__main__" с аргументами ((), {})
+2020-02-10 20:38:34,220 - INFO     - decorators - Выполнен вызов функции "args_parser" из функции "get_command_args"
+2020-02-10 20:38:34,220 - INFO     - decorators - Функция "args_parser" из модуля "__main__" с аргументами ((), {})
+2020-02-10 20:38:34,221 - INFO     - decorators - Выполнен вызов функции "check_address" из функции "get_command_args"
+2020-02-10 20:38:34,221 - INFO     - decorators - Функция "check_address" из модуля "__main__" с аргументами (('127.0.0.1',), {})
+2020-02-10 20:38:34,221 - INFO     - decorators - Выполнен вызов функции "check_port" из функции "get_command_args"
+2020-02-10 20:38:34,221 - INFO     - decorators - Функция "check_port" из модуля "__main__" с аргументами ((7777,), {})
+2020-02-10 20:38:34,221 - INFO     - decorators - Выполнен вызов функции "get_command_args" из функции "<module>"
+2020-02-10 20:38:34,221 - INFO     - decorators - Функция "get_command_args" из модуля "__main__" с аргументами ((), {})
+2020-02-10 20:40:13,220 - INFO     - decorators - Выполнен вызов функции "args_parser" из функции "get_command_args"
+2020-02-10 20:40:13,221 - INFO     - decorators - Функция "args_parser" из модуля "__main__" с аргументами ((), {})
+2020-02-10 20:40:13,223 - INFO     - decorators - Выполнен вызов функции "check_address" из функции "get_command_args"
+2020-02-10 20:40:13,223 - INFO     - decorators - Функция "check_address" из модуля "__main__" с аргументами (('127.0.0.1',), {})
+2020-02-10 20:40:13,224 - INFO     - decorators - Выполнен вызов функции "check_port" из функции "get_command_args"
+2020-02-10 20:40:13,224 - INFO     - decorators - Функция "check_port" из модуля "__main__" с аргументами ((7777,), {})
+2020-02-10 20:40:13,224 - INFO     - decorators - Выполнен вызов функции "get_command_args" из функции "<module>"
+2020-02-10 20:40:13,224 - INFO     - decorators - Функция "get_command_args" из модуля "__main__" с аргументами ((), {})
+2020-02-10 20:40:32,190 - INFO     - decorators - Выполнен вызов функции "args_parser" из функции "get_command_args"
+2020-02-10 20:40:32,191 - INFO     - decorators - Функция "args_parser" из модуля "__main__" с аргументами ((), {})
+2020-02-10 20:40:32,193 - INFO     - decorators - Выполнен вызов функции "check_address" из функции "get_command_args"
+2020-02-10 20:40:32,193 - INFO     - decorators - Функция "check_address" из модуля "__main__" с аргументами (('127.0.0.1',), {})
+2020-02-10 20:40:32,193 - INFO     - decorators - Выполнен вызов функции "check_port" из функции "get_command_args"
+2020-02-10 20:40:32,193 - INFO     - decorators - Функция "check_port" из модуля "__main__" с аргументами ((7777,), {})
+2020-02-10 20:40:32,194 - INFO     - decorators - Выполнен вызов функции "get_command_args" из функции "<module>"
+2020-02-10 20:40:32,194 - INFO     - decorators - Функция "get_command_args" из модуля "__main__" с аргументами ((), {})
+2020-02-10 20:42:03,881 - INFO     - decorators - Выполнен вызов функции "args_parser" из функции "main"
+2020-02-10 20:42:03,882 - INFO     - decorators - Функция "args_parser" из модуля "__main__" с аргументами ((), {})
+2020-02-10 20:42:03,882 - INFO     - client - Запущено клиентское приложение. IP-адрес сервера: 127.0.0.1, порт сервера: 8888, имя пользователя: Peter.
+2020-02-10 20:42:03,883 - INFO     - client - Сгенерировано presence сообщение для пользователя Peter
+2020-02-10 20:42:03,883 - INFO     - decorators - Выполнен вызов функции "confirm_presence" из функции "main"
+2020-02-10 20:42:03,884 - INFO     - decorators - Функция "confirm_presence" из модуля "__main__" с аргументами (('Peter',), {})
+2020-02-10 20:42:03,884 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "main"
+2020-02-10 20:42:03,884 - INFO     - decorators - Функция "send_message" из модуля "common_files.function" с аргументами ((<socket.socket fd=5, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 60696), raddr=('127.0.0.1', 8888)>, {'action': 'presence', 'time': 1581356523.883321, 'user': 'Peter'}), {})
+2020-02-10 20:42:04,388 - INFO     - decorators - Выполнен вызов функции "get_message" из функции "main"
+2020-02-10 20:42:04,389 - INFO     - decorators - Функция "get_message" из модуля "common_files.function" с аргументами ((<socket.socket fd=5, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 60696), raddr=('127.0.0.1', 8888)>,), {})
+2020-02-10 20:42:04,389 - DEBUG    - client - Обработка сообщения от сервера {'response': 200}
+2020-02-10 20:42:04,389 - INFO     - client - Сообщение корректно обработано. Response 200: OK
+2020-02-10 20:42:04,390 - INFO     - decorators - Выполнен вызов функции "receive_message" из функции "main"
+2020-02-10 20:42:04,390 - INFO     - decorators - Функция "receive_message" из модуля "__main__" с аргументами (({'response': 200},), {})
+2020-02-10 20:42:04,390 - INFO     - client - Установлено соединение с сервером 127.0.0.1:8888. Ответ сервера: Response 200: OK
+2020-02-10 20:42:20,839 - DEBUG    - client - Сформирован словарь-сообщение: {'action': 'message', 'time': 1581356540.838906, 'sender': 'Peter', 'recipient': 'Peter', 'message_text': '1123'}
+2020-02-10 20:42:20,848 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "create_message"
+2020-02-10 20:42:20,848 - INFO     - decorators - Функция "send_message" из модуля "common_files.function" с аргументами ((<socket.socket fd=5, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 60696), raddr=('127.0.0.1', 8888)>, {'action': 'message', 'time': 1581356540.838906, 'sender': 'Peter', 'recipient': 'Peter', 'message_text': '1123'}), {})
+2020-02-10 20:42:20,848 - INFO     - client - Сообщение отправлено пользователю Peter
+2020-02-10 20:42:20,849 - INFO     - decorators - Выполнен вызов функции "create_message" из функции "user_menu"
+2020-02-10 20:42:20,849 - INFO     - decorators - Функция "create_message" из модуля "__main__" с аргументами ((<socket.socket fd=5, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 60696), raddr=('127.0.0.1', 8888)>, 'Peter'), {})
+2020-02-10 20:42:20,995 - INFO     - decorators - Выполнен вызов функции "get_message" из функции "server_message_handler"
+2020-02-10 20:42:20,996 - INFO     - decorators - Функция "get_message" из модуля "common_files.function" с аргументами ((<socket.socket fd=5, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 60696), raddr=('127.0.0.1', 8888)>,), {})
+2020-02-10 20:42:21,015 - INFO     - client - Пользователь Peter получил сообщение 1123 от пользователя Peter
+2020-02-10 20:42:33,016 - INFO     - decorators - Выполнен вызов функции "exit_message" из функции "user_menu"
+2020-02-10 20:42:33,018 - INFO     - decorators - Функция "exit_message" из модуля "__main__" с аргументами (('Peter',), {})
+2020-02-10 20:42:33,020 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "user_menu"
+2020-02-10 20:42:33,021 - INFO     - decorators - Функция "send_message" из модуля "common_files.function" с аргументами ((<socket.socket fd=5, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 60696), raddr=('127.0.0.1', 8888)>, {'action': 'exit', 'time': 1581356553.015605, 'user': 'Peter'}), {})
+2020-02-10 20:42:33,022 - INFO     - client - Клиент Peter завершил работу.
+2020-02-10 20:42:33,061 - CRITICAL - client - Соединение с сервером потеряно
+2020-02-10 20:42:33,062 - INFO     - decorators - Выполнен вызов функции "server_message_handler" из функции "run"
+2020-02-10 20:42:33,062 - INFO     - decorators - Функция "server_message_handler" из модуля "__main__" с аргументами ((<socket.socket fd=5, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 60696), raddr=('127.0.0.1', 8888)>, 'Peter'), {})
+2020-02-10 20:59:02,298 - INFO     - decorators - Выполнен вызов функции "args_parser" из функции "get_command_args"
+2020-02-10 20:59:02,299 - INFO     - decorators - Функция "args_parser" из модуля "__main__" с аргументами ((), {})
+2020-02-10 20:59:02,301 - INFO     - decorators - Выполнен вызов функции "check_address" из функции "get_command_args"
+2020-02-10 20:59:02,301 - INFO     - decorators - Функция "check_address" из модуля "__main__" с аргументами (('127.0.0.1',), {})
+2020-02-10 20:59:02,302 - INFO     - decorators - Выполнен вызов функции "check_port" из функции "get_command_args"
+2020-02-10 20:59:02,302 - INFO     - decorators - Функция "check_port" из модуля "__main__" с аргументами ((7777,), {})
+2020-02-10 20:59:02,302 - INFO     - decorators - Выполнен вызов функции "get_command_args" из функции "<module>"
+2020-02-10 20:59:02,302 - INFO     - decorators - Функция "get_command_args" из модуля "__main__" с аргументами ((), {})
+2020-02-10 21:01:14,351 - INFO     - decorators - Выполнен вызов функции "args_parser" из функции "get_command_args"
+2020-02-10 21:01:14,351 - INFO     - decorators - Функция "args_parser" из модуля "__main__" с аргументами ((), {})
+2020-02-10 21:01:14,352 - INFO     - decorators - Выполнен вызов функции "check_address" из функции "get_command_args"
+2020-02-10 21:01:14,352 - INFO     - decorators - Функция "check_address" из модуля "__main__" с аргументами (('127.0.0.1',), {})
+2020-02-10 21:01:14,352 - INFO     - decorators - Выполнен вызов функции "check_port" из функции "get_command_args"
+2020-02-10 21:01:14,352 - INFO     - decorators - Функция "check_port" из модуля "__main__" с аргументами ((7777,), {})
+2020-02-10 21:01:14,352 - INFO     - decorators - Выполнен вызов функции "get_command_args" из функции "<module>"
+2020-02-10 21:01:14,353 - INFO     - decorators - Функция "get_command_args" из модуля "__main__" с аргументами ((), {})
+2020-02-10 21:03:04,957 - INFO     - decorators - Выполнен вызов функции "args_parser" из функции "get_command_args"
+2020-02-10 21:03:04,957 - INFO     - decorators - Функция "args_parser" из модуля "__main__" с аргументами ((), {})
+2020-02-10 21:03:04,958 - INFO     - decorators - Выполнен вызов функции "check_address" из функции "get_command_args"
+2020-02-10 21:03:04,958 - INFO     - decorators - Функция "check_address" из модуля "__main__" с аргументами (('127.0.0.1',), {})
+2020-02-10 21:03:04,958 - INFO     - decorators - Выполнен вызов функции "check_port" из функции "get_command_args"
+2020-02-10 21:03:04,958 - INFO     - decorators - Функция "check_port" из модуля "__main__" с аргументами ((7777,), {})
+2020-02-10 21:03:04,959 - INFO     - decorators - Выполнен вызов функции "get_command_args" из функции "<module>"
+2020-02-10 21:03:04,959 - INFO     - decorators - Функция "get_command_args" из модуля "__main__" с аргументами ((), {})
+2020-02-10 21:05:22,059 - INFO     - decorators - Выполнен вызов функции "args_parser" из функции "get_command_args"
+2020-02-10 21:05:22,060 - INFO     - decorators - Функция "args_parser" из модуля "parse_args" с аргументами ((), {})
+2020-02-10 21:05:22,062 - INFO     - decorators - Выполнен вызов функции "check_address" из функции "get_command_args"
+2020-02-10 21:05:22,063 - INFO     - decorators - Функция "check_address" из модуля "parse_args" с аргументами (('127.0.0.1',), {})
+2020-02-10 21:05:22,065 - INFO     - decorators - Выполнен вызов функции "check_port" из функции "get_command_args"
+2020-02-10 21:05:22,065 - INFO     - decorators - Функция "check_port" из модуля "parse_args" с аргументами ((8888,), {})
+2020-02-10 21:05:22,067 - INFO     - decorators - Выполнен вызов функции "get_command_args" из функции "<module>"
+2020-02-10 21:05:22,067 - INFO     - decorators - Функция "get_command_args" из модуля "parse_args" с аргументами ((), {})
+2020-02-10 21:05:22,073 - INFO     - decorators - Выполнен вызов функции "args_parser" из функции "get_command_args"
+2020-02-10 21:05:22,073 - INFO     - decorators - Функция "args_parser" из модуля "parse_args" с аргументами ((), {})
+2020-02-10 21:05:22,073 - INFO     - decorators - Выполнен вызов функции "check_address" из функции "get_command_args"
+2020-02-10 21:05:22,073 - INFO     - decorators - Функция "check_address" из модуля "parse_args" с аргументами (('127.0.0.1',), {})
+2020-02-10 21:05:22,074 - INFO     - decorators - Выполнен вызов функции "check_port" из функции "get_command_args"
+2020-02-10 21:05:22,074 - INFO     - decorators - Функция "check_port" из модуля "parse_args" с аргументами ((8888,), {})
+2020-02-10 21:05:22,074 - INFO     - decorators - Выполнен вызов функции "get_command_args" из функции "main"
+2020-02-10 21:05:22,074 - INFO     - decorators - Функция "get_command_args" из модуля "parse_args" с аргументами ((), {})
+2020-02-10 21:05:22,074 - INFO     - client - Запущено клиентское приложение. IP-адрес сервера: 127.0.0.1, порт сервера: 8888, имя пользователя: Peter.
+2020-02-10 21:05:22,077 - INFO     - client - Сгенерировано presence сообщение для пользователя Peter
+2020-02-10 21:05:22,077 - INFO     - decorators - Выполнен вызов функции "confirm_presence" из функции "main"
+2020-02-10 21:05:22,077 - INFO     - decorators - Функция "confirm_presence" из модуля "__main__" с аргументами (('Peter',), {})
+2020-02-10 21:05:22,078 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "main"
+2020-02-10 21:05:22,078 - INFO     - decorators - Функция "send_message" из модуля "common_files.function" с аргументами ((<socket.socket fd=5, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 60846), raddr=('127.0.0.1', 8888)>, {'action': 'presence', 'time': 1581357922.077256, 'user': 'Peter'}), {})
+2020-02-10 21:05:22,582 - INFO     - decorators - Выполнен вызов функции "get_message" из функции "main"
+2020-02-10 21:05:22,582 - INFO     - decorators - Функция "get_message" из модуля "common_files.function" с аргументами ((<socket.socket fd=5, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 60846), raddr=('127.0.0.1', 8888)>,), {})
+2020-02-10 21:05:22,582 - DEBUG    - client - Обработка сообщения от сервера {'response': 200}
+2020-02-10 21:05:22,583 - INFO     - client - Сообщение корректно обработано. Response 200: OK
+2020-02-10 21:05:22,583 - INFO     - decorators - Выполнен вызов функции "receive_message" из функции "main"
+2020-02-10 21:05:22,583 - INFO     - decorators - Функция "receive_message" из модуля "__main__" с аргументами (({'response': 200},), {})
+2020-02-10 21:05:22,583 - INFO     - client - Установлено соединение с сервером 127.0.0.1:8888. Ответ сервера: Response 200: OK

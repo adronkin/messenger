@@ -3,10 +3,10 @@
 import os
 import sys
 import unittest
-from unittest.mock import patch
+
 sys.path.append(os.path.join(os.getcwd(), '..'))
 from errors import ServerError, ReqFieldMissingError
-from client import confirm_presence, receive_message, exit_message, args_parser
+from client.client import confirm_presence, receive_message, exit_message, args_parser
 from common_files.variables import TIME, ACTION, PRESENCE, USER, RESPONSE, ERROR, EXIT
 
 
