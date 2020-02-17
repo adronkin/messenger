@@ -48,10 +48,10 @@ class ClientSend(Thread, metaclass=ClientVerified):
             else:
                 print('Команда не распознана.')
 
-    def get_help(self):
+    @staticmethod
+    def get_help():
         """
-        Возвращает справочную информацию.
-        :return:
+        Печатает справочную информацию.
         """
         print('Доступные команды:')
         print('1 - отправить сообщение.')
@@ -112,8 +112,8 @@ class ClientRead(Thread, metaclass=ClientVerified):
                         and message[RECIPIENT] == self.client_name:
                     message_time = strftime("%d.%m.%Y %H:%m:%S", strptime(ctime(message[TIME])))
                     print(f'{message_time} - {message[SENDER]}: {message[MESSAGE_TEXT]}')
-                    LOGGER.info(f'Пользователь {self.client_name} получил сообщение {message[MESSAGE_TEXT]}'
-                                f' от пользователя {message[SENDER]}')
+                    LOGGER.info(f'Пользователь {self.client_name} получил сообщение'
+                                f' {message[MESSAGE_TEXT]} от пользователя {message[SENDER]}')
                 elif message[RESPONSE] == 300:
                     LOGGER.debug(f'Получен отвен "Response 300: {message[ERROR]}".')
                     print(f'{message[ERROR]}')
