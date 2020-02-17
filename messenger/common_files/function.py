@@ -1,6 +1,10 @@
 """Функции для использования server.py и client.py"""
+
 import json
+import sys
+sys.path.append('../')
 from common_files.variables import MAX_DATA, ENCODING
+from errors import IncorrectDataReceivedError, NonDictInputError
 from decorators import Log
 
 
@@ -15,13 +19,15 @@ def get_message(client_server):
         dict_data = json.loads(decoded_data)
         if isinstance(dict_data, dict):
             return dict_data
-        raise ValueError
-    raise ValueError
+        raise IncorrectDataReceivedError
+    raise IncorrectDataReceivedError
 
 
 @Log()
 def send_message(recipient, message):
     """Принимает словарь message, сериальзует его в json и отправляет"""
+    if not isinstance(message, dict):
+        raise NonDictInputError
     json_message = json.dumps(message)
     encode_message = json_message.encode(ENCODING)
     recipient.send(encode_message)

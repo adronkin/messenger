@@ -1,7 +1,7 @@
 """Программа-сервер"""
 
 import sys
-import socket
+from socket import socket, AF_INET, SOCK_STREAM
 from select import select
 from logging import getLogger
 sys.path.append('../')
@@ -41,7 +41,7 @@ class Server(metaclass=ServerVerified):
         LOGGER.info(
             f'Сервер запущен с параметрами - {self.address}:{self.port}')
         # Создаем сокет TCP (AF_INET - сетевой сокет, SOCK_STREAM - работа с TCP пакетами)
-        server_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        server_sock = socket(AF_INET, SOCK_STREAM)
         server_sock.bind((self.address, self.port))
         server_sock.settimeout(0.5)
 
@@ -109,7 +109,7 @@ class Server(metaclass=ServerVerified):
         """
         Функция обрабатывает сообщение. Принимает словарь сообщения,
         список пользователей и слушащие сокеты. Отправляет сообщение адресату.
-        :param message: сообщение для обработки.
+        :param {str} message: сообщение для обработки.
         :param listen_sock: список клиентов.
         :return:
         """
@@ -130,7 +130,7 @@ class Server(metaclass=ServerVerified):
     def processing_message(self, message, client):
         """
         Проверяет корректность сообщения.
-        :param message: сообщение.
+        :param {str} message: сообщение.
         :param client: список клиентов.
         :return:
         """

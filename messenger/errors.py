@@ -23,3 +23,9 @@ class IncorrectDataReceivedError(Exception):
     """Исключение - из сокета получены некорректные данные"""
     def __str__(self):
         return 'От удаленного компьютера принято некорректное сообщение.'
+
+
+class NonDictInputError(Exception):
+    """Исключение - аргумент функции не словарь."""
+    def __str__(self):
+        return 'Аргумент функции должен быть словарём.'
