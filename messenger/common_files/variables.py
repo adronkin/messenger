@@ -1,5 +1,5 @@
 """Переменные для использования server.py и client.py"""
-
+import os
 from logging import DEBUG
 
 # IP-адрес по умолчанию
@@ -44,3 +44,9 @@ RESPONSE_400 = {
     RESPONSE: 400,
     ERROR: None
 }
+
+# База данных для хранения данных сервера:
+SERVER_DATABASE = f'sqlite:///{"/".join(map(str, os.path.dirname(__file__).split("/")[:-1]))}' \
+                  f'/server/server_database.db3'
+
+

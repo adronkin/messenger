@@ -4,12 +4,14 @@ import sys
 from socket import socket, AF_INET, SOCK_STREAM
 from select import select
 from logging import getLogger
+from threading import Thread
 sys.path.append('../')
 import logs.server_log_config
 from metaclass import ServerVerified
 from descriptors.address import Address
 from descriptors.port import Port
 from parse_args import args_parser
+from server_databese import ServerDataBase
 from common_files.function import get_message, send_message
 from common_files.variables import MAX_QUEUE, ACTION, PRESENCE, TIME, ERROR, \
     USER, MESSAGE, MESSAGE_TEXT, SENDER, RESPONSE_200, RESPONSE_300, RESPONSE_400, \
@@ -19,19 +21,22 @@ from common_files.variables import MAX_QUEUE, ACTION, PRESENCE, TIME, ERROR, \
 LOGGER = getLogger('server_logger')
 
 
-class Server(metaclass=ServerVerified):
+class Server(Thread, metaclass=ServerVerified):
     # Дескрипторы
     address = Address()
     port = Port()
 
-    def __init__(self, listen_address, listen_port):
+    def __init__(self, listen_address, listen_port, database):
         self.address = listen_address
         self.port = listen_port
+        self.database = database
 
         # Список клиентов, очередь сообщений, словарь с именами и сокетами пользователей
         self.clients = []
         self.messages = []
         self.names = dict()
+
+        super().__init__()
 
     def init_socket(self):
         """
@@ -49,7 +54,7 @@ class Server(metaclass=ServerVerified):
         self.sock = server_sock
         self.sock.listen(MAX_QUEUE)
 
-    def main_loop(self):
+    def run(self):
         """
         Основной цикл сервера.
         :return:
@@ -143,6 +148,9 @@ class Server(metaclass=ServerVerified):
                 send_message(client, RESPONSE_200)
                 LOGGER.info(f'Клиент {client.getpeername()} подключился.'
                             f' Отправлен ответ {RESPONSE_200}')
+                client_ip, client_port = client.getpeername()
+                # фиксируем login в БД
+                self.database.user_login(message[USER], client_ip, client_port)
             else:
                 response = RESPONSE_400
                 response[ERROR] = 'Имя пользователя занято.'
@@ -162,6 +170,8 @@ class Server(metaclass=ServerVerified):
             LOGGER.info(f'Клиент {client.getpeername()} отключился от сервера.')
             self.clients.remove(self.names[message[USER]])
             self.names[message[USER]].close()
+            # фиксируем logout в БД
+            self.database.user_logout(message[USER])
             del self.names[message[USER]]
             return
         else:
@@ -173,6 +183,18 @@ class Server(metaclass=ServerVerified):
             return
 
 
+def get_help():
+    """
+    Печатает справочную информацию.
+    """
+    print('Доступные команды:')
+    print('1 - вывести подсказки по командам.')
+    print('2 - список вcех пользователей.')
+    print('3 - список пользователей online.')
+    print('4 - история посещений пользователя.')
+    print('5 - выйти из программы.')
+
+
 def main():
     """
     Запуск сервера.
@@ -180,10 +202,35 @@ def main():
     """
     # Парсим параметры из командной строки или установка значений по умолчанию.
     listen_address, listen_port = args_parser()
+    database = ServerDataBase()
 
     # Создаем экземпляр сервера
-    server = Server(listen_address, listen_port)
-    server.main_loop()
+    server = Server(listen_address, listen_port, database)
+    server.daemon = True
+    server.start()
+
+    while True:
+        get_help()
+        command = input('Выберите действие (помощь "1"): ')
+        if command == '1':
+            get_help()
+        elif command == '2':
+            for user in database.get_all_users():
+                print(f'Пользователь: {user.username}. Последний вход: {user.last_login}.')
+        elif command == '3':
+            for user in database.get_all_active_users():
+                print(f'Пользователь: {user.username} ({user.ip_address}:{user.port}).'
+                      f' Последний вход: {user.last_login}.')
+        elif command == '4':
+            username = input('Введите имя пользователя для просмотра истории.'
+                             ' Для вывода всей истории, просто нажмите Enter: ')
+            for user in database.get_connect_history(username):
+                print(f'Пользователь: {user.username} ({user.ip_address}:{user.port}).'
+                      f' Login: {user.login_time}. Logout: {user.logout_time}.')
+        elif command == '5':
+            break
+        else:
+            print('Команда не распознана.')
 
 
 if __name__ == '__main__':
