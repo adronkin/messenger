@@ -76,8 +76,6 @@ class ServerDataBase:
         id = Column(Integer, primary_key=True)
         user_id = Column(Integer, ForeignKey('users.id'))
         friend_id = Column(Integer, ForeignKey('users.id'))
-        user = relationship('Users', foreign_keys=[user_id])
-        friend = relationship('Users', foreign_keys=[friend_id])
         __table_args__ = (Index('contact_list_index', 'id', 'user_id'),)
 
         def __init__(self, user_id, friend_id):
@@ -184,14 +182,18 @@ class ServerDataBase:
             query = query.filter(self.Users.username == username)
         return query.all()
 
-    def get_contact_list(self, username=None):
+    def get_contact_list(self, username):
         """
         Метод возвращает возвращает список контактов одного или всех пользователей.
         :param {str} username: имя пользователя.
         :return {list}: список контактов пользователей.
         """
-        return self.session.query(self.ContactList).all()
-        # TODO сделать вывод контактов пользователя
+        user = self.session.query(self.Users).filter_by(username=username).one()
+        query = self.session.query(
+            self.ContactList,
+            self.Users.username,
+        ).filter_by(user_id=user.id).join(self.Users, self.ContactList.friend_id == self.Users.id)
+        return [contact[1] for contact in query.all()]
 
 
 if __name__ == '__main__':
@@ -208,4 +210,4 @@ if __name__ == '__main__':
     for user in TEST_DB.get_connect_history('test_user_1'):
         print(f'Пользователь: {user.username} ({user.ip_address}:{user.port}).'
               f' Login: {user.login_time}. Logout: {user.logout_time}.')
-    print(f'Список контактов пользователей: {TEST_DB.get_contact_list("test_user_2")}')
+    print(f'Список контактов пользователя: {TEST_DB.get_contact_list("test_user_2")}')
