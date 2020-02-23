@@ -189,10 +189,40 @@ def get_help():
     """
     print('Доступные команды:')
     print('1 - вывести подсказки по командам.')
-    print('2 - список вcех пользователей.')
+    print('2 - список всех пользователей.')
     print('3 - список пользователей online.')
     print('4 - история посещений пользователя.')
     print('5 - выйти из программы.')
+
+
+def main_loop(database):
+    """
+    Основное меню сервера.
+    :param database: база данных.
+    :return:
+    """
+    while True:
+        get_help()
+        command = input('Выберите действие (помощь "1"): ')
+        if command == '1':
+            get_help()
+        elif command == '2':
+            for user in database.get_all_users():
+                print(f'Пользователь: {user.username}. Последний вход: {user.last_login}.')
+        elif command == '3':
+            for user in database.get_all_active_users():
+                print(f'Пользователь: {user.username} ({user.ip_address}:{user.port}).'
+                      f' Время подключения: {user.login_time}.')
+        elif command == '4':
+            username = input('Введите имя пользователя для просмотра истории.'
+                             ' Для вывода всей истории, просто нажмите Enter: ')
+            for user in database.get_connect_history(username):
+                print(f'Пользователь: {user.username} ({user.ip_address}:{user.port}).'
+                      f' Login: {user.login_time}. Logout: {user.logout_time}.')
+        elif command == '5':
+            break
+        else:
+            print('Команда не распознана.')
 
 
 def main():
@@ -209,28 +239,7 @@ def main():
     server.daemon = True
     server.start()
 
-    while True:
-        get_help()
-        command = input('Выберите действие (помощь "1"): ')
-        if command == '1':
-            get_help()
-        elif command == '2':
-            for user in database.get_all_users():
-                print(f'Пользователь: {user.username}. Последний вход: {user.last_login}.')
-        elif command == '3':
-            for user in database.get_all_active_users():
-                print(f'Пользователь: {user.username} ({user.ip_address}:{user.port}).'
-                      f' Последний вход: {user.last_login}.')
-        elif command == '4':
-            username = input('Введите имя пользователя для просмотра истории.'
-                             ' Для вывода всей истории, просто нажмите Enter: ')
-            for user in database.get_connect_history(username):
-                print(f'Пользователь: {user.username} ({user.ip_address}:{user.port}).'
-                      f' Login: {user.login_time}. Logout: {user.logout_time}.')
-        elif command == '5':
-            break
-        else:
-            print('Команда не распознана.')
+    main_loop(database)
 
 
 if __name__ == '__main__':
