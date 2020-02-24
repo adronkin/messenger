@@ -45,8 +45,6 @@ RESPONSE_400 = {
     ERROR: None
 }
 
-# База данных для хранения данных сервера:
+# Путь к базе данных для хранения данных сервера:
 SERVER_DATABASE = f'sqlite:///{"/".join(map(str, os.path.dirname(__file__).split("/")[:-1]))}' \
                   f'/server/server_database.db3'
-
-
