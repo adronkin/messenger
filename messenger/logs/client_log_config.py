@@ -3,8 +3,7 @@
 import os
 import sys
 from logging import getLogger, Formatter, StreamHandler, ERROR, FileHandler
-sys.path.append(os.path.join(os.getcwd(), '..'))
-from common_files.variables import ENCODING, LOGGING_LEVEL, LOGGING_FORMAT
+from log_variables import ENCODING, LOGGING_LEVEL, LOGGING_FORMAT
 
 try:
     os.mkdir(f'{os.path.join(os.path.dirname(__file__))}/log_files')

@@ -6,7 +6,7 @@ from argparse import ArgumentParser
 from logging import getLogger
 sys.path.append(os.path.join(os.getcwd(), '..'))
 from decorators import Log
-from common_files.variables import DEFAULT_PORT, DEFAULT_IP
+from srv_variables import DEFAULT_PORT, DEFAULT_IP
 
 # Инициализируем логгера
 LOGGER = getLogger('server_logger')

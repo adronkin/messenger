@@ -3,8 +3,7 @@
 import os
 import sys
 from logging import getLogger, Formatter, StreamHandler, ERROR, handlers
-sys.path.append(os.path.join(os.getcwd(), '..'))
-from common_files.variables import ENCODING, LOGGING_LEVEL, LOGGING_FORMAT
+from log_variables import ENCODING, LOGGING_LEVEL, LOGGING_FORMAT
 
 # Задаем путь сохранения файла лога
 try:

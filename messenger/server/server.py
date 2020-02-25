@@ -5,17 +5,18 @@ from socket import socket, AF_INET, SOCK_STREAM
 from select import select
 from logging import getLogger
 from threading import Thread
-sys.path.append('../')
-import logs.server_log_config
-from metaclass import ServerVerified
-from descriptors.address import Address
-from descriptors.port import Port
-from parse_args import args_parser
-from server_databese import ServerDataBase
-from common_files.function import get_message, send_message
-from common_files.variables import MAX_QUEUE, ACTION, PRESENCE, TIME, ERROR, \
+from srv_metaclass import ServerVerified
+from srv_parse_args import args_parser
+from srv_databese import ServerDataBase
+from srv_descriptors.address import Address
+from srv_descriptors.port import Port
+from srv_function import get_message, send_message
+from srv_variables import MAX_QUEUE, ACTION, PRESENCE, TIME, ERROR, \
     USER, MESSAGE, MESSAGE_TEXT, SENDER, RESPONSE_200, RESPONSE_300, RESPONSE_400, \
     EXIT, RECIPIENT
+sys.path.append('../')
+import logs.server_log_config
+
 
 # Инициализируем логгера
 LOGGER = getLogger('server_logger')

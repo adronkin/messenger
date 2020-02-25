@@ -1,12 +1,10 @@
 """Модуль описания базы данных сервера."""
 
-import sys
 from datetime import datetime
 from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, create_engine, Index
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker, relationship
-sys.path.append('../')
-from common_files.variables import SERVER_DATABASE
+from sqlalchemy.orm import sessionmaker
+from srv_variables import SERVER_DATABASE
 
 # Создаем бызовый класс для декларативно работы.
 BASE = declarative_base()
@@ -211,3 +209,5 @@ if __name__ == '__main__':
         print(f'Пользователь: {user.username} ({user.ip_address}:{user.port}).'
               f' Login: {user.login_time}. Logout: {user.logout_time}.')
     print(f'Список контактов пользователя: {TEST_DB.get_contact_list("test_user_2")}')
+
+# TODO добавить таблицу для хранения переписок

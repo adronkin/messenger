@@ -1,9 +1,8 @@
 """Дескриптор для порта."""
 
-import os
 import sys
 from logging import getLogger
-sys.path.append(os.path.join(os.getcwd(), '..'))
+sys.path.append('../')
 import logs.server_log_config
 import logs.client_log_config
 

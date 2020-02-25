@@ -1,12 +1,10 @@
 """Модуль описания базы данных клиента."""
 
-import sys
 import os
 from datetime import datetime
 from sqlalchemy import Column, Integer, String, Index, DateTime, Text, create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-sys.path.append('../')
 
 
 # Создаем бызовый класс для декларативно работы.
@@ -39,12 +37,25 @@ class ClientDataBase:
         recipient = Column(String)
         date = Column(DateTime)
         message = Column(Text)
+        __table_args__ = (Index('message_history_index', 'id', 'sender', 'recipient'))
 
         def __init__(self, sender, recipient, message):
             self.sender = sender
             self.recipient = recipient
             self.date = datetime.now()
             self.message = message
+
+    class RegisteredUsers(BASE):
+        """
+        Класс описывает таблицу зарегистрированных в приложении пользователей.
+        """
+        __tablename__ = 'registered_users'
+        id = Column(Integer, primary_key=True)
+        username = Column(String, unique=True, nullable=False)
+        __table_args__ = (Index('registered_users_index', 'id'), )
+
+        def __init__(self, username):
+            self.username = username
 
     def __init__(self, name):
         # Создаем БД (echo - логирование через стандартный модуль logging).
@@ -139,6 +150,16 @@ class ClientDataBase:
         return [(msg.date, msg.sender, msg.recipient, msg.message)
                 for msg in query.all()]
 
+    def check_registered_user(self, username):
+        """
+        Метод возвращает True, если пользователь username зарегистрирован на сервере.
+        :param {str} username: имя пользователя.
+        :return {bool}:
+        """
+        q_user = self.session.query(self.RegisteredUsers).filter_by(username=username)
+        if q_user.count():
+            return True
+
 
 if __name__ == '__main__':
     TEST_BD = ClientDataBase('Petr')
@@ -149,8 +170,8 @@ if __name__ == '__main__':
     TEST_BD.delete_contact('Ignat')
     TEST_BD.delete_contact('Ignat')
     print(TEST_BD.get_all_contacts())
-    TEST_BD.save_message('Ivan', 'Anton', 'Привет, Антон!')
-    TEST_BD.save_message('Anton', 'Ivan', 'Привет, Иван.')
-    TEST_BD.save_message('Ivan', 'Anton', 'Чем занят?')
+    # TEST_BD.save_message('Ivan', 'Anton', 'Привет, Антон!')
+    # TEST_BD.save_message('Anton', 'Ivan', 'Привет, Иван.')
+    # TEST_BD.save_message('Ivan', 'Anton', 'Чем занят?')
     for msg in TEST_BD.get_message_history(sender='Anton'):
         print(msg)

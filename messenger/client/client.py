@@ -5,25 +5,31 @@ from socket import socket, AF_INET, SOCK_STREAM
 from time import strftime, strptime, ctime, time, sleep
 from logging import getLogger
 from json import JSONDecodeError
-from threading import Thread
+from threading import Thread, Lock
+from clt_parse_args import get_command_args
+from clt_metaclass import ClientVerified
+from clt_database import ClientDataBase
+from clt_function import confirm_presence, receive_message, add_contact_to_server, send_message,\
+    get_message
+from clt_variables import ACTION, TIME, USER, RESPONSE, ERROR, MESSAGE, MESSAGE_TEXT, SENDER,\
+    RECIPIENT, EXIT
 sys.path.append('../')
 import logs.client_log_config
-from client_func import confirm_presence, receive_message
-from parse_args import get_command_args
-from metaclass import ClientVerified
 from errors import ServerError, ReqFieldMissingError, IncorrectDataReceivedError
-from common_files.function import send_message, get_message
-from common_files.variables import ACTION, TIME, USER, RESPONSE, ERROR, \
-    MESSAGE, MESSAGE_TEXT, SENDER, RECIPIENT, EXIT
 
 # Инициализируем логгера
 LOGGER = getLogger('client_logger')
 
+# Обхект блокировки сокета и работы БД
+SOCK_LOCK = Lock()
+DB_LOCK = Lock()
+
 
 class ClientSend(Thread, metaclass=ClientVerified):
-    def __init__(self, sock, client_name):
+    def __init__(self, sock, client_name, database):
         self.sock = sock
         self.client_name = client_name
+        self.database = database
         super().__init__()
 
     def run(self):
@@ -39,14 +45,98 @@ class ClientSend(Thread, metaclass=ClientVerified):
             elif command == '2':
                 self.get_help()
             elif command == '3':
-                send_message(self.sock, self.exit_message())
-                print('Работа программы завершена.')
-                LOGGER.info(f'Клиент {self.client_name} завершил работу.')
+                self.contact_menu()
+            elif command == '4':
+                self.message_history()
+            elif command == '5':
+                with SOCK_LOCK:
+                    try:
+                        send_message(self.sock, self.exit_message())
+                    except Exception:
+                        pass
+                    print('Работа программы завершена.')
+                    LOGGER.info(f'Клиент {self.client_name} завершил работу.')
                 # Задержка неоходима, чтобы успело уйти сообщение о выходе
                 sleep(0.5)
                 break
             else:
                 print('Команда не распознана.')
+
+    def contact_menu(self):
+        """
+        Меню для работы со списком контактов.
+        :return:
+        """
+        contact_help = """
+        1 - Показать список контактов.
+        2 - Добавить пользователя в контакты.
+        3 - Удалить пользовател из контактов.
+        4 - Вывести подсказки по командам.
+        5 - Назад.
+        """
+        while True:
+            command = input('Выберите действие (помощь "4"): ')
+            if command == '1':
+                with DB_LOCK:
+                    contacts = self.database.get_all_contact()
+                for num, contact in enumerate(contacts):
+                    print(f'{num + 1}. {contact}')
+            elif command == '2':
+                username = input('Введите имя пользователя: ')
+                if self.database.check_contact(username):
+                    # Вносим информацию в БД.
+                    with DB_LOCK:
+                        self.database.add_contact(username)
+                    # Отправляем информацию на сервер.
+                    with SOCK_LOCK:
+                        try:
+                            # TODO создать функцию
+                            add_contact_to_server(self.sock, self.client_name, username)
+                        except ServerError:
+                            LOGGER.error('Неудачная попытка отправки информации на сервер.')
+            elif command == '3':
+                username = input('Введите имя пользователя: ')
+                with DB_LOCK:
+                    if self.database.check_contact(username):
+                        self.database.delete_contact(username)
+                        print(f'Пользователь {username} удален из списка контактов.')
+                    else:
+                        print(f'Удаление невозможно.'
+                              f' Пользователя {username} нет в списке контактов.')
+                        LOGGER.error(
+                            'Попытка удаления пользователя отсутствующего в списке котактов.')
+            elif command == '4':
+                print(contact_help)
+            elif command == '5':
+                break
+
+    def message_history(self):
+        message_help = """
+        1 - Вывести входящие сообщения.
+        2 - Вывести исходящие сообщения.
+        3 - Вывести все сообщения.
+        4 - Вывести подсказки по командам.
+        5 - Назад.
+        """
+        command = input('Выберите действие (помощь "3"): ')
+        while True:
+            if command == '1':
+                message_list = self.database.get_message_history(recipient=self.client_name)
+                for msg in message_list:
+                    print(f'{msg.date} от {msg.sender}: {msg.message}')
+            elif command == '2':
+                message_list = self.database.get_message_history(sender=self.client_name)
+                for msg in message_list:
+                    print(f'{msg.date} пользователю {msg.sender}: {msg.message}')
+            elif command == '3':
+                message_list = self.database.get_message_history()
+                for msg in message_list:
+                    print(f'{msg.date} отправитель {msg.sender} получатель {msg.recipient}: '
+                          f'{msg.message}')
+            elif command == '4':
+                print(message_help)
+            elif command == '5':
+                break
 
     @staticmethod
     def get_help():
@@ -54,9 +144,11 @@ class ClientSend(Thread, metaclass=ClientVerified):
         Печатает справочную информацию.
         """
         print('Доступные команды:')
-        print('1 - отправить сообщение.')
-        print('2 - вывести подсказки по командам.')
-        print('3 - выйти из программы.')
+        print('1 - Отправить сообщение.')
+        print('2 - Вывести подсказки по командам.')
+        print('3 - Список контактов.')
+        print('4 - История сообщений.')
+        print('5 - Выйти из программы.')
 
     def exit_message(self):
         """
@@ -76,7 +168,17 @@ class ClientSend(Thread, metaclass=ClientVerified):
         :return:
         """
         recipient = input('Введите имя получателя: ')
+
+        # Проверяем, что пользователь зарегистрирован на сервере.
+        with DB_LOCK:
+            if not self.database.check_registered_user(recipient):
+                LOGGER.error(f'Попытка отправки сообщения'
+                             f' незарегистрированому получателю: {recipient}.')
+                print(f'Пользователь {recipient} не зарегистрирован.')
+                return
+
         message = input('Введите сообщение: ')
+
         dict_message = {
             ACTION: MESSAGE,
             TIME: time(),
@@ -84,19 +186,31 @@ class ClientSend(Thread, metaclass=ClientVerified):
             RECIPIENT: recipient,
             MESSAGE_TEXT: message
         }
-        LOGGER.debug(f'Сформирован словарь-сообщение: {dict_message}')
-        try:
-            send_message(self.sock, dict_message)
-            LOGGER.info(f'Сообщение отправлено пользователю {recipient}')
-        except Exception:
-            LOGGER.critical(f'Потеряно соединение с сервером')
-            sys.exit(1)
+        LOGGER.debug(f'Сформирован словарь-сообщение: {dict_message}.')
+
+        # Сохраняем сообщение в БД.
+        with DB_LOCK:
+            self.database.save_message(self.client_name, recipient, message)
+
+        # Ждем освобождение сокета для отправки сообщения.
+        with SOCK_LOCK:
+            try:
+                send_message(self.sock, dict_message)
+                LOGGER.info(f'Сообщение отправлено пользователю {recipient}.')
+            except OSError as error:
+                if error.errno:
+                    LOGGER.critical(f'Потеряно соединение с сервером.')
+                    sys.exit(1)
+                else:
+                    # TODO проверить время ожидания отправки.
+                    LOGGER.error('Не удалось передать сообщение. Таймаут соединения')
 
 
 class ClientRead(Thread, metaclass=ClientVerified):
-    def __init__(self, sock, client_name):
+    def __init__(self, sock, client_name, database):
         self.sock = sock
         self.client_name = client_name
+        self.database = database
         super().__init__()
 
     def run(self):
@@ -183,3 +297,5 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+# TODO удалить из контактов (на сервере)
