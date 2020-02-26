@@ -1,7 +1,7 @@
 """Модуль описания базы данных сервера."""
 
 from datetime import datetime
-from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, create_engine, Index
+from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, create_engine, Index, Text
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from srv_variables import SERVER_DATABASE
@@ -38,7 +38,7 @@ class ServerDataBase:
         ip_address = Column(String)
         port = Column(Integer)
         login_time = Column(DateTime)
-        __table_args__ = (Index('active_user_index', 'id', 'user_id'),)
+        __table_args__ = (Index('active_user_index', 'id', 'user_id'), )
 
         def __init__(self, user_id, ip_address, port, login_time):
             self.user_id = user_id
@@ -57,7 +57,7 @@ class ServerDataBase:
         port = Column(Integer)
         login_time = Column(DateTime)
         logout_time = Column(DateTime)
-        __table_args__ = (Index('user_story_index', 'id', 'user_id'),)
+        __table_args__ = (Index('user_story_index', 'id', 'user_id'), )
 
         def __init__(self, user_id, ip_address, port, login_time, logout_time):
             self.user_id = user_id
@@ -74,11 +74,29 @@ class ServerDataBase:
         id = Column(Integer, primary_key=True)
         user_id = Column(Integer, ForeignKey('users.id'))
         friend_id = Column(Integer, ForeignKey('users.id'))
-        __table_args__ = (Index('contact_list_index', 'id', 'user_id'),)
+        __table_args__ = (Index('contact_list_index', 'id', 'user_id'), )
 
         def __init__(self, user_id, friend_id):
             self.user_id = user_id
             self.friend_id = friend_id
+
+    class MessageHistory(BASE):
+        """
+        Класс описывает таблицу с историей переписки пользователя.
+        """
+        __tablename__ = 'message_history'
+        id = Column(Integer, primary_key=True)
+        sender = Column(String)
+        recipient = Column(String)
+        date = Column(DateTime)
+        message = Column(Text)
+        __table_args__ = (Index('message_history_index', 'id', 'sender', 'recipient'), )
+
+        def __init__(self, sender, recipient, message):
+            self.sender = sender
+            self.recipient = recipient
+            self.date = datetime.now()
+            self.message = message
 
     def __init__(self):
         # Создаем БД (echo - логирование через стандартный модуль logging)
@@ -193,6 +211,70 @@ class ServerDataBase:
         ).filter_by(user_id=user.id).join(self.Users, self.ContactList.friend_id == self.Users.id)
         return [contact[1] for contact in query.all()]
 
+    def save_message(self, sender, recipient, msg_text):
+        """
+        Метод сохраняет сообщение в базу.
+        :param {str} sender: отправитель сообщения.
+        :param {str} recipient: получатель сообщения.
+        :param {str} msg_text: текст сообщения.
+        :return:
+        """
+        new_message = self.MessageHistory(sender, recipient, msg_text)
+        self.session.add(new_message)
+        self.session.commit()
+
+    def get_message_history(self, sender=None, recipient=None):
+        """
+        Метод возвращает историю переписки по получателю и/или отправителю.
+        :param {str} sender: отправитель сообщения.
+        :param {str} recipient: получатель сообщения.
+        :return:
+        """
+        query = self.session.query(self.MessageHistory)
+        if sender:
+            query = query.filter_by(sender=sender)
+        if recipient:
+            query = query.filter_by(recipient=recipient)
+        return [(msg.date, msg.sender, msg.recipient, msg.message)
+                for msg in query.all()]
+
+    def add_contact(self, username, friend_name):
+        """
+        Метод добавляет пользователя в список контактов.
+        :param {str} username: имя пользователя.
+        :param {str} friend_name: пользователь для добавления в список контактов.
+        :return:
+        """
+        q_username = self.session.query(self.Users).filter_by(username=username).first()
+        q_friend_name = self.session.query(self.Users).filter_by(username=friend_name).first()
+
+        # Проверяем, что контакт существует и запись не дублируется.
+        if not q_friend_name or self.session.query(self.ContactList).\
+                filter_by(user_id=q_username.id, friend_id=q_friend_name.id).count():
+            return
+
+        new_contact = self.ContactList(q_username.id, q_friend_name.id)
+        self.session.add(new_contact)
+        self.session.commit()
+
+    def del_contact(self, username, friend_name):
+        """
+        Метод удаляет пользователя из списока контактов.
+        :param {str} username: имя пользователя.
+        :param {str} friend_name: пользователь для удаления из списока контактов.
+        :return:
+        """
+        q_username = self.session.query(self.Users).filter_by(username=username).first()
+        q_friend_name = self.session.query(self.Users).filter_by(username=friend_name).first()
+
+        # Проверяем, что контакт существует.
+        if not q_friend_name:
+            return
+
+        self.session.query(self.ContactList).\
+            filter_by(user_id=q_username.id, friend_id=q_friend_name.id).delete()
+        self.session.commit()
+
 
 if __name__ == '__main__':
     TEST_DB = ServerDataBase()
@@ -209,5 +291,10 @@ if __name__ == '__main__':
         print(f'Пользователь: {user.username} ({user.ip_address}:{user.port}).'
               f' Login: {user.login_time}. Logout: {user.logout_time}.')
     print(f'Список контактов пользователя: {TEST_DB.get_contact_list("test_user_2")}')
-
-# TODO добавить таблицу для хранения переписок
+    # TEST_DB.save_message('Ivan', 'Anton', 'Привет, Антон!')
+    # TEST_DB.save_message('Anton', 'Ivan', 'Привет, Иван.')
+    # TEST_DB.save_message('Ivan', 'Anton', 'Чем занят?')
+    for msg in TEST_DB.get_message_history(sender='Anton'):
+        print(msg)
+    TEST_DB.add_contact('Petr', 'Peter')
+    TEST_DB.del_contact('Petr', 'Peter')

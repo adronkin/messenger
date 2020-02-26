@@ -1,4 +1,5 @@
 """Переменные для использования server.py"""
+
 import os
 
 # IP-адрес по умолчанию
@@ -24,6 +25,9 @@ MESSAGE_TEXT = 'message_text'
 SENDER = 'sender'
 EXIT = 'exit'
 RECIPIENT = 'recipient'
+ADD_CONTACT = 'add_contact'
+ACCOUNT_NAME = 'account_name'
+DEL_CONTACT = 'del_contact'
 
 # Реглярное выражение для проверки корректности IP
 IP_REGEX = r'^([0-9]\.|[1]?[0-9][0-9]\.|[2][0-4][0-9]\.|[2][5][0-5]\.){3}([0-9]|[1]?[0-9][0-9]|[2][0-4][0-9]|[2][5][0-5])$'
