@@ -97,9 +97,12 @@ def add_contact_to_server(sock, username, contact):
     send_message(sock, add_contact_dict)
     # Получаем и обрабатываем ответ.
     server_answer = get_message(sock)
-    if RESPONSE in server_answer and RESPONSE == 200:
+    if RESPONSE in server_answer and server_answer[RESPONSE] == 200:
         LOGGER.info(f'Пользователь {contact} успешно добавлен в список контактов.')
         print(f'Пользователь {contact} успешно добавлен в список контактов.')
+    elif RESPONSE in server_answer and server_answer[RESPONSE] == 300:
+        LOGGER.info(server_answer[ERROR])
+        print(server_answer[ERROR])
     else:
         raise ServerError('Ошибка создания контакта')
 
@@ -121,9 +124,9 @@ def remove_contact_to_server(sock, username, contact):
     send_message(sock, del_contact_dict)
     # Получаем и обрабатываем ответ.
     server_answer = get_message(sock)
-    if RESPONSE in server_answer and RESPONSE == 200:
-        LOGGER.info(f'Пользователь {contact} успешно удален из списока контактов.')
-        print(f'Пользователь {contact} успешно удален из списока контактов.')
+    if RESPONSE in server_answer and server_answer[RESPONSE] == 200:
+        LOGGER.info(f'Пользователь {contact} успешно удален из списка контактов.')
+        # print(f'Пользователь {contact} успешно удален из списка контактов.')
     else:
         raise ServerError('Ошибка удаления контакта')
 

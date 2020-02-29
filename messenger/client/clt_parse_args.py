@@ -8,7 +8,7 @@ from clt_variables import DEFAULT_PORT, DEFAULT_IP, IP_REGEX
 sys.path.append('../')
 from decorators import Log
 
-# Инициализируем логгера
+# Инициализируем логгера.
 LOGGER = getLogger('client_logger')
 
 

@@ -275,26 +275,42 @@ class ServerDataBase:
             filter_by(user_id=q_username.id, friend_id=q_friend_name.id).delete()
         self.session.commit()
 
+    def check_contact(self, username, friend_name):
+        """
+        Метод возвращает True, если пользователь username есть в списке контактов.
+        :param {str} username: имя пользователя.
+        :param {str} friend_name: пользователь для удаления из списока контактов.
+        :return {bool}:
+        """
+        q_username = self.session.query(self.Users).filter_by(username=username).first()
+        q_friend_name = self.session.query(self.Users).filter_by(username=friend_name).first()
+        if q_username and q_friend_name:
+            q_contact = self.session.query(
+                self.ContactList).filter_by(user_id=q_username.id, friend_id=q_friend_name.id)
+            if q_contact.count():
+                return True
+
 
 if __name__ == '__main__':
     TEST_DB = ServerDataBase()
-    TEST_DB.user_login('test_user_1', '192.168.0.1', 7777)
-    for user in TEST_DB.get_all_active_users():
-        print(f'Пользователь: {user[0]} ({user[1]}:{user[2]}).'
-              f' Последний вход: {user[3]}.')
-    TEST_DB.user_logout('test_user_1')
-    TEST_DB.user_login('test_user_2', '127.0.0.1', 8888)
-    TEST_DB.user_logout('test_user_2')
-    for user in TEST_DB.get_all_users():
-        print(f'Пользователь: {user.username}. Последний вход: {user.last_login}.')
-    for user in TEST_DB.get_connect_history('test_user_1'):
-        print(f'Пользователь: {user.username} ({user.ip_address}:{user.port}).'
-              f' Login: {user.login_time}. Logout: {user.logout_time}.')
-    print(f'Список контактов пользователя: {TEST_DB.get_contact_list("test_user_2")}')
+    # TEST_DB.user_login('test_user_1', '192.168.0.1', 7777)
+    # for user in TEST_DB.get_all_active_users():
+    #     print(f'Пользователь: {user[0]} ({user[1]}:{user[2]}).'
+    #           f' Последний вход: {user[3]}.')
+    # TEST_DB.user_logout('test_user_1')
+    # TEST_DB.user_login('test_user_2', '127.0.0.1', 8888)
+    # TEST_DB.user_logout('test_user_2')
+    # for user in TEST_DB.get_all_users():
+    #     print(f'Пользователь: {user.username}. Последний вход: {user.last_login}.')
+    # for user in TEST_DB.get_connect_history('test_user_1'):
+    #     print(f'Пользователь: {user.username} ({user.ip_address}:{user.port}).'
+    #           f' Login: {user.login_time}. Logout: {user.logout_time}.')
+    # print(f'Список контактов пользователя: {TEST_DB.get_contact_list("test_user_2")}')
     # TEST_DB.save_message('Ivan', 'Anton', 'Привет, Антон!')
     # TEST_DB.save_message('Anton', 'Ivan', 'Привет, Иван.')
     # TEST_DB.save_message('Ivan', 'Anton', 'Чем занят?')
-    for msg in TEST_DB.get_message_history(sender='Anton'):
-        print(msg)
-    TEST_DB.add_contact('Petr', 'Peter')
-    TEST_DB.del_contact('Petr', 'Peter')
+    # for msg in TEST_DB.get_message_history(sender='Anton'):
+    #     print(msg)
+    # TEST_DB.add_contact('Petr', 'Peter')
+    # TEST_DB.del_contact('Petr', 'Peter')
+    print(TEST_DB.check_contact('test_user_1', 'Petr'))

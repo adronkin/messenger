@@ -1,25 +1,31 @@
 """Программа-сервер"""
 
 import sys
+from json import JSONDecodeError
 from socket import socket, AF_INET, SOCK_STREAM
 from select import select
 from logging import getLogger
-from threading import Thread
+from threading import Thread, Lock
 from srv_metaclass import ServerVerified
 from srv_parse_args import args_parser
 from srv_databese import ServerDataBase
 from srv_descriptors.address import Address
 from srv_descriptors.port import Port
-from srv_function import get_message, send_message
-from srv_variables import MAX_QUEUE, ACTION, PRESENCE, TIME, ERROR, \
-    USER, MESSAGE, MESSAGE_TEXT, SENDER, RESPONSE_200, RESPONSE_300, RESPONSE_400, \
-    EXIT, RECIPIENT
+from srv_function import get_message, send_message, main_loop
+from srv_variables import MAX_QUEUE, ACTION, PRESENCE, TIME, ERROR, USER, MESSAGE, MESSAGE_TEXT, \
+    SENDER, RESPONSE_200, RESPONSE_300, RESPONSE_400, EXIT, RECIPIENT, DEL_CONTACT, ACCOUNT_NAME, \
+    ADD_CONTACT, GET_CONTACTS, RESPONSE_202, DATA, GET_REGISTERED
 sys.path.append('../')
 import logs.server_log_config
 
 
-# Инициализируем логгера
+# Инициализируем логгера.
 LOGGER = getLogger('server_logger')
+
+# Флаг что был подключён новый пользователь, нужен чтобы не мучить BD
+# постоянными запросами на обновление.
+NEW_CONNECTION = False
+CON_FLAG_LOCK = Lock()
 
 
 class Server(Thread, metaclass=ServerVerified):
@@ -83,38 +89,47 @@ class Server(Thread, metaclass=ServerVerified):
                     # Запрашиваем информацию о готовности к вводу и выводу
                     clients_senders, clients_recipients, errors_lst = select(
                         self.clients, self.clients, [], 0)
-            except OSError:
-                print('Исключение OSError - строка 81')
-            # Принимаем сообщения, если есть сообщения от клиентов, кладем в словарь.
-            # Если возвращена ошибка, исключаем клиента из списка clients
+            except OSError as error:
+                print(f'Ошибка работы с сокетами: {error}.')
+            # Принимаем сообщения, если возвращена ошибка, исключаем клиента из списка clients.
+
             if clients_senders:
                 for client_with_message in clients_senders:
                     try:
                         self.processing_message(
-                            get_message(client_with_message),
-                            client_with_message)
-                    except Exception:
+                            get_message(client_with_message), client_with_message)
+                    except OSError:
                         LOGGER.info(
                             f'Клиент {client_with_message.getpeername()} отключился от сервера.')
+                        # Ищем и удаляем клиента из словаря клиентов.
+                        for name in self.names:
+                            if self.names[name] == client_with_message:
+                                self.database.user_logout(name)
+                                del self.names[name]
                         self.clients.remove(client_with_message)
 
             # Если есть сообщения для отправки, обрабатываем.
             for message in self.messages:
                 try:
                     self.message_handler(message, clients_recipients)
-                except Exception:
+                except (ConnectionAbortedError, ConnectionError,
+                        ConnectionResetError, ConnectionRefusedError):
                     LOGGER.info(
                         f'Клиент {message[RECIPIENT]} отключился от сервера.')
                     no_user_dict = RESPONSE_300
-                    no_user_dict[ERROR] = f'Пользователь {message[RECIPIENT]} отключился от сервера.'
+                    no_user_dict[ERROR] = f'Пользователь {message[RECIPIENT]}' \
+                                          f' отключился от сервера.'
                     send_message(self.names[message[SENDER]], no_user_dict)
+                    self.clients.remove(self.names[message[RECIPIENT]])
                     del self.names[message[RECIPIENT]]
+                    # Вносим информацию в БД.
+                    self.database.user_logout(message[RECIPIENT])
             self.messages.clear()
 
     def message_handler(self, message, listen_sock):
         """
         Функция обрабатывает сообщение. Принимает словарь сообщения,
-        список пользователей и слушащие сокеты. Отправляет сообщение адресату.
+        список пользователей и слушающие сокеты. Отправляет сообщение адресату.
         :param {str} message: сообщение для обработки.
         :param listen_sock: список клиентов.
         :return:
@@ -140,9 +155,12 @@ class Server(Thread, metaclass=ServerVerified):
         :param client: список клиентов.
         :return:
         """
+        global NEW_CONNECTION
         LOGGER.debug(f'Обработка сообщения от клиента - {message}')
-        # Если PRESENCE-сообщение, проверяем и отвечаем
-        if ACTION in message and message[ACTION] == PRESENCE and TIME in message and USER in message:
+
+        # Если PRESENCE-сообщение, проверяем и отвечаем.
+        if ACTION in message and message[ACTION] == PRESENCE \
+                and TIME in message and USER in message:
             # Проверяем зарегистрирован пользователь или нет
             if message[USER] not in self.names.keys():
                 self.names[message[USER]] = client
@@ -152,6 +170,8 @@ class Server(Thread, metaclass=ServerVerified):
                 client_ip, client_port = client.getpeername()
                 # фиксируем login в БД
                 self.database.user_login(message[USER], client_ip, client_port)
+                with CON_FLAG_LOCK:
+                    NEW_CONNECTION = True
             else:
                 response = RESPONSE_400
                 response[ERROR] = 'Имя пользователя занято.'
@@ -161,69 +181,76 @@ class Server(Thread, metaclass=ServerVerified):
                 self.clients.remove(client)
                 client.close()
             return
-        # Если сообщение, то проверяем и добовляем его в очередь сообщений
-        elif ACTION in message and message[ACTION] == MESSAGE and TIME in message and SENDER in message \
-                and RECIPIENT in message and MESSAGE_TEXT in message:
+
+        # Если сообщение, то проверяем и добавляем его в очередь сообщений.
+        elif ACTION in message and message[ACTION] == MESSAGE and TIME in message \
+                and SENDER in message and RECIPIENT in message and MESSAGE_TEXT in message:
             self.messages.append(message)
+            # Сохраняем сообщение в БД
+            self.database.save_message(message[SENDER], message[RECIPIENT], message[MESSAGE_TEXT])
             return
-        # Если пользоваталь хочет завершить работу
+
+        # Если пользователь хочет завершить работу.
         elif ACTION in message and message[ACTION] == EXIT and TIME in message and USER in message:
             LOGGER.info(f'Клиент {client.getpeername()} отключился от сервера.')
             self.clients.remove(self.names[message[USER]])
             self.names[message[USER]].close()
-            # фиксируем logout в БД
+            # Фиксируем logout в БД.
             self.database.user_logout(message[USER])
             del self.names[message[USER]]
+            with CON_FLAG_LOCK:
+                NEW_CONNECTION = True
             return
+
+        # Если пользователь запрашивает список контактов.
+        elif ACTION in message and message[ACTION] == GET_CONTACTS and TIME in message \
+                and USER in message:
+            server_answer = RESPONSE_202
+            server_answer[DATA] = self.database.get_contact_list(message[USER])
+            LOGGER.debug(f'Пользователь {message[USER]} запросил список контактов.')
+            send_message(client, server_answer)
+
+        # Если пользователь добавляет в список контактов.
+        elif ACTION in message and message[ACTION] == ADD_CONTACT and TIME in message \
+                and USER in message and ACCOUNT_NAME in message:
+            if not self.database.check_contact(message[USER], message[ACCOUNT_NAME]):
+                self.database.add_contact(message[USER], message[ACCOUNT_NAME])
+                LOGGER.debug(f'Пользователь {message[USER]} добавил'
+                             f' {message[ACCOUNT_NAME]} в список контактов.')
+                send_message(client, RESPONSE_200)
+            else:
+                LOGGER.debug(f'Пользователь {message[ACCOUNT_NAME]} уже есть в '
+                             f'списке контактов пользователя {message[USER]}.')
+                server_answer = RESPONSE_300
+                server_answer[ERROR] = f'Пользователь {message[ACCOUNT_NAME]}' \
+                                       f' есть в списке контактов.'
+                send_message(client, RESPONSE_300)
+
+        # Если пользователь удаляет из списка контактов.
+        elif ACTION in message and message[ACTION] == DEL_CONTACT and TIME in message \
+                and USER in message and ACCOUNT_NAME in message:
+            self.database.del_contact(message[USER], message[ACCOUNT_NAME])
+            LOGGER.debug(f'Пользователь {message[USER]} удалил'
+                         f' {message[ACCOUNT_NAME]} из списка контактов.')
+            send_message(client, RESPONSE_200)
+
+        # Если пользователь запрашивает список известных пользователей.
+        elif ACTION in message and message[ACTION] == GET_REGISTERED and TIME in message \
+                and USER in message:
+            server_answer = RESPONSE_202
+            server_answer[DATA] = [user[0] for user in self.database.get_all_users()]
+            # TODO оптимизировать запрос.
+            LOGGER.debug(f'Пользователь {message[USER]}'
+                         f' запросил список зарегистрированных пользователей.')
+            send_message(client, server_answer)
+
         else:
             response = RESPONSE_400
             response[ERROR] = 'Bad request.'
             LOGGER.debug(f'Получен некорректный запрос от клиента {client.getpeername()},'
-                         f' отправлен ответ {response}')
+                         f' отправлен ответ {response}.')
             send_message(client, response)
             return
-
-
-def get_help():
-    """
-    Печатает справочную информацию.
-    """
-    print('Доступные команды:')
-    print('1 - вывести подсказки по командам.')
-    print('2 - список всех пользователей.')
-    print('3 - список пользователей online.')
-    print('4 - история посещений пользователя.')
-    print('5 - выйти из программы.')
-
-
-def main_loop(database):
-    """
-    Основное меню сервера.
-    :param database: база данных.
-    :return:
-    """
-    while True:
-        get_help()
-        command = input('Выберите действие (помощь "1"): ')
-        if command == '1':
-            get_help()
-        elif command == '2':
-            for user in database.get_all_users():
-                print(f'Пользователь: {user.username}. Последний вход: {user.last_login}.')
-        elif command == '3':
-            for user in database.get_all_active_users():
-                print(f'Пользователь: {user.username} ({user.ip_address}:{user.port}).'
-                      f' Время подключения: {user.login_time}.')
-        elif command == '4':
-            username = input('Введите имя пользователя для просмотра истории.'
-                             ' Для вывода всей истории, просто нажмите Enter: ')
-            for user in database.get_connect_history(username):
-                print(f'Пользователь: {user.username} ({user.ip_address}:{user.port}).'
-                      f' Login: {user.login_time}. Logout: {user.logout_time}.')
-        elif command == '5':
-            break
-        else:
-            print('Команда не распознана.')
 
 
 def main():
@@ -235,7 +262,7 @@ def main():
     listen_address, listen_port = args_parser()
     database = ServerDataBase()
 
-    # Создаем экземпляр сервера
+    # Создаем экземпляр сервера.
     server = Server(listen_address, listen_port, database)
     server.daemon = True
     server.start()
@@ -245,3 +272,5 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+# TODO сервер падает если завершить работу клиента ctrl + D.

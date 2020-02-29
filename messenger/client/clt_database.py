@@ -7,7 +7,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
 
-# Создаем бызовый класс для декларативно работы.
+# Создаем базовый класс для декларативно работы.
 BASE = declarative_base()
 
 
@@ -17,7 +17,7 @@ class ClientDataBase:
     """
     class Contacts(BASE):
         """
-        Класс описывает таблицу со списоком контактов пользователя.
+        Класс описывает таблицу со списком контактов пользователя.
         """
         __tablename__ = 'contacts'
         id = Column(Integer, primary_key=True)
@@ -37,7 +37,7 @@ class ClientDataBase:
         recipient = Column(String)
         date = Column(DateTime)
         message = Column(Text)
-        __table_args__ = (Index('message_history_index', 'id', 'sender', 'recipient'))
+        __table_args__ = (Index('message_history_index', 'id', 'sender', 'recipient'), )
 
         def __init__(self, sender, recipient, message):
             self.sender = sender
@@ -84,7 +84,7 @@ class ClientDataBase:
         :param {str} username: имя пользователя.
         :return {bool}:
         """
-        # Поиск в таплице Contacts пользователя с именем username
+        # Поиск в таблице Contacts пользователя с именем username
         q_user = self.session.query(self.Contacts).filter_by(username=username)
         if q_user.count():
             return True
@@ -96,12 +96,10 @@ class ClientDataBase:
         :return:
         """
         if self.check_contact(username):
-            print(f'Пользователь {username} уже есть в списке контактов.')
             return
         new_contact = self.Contacts(username)
         self.session.add(new_contact)
         self.session.commit()
-        print(f'Пользователь {username} добавлен в список контактов.')
 
     def delete_contact(self, username):
         """
@@ -114,7 +112,6 @@ class ClientDataBase:
             return
         self.session.query(self.Contacts).filter_by(username=username).delete()
         self.session.commit()
-        print(f'Пользователь {username} удален из списка контактов.')
 
     def get_all_contacts(self):
         """
@@ -160,18 +157,31 @@ class ClientDataBase:
         if q_user.count():
             return True
 
+    def add_register_users(self, user_list):
+        """
+        Метод для добавления пользователей из списка в таблицу RegisteredUsers.
+        :param {str} user_list: список зарегистрированных на сервере пользователей.
+        :return:
+        """
+        # Очищаем таблицу, т.к. список пользователей получаем только с сервера при запуске.
+        self.session.query(self.RegisteredUsers).delete()
+        for user in user_list:
+            reg_user = self.RegisteredUsers(user)
+            self.session.add(reg_user)
+        self.session.commit()
+
 
 if __name__ == '__main__':
-    TEST_BD = ClientDataBase('Petr')
-    TEST_BD.add_contact('Ivan')
-    TEST_BD.add_contact('Anton')
-    TEST_BD.add_contact('Anton')
-    TEST_BD.add_contact('Ignat')
-    TEST_BD.delete_contact('Ignat')
-    TEST_BD.delete_contact('Ignat')
-    print(TEST_BD.get_all_contacts())
-    # TEST_BD.save_message('Ivan', 'Anton', 'Привет, Антон!')
-    # TEST_BD.save_message('Anton', 'Ivan', 'Привет, Иван.')
-    # TEST_BD.save_message('Ivan', 'Anton', 'Чем занят?')
-    for msg in TEST_BD.get_message_history(sender='Anton'):
+    TEST_DB = ClientDataBase('Petr')
+    TEST_DB.add_contact('Ivan')
+    TEST_DB.add_contact('Anton')
+    TEST_DB.add_contact('Anton')
+    TEST_DB.add_contact('Ignat')
+    TEST_DB.delete_contact('Ignat')
+    TEST_DB.delete_contact('Ignat')
+    print(TEST_DB.get_all_contacts())
+    # TEST_DB.save_message('Ivan', 'Anton', 'Привет, Антон!')
+    # TEST_DB.save_message('Anton', 'Ivan', 'Привет, Иван.')
+    # TEST_DB.save_message('Ivan', 'Anton', 'Чем занят?')
+    for msg in TEST_DB.get_message_history(sender='Anton'):
         print(msg)
