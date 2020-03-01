@@ -1,11 +1,11 @@
 """Программа-сервер"""
-
+import os
 import sys
+from configparser import ConfigParser
 from socket import socket, AF_INET, SOCK_STREAM
 from select import select
 from logging import getLogger
 from threading import Thread, Lock
-
 from PyQt5.QtCore import QTimer
 from PyQt5.QtWidgets import QApplication, QMessageBox
 from srv_gui import MainWindow, gui_active_users, ConfigWindow
@@ -17,9 +17,7 @@ from srv_descriptors.port import Port
 from srv_function import get_message, send_message, main_loop
 from srv_variables import MAX_QUEUE, ACTION, PRESENCE, TIME, ERROR, USER, MESSAGE, MESSAGE_TEXT, \
     SENDER, RESPONSE_200, RESPONSE_300, RESPONSE_400, EXIT, RECIPIENT, DEL_CONTACT, ACCOUNT_NAME, \
-    ADD_CONTACT, GET_CONTACTS, RESPONSE_202, DATA, GET_REGISTERED, DB_PATH, DB_FILE_NAME, \
-    DEFAULT_IP, DEFAULT_PORT
-
+    ADD_CONTACT, GET_CONTACTS, RESPONSE_202, DATA, GET_REGISTERED
 sys.path.append('../')
 import logs.server_log_config
 
@@ -263,9 +261,19 @@ def main():
     Запуск сервера.
     :return:
     """
+    # Загружаем файл конфигурации сервера.
+    config = ConfigParser()
+
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    config.read(f'{dir_path}/server.ini')
+
     # Парсим параметры из командной строки или установка значений по умолчанию.
-    listen_address, listen_port = args_parser()
-    database = ServerDataBase()
+    listen_address, listen_port = args_parser(config['SETTINGS']['default_ip'],
+                                              config['SETTINGS']['default_port'])
+
+    # Инициализируем БД.
+    database = ServerDataBase(os.path.join(config['SETTINGS']['db_path'],
+                                           config['SETTINGS']['db_file']))
 
     # Создаем экземпляр сервера.
     server = Server(listen_address, listen_port, database)
@@ -306,10 +314,10 @@ def main():
         """
         global config_window
         config_window = ConfigWindow()
-        config_window.db_path.insert(DB_PATH)
-        config_window.db_file_name.insert(DB_FILE_NAME)
-        config_window.ip_address_field.insert(DEFAULT_IP)
-        config_window.port_field.insert(str(DEFAULT_PORT))
+        config_window.db_path.insert(config['SETTINGS']['db_path'])
+        config_window.db_file_name.insert(config['SETTINGS']['db_file'])
+        config_window.ip_address_field.insert(config['SETTINGS']['default_ip'])
+        config_window.port_field.insert(str(config['SETTINGS']['default_port']))
         config_window.save_button.clicked.connect(save_server_config)
 
     def save_server_config():
@@ -318,19 +326,22 @@ def main():
         :return:
         """
         global config_window
-        global DEFAULT_IP, DEFAULT_PORT
         message = QMessageBox()
-        DB_PATH = config_window.db_path.text()
-        DB_FILE_NAME = config_window.db_file_name.text()
+        config['SETTINGS']['db_path'] = config_window.db_path.text()
+        config['SETTINGS']['db_file'] = config_window.db_file_name.text()
         try:
             port = int(config_window.port_field.text())
         except ValueError:
             message.warning(config_window, 'Ошибка', 'Порт должен быть числом')
         else:
-            DEFAULT_IP = config_window.ip_address_field.text()
+            # TODO добавить проверку корректности IP-адреса.
+            config['SETTINGS']['default_ip'] = config_window.ip_address_field.text()
             if 1023 < port < 65536:
-                DEFAULT_PORT = config_window.port_field.text()
-                message.information(config_window, 'Ok', 'Настройки сохранены')
+                config['SETTINGS']['default_port'] = config_window.port_field.text()
+                # Записываем новы порт в файл.
+                with open(os.path.join(dir_path, 'server.ini'), 'w') as conf:
+                    config.write(conf)
+                    message.information(config_window, 'Ok', 'Настройки сохранены')
             else:
                 message.warning(config_window, 'Ошибка', 'Порт должен быть от 1024 до 65536')
 

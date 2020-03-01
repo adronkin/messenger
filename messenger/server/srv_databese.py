@@ -1,5 +1,5 @@
 """Модуль описания базы данных сервера."""
-
+import os
 from datetime import datetime
 from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, create_engine, Index, Text
 from sqlalchemy.ext.declarative import declarative_base
@@ -98,11 +98,11 @@ class ServerDataBase:
             self.date = datetime.now()
             self.message = message
 
-    def __init__(self):
+    def __init__(self, path):
         # Создаем БД (echo - логирование через стандартный модуль logging).
         # connect_args={'check_same_thread': False} - созданное в потоке может
         # использоваться не только в данном потоке.
-        self.engine = create_engine(SERVER_DATABASE, echo=False, pool_recycle=3600,
+        self.engine = create_engine(f'sqlite:///{path}', echo=False, pool_recycle=3600,
                                     connect_args={'check_same_thread': False})
 
         # Создаем таблицы
@@ -295,7 +295,8 @@ class ServerDataBase:
 
 
 if __name__ == '__main__':
-    TEST_DB = ServerDataBase()
+    TEST_DB = ServerDataBase(os.path.join(os.path.dirname(os.path.realpath(__file__)),
+                                          'server_database.db3'))
     # TEST_DB.user_login('test_user_1', '192.168.0.1', 7777)
     # for user in TEST_DB.get_all_active_users():
     #     print(f'Пользователь: {user[0]} ({user[1]}:{user[2]}).'

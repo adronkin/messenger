@@ -53,8 +53,6 @@ RESPONSE_400 = {
     ERROR: None
 }
 
-# Путь к БД для GUI.
-DB_PATH = ''
 # Имя файла БД
 DB_FILE_NAME = 'server_database.db3'
 # Путь к базе данных для хранения данных сервера:
