@@ -6,7 +6,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from srv_variables import SERVER_DATABASE
 
-# Создаем бызовый класс для декларативно работы.
+# Создаем базовый класс для декларативно работы.
 BASE = declarative_base()
 
 
@@ -99,8 +99,11 @@ class ServerDataBase:
             self.message = message
 
     def __init__(self):
-        # Создаем БД (echo - логирование через стандартный модуль logging)
-        self.engine = create_engine(SERVER_DATABASE, echo=False, pool_recycle=3600)
+        # Создаем БД (echo - логирование через стандартный модуль logging).
+        # connect_args={'check_same_thread': False} - созданное в потоке может
+        # использоваться не только в данном потоке.
+        self.engine = create_engine(SERVER_DATABASE, echo=False, pool_recycle=3600,
+                                    connect_args={'check_same_thread': False})
 
         # Создаем таблицы
         BASE.metadata.create_all(self.engine)

@@ -1,11 +1,14 @@
 """Программа-сервер"""
 
 import sys
-from json import JSONDecodeError
 from socket import socket, AF_INET, SOCK_STREAM
 from select import select
 from logging import getLogger
 from threading import Thread, Lock
+
+from PyQt5.QtCore import QTimer
+from PyQt5.QtWidgets import QApplication, QMessageBox
+from srv_gui import MainWindow, gui_active_users, ConfigWindow
 from srv_metaclass import ServerVerified
 from srv_parse_args import args_parser
 from srv_databese import ServerDataBase
@@ -14,7 +17,9 @@ from srv_descriptors.port import Port
 from srv_function import get_message, send_message, main_loop
 from srv_variables import MAX_QUEUE, ACTION, PRESENCE, TIME, ERROR, USER, MESSAGE, MESSAGE_TEXT, \
     SENDER, RESPONSE_200, RESPONSE_300, RESPONSE_400, EXIT, RECIPIENT, DEL_CONTACT, ACCOUNT_NAME, \
-    ADD_CONTACT, GET_CONTACTS, RESPONSE_202, DATA, GET_REGISTERED
+    ADD_CONTACT, GET_CONTACTS, RESPONSE_202, DATA, GET_REGISTERED, DB_PATH, DB_FILE_NAME, \
+    DEFAULT_IP, DEFAULT_PORT
+
 sys.path.append('../')
 import logs.server_log_config
 
@@ -91,8 +96,8 @@ class Server(Thread, metaclass=ServerVerified):
                         self.clients, self.clients, [], 0)
             except OSError as error:
                 print(f'Ошибка работы с сокетами: {error}.')
-            # Принимаем сообщения, если возвращена ошибка, исключаем клиента из списка clients.
 
+            # Принимаем сообщения, если возвращена ошибка, исключаем клиента из списка clients.
             if clients_senders:
                 for client_with_message in clients_senders:
                     try:
@@ -267,10 +272,82 @@ def main():
     server.daemon = True
     server.start()
 
-    main_loop(database)
+    # Запуск основного меню сервера.
+    # main_loop(database)
+
+    # Создаем графическое окружение для сервера.
+    server_app = QApplication(sys.argv)
+    main_window = MainWindow()
+
+    # Инициализируем параметры окна.
+    main_window.statusBar().showMessage('Server Working')
+    main_window.active_clients_table.setModel(gui_active_users(database))
+    main_window.active_clients_table.resizeColumnsToContents()
+    main_window.active_clients_table.resizeRowsToContents()
+
+    def active_list_update():
+        """
+        Функция для обновления списка активных пользователей в GUI сервера.
+        Проверяет флаг подключения, если необходимо, обновляет список подключенных пользователей.
+        :return:
+        """
+        global NEW_CONNECTION
+        if NEW_CONNECTION:
+            main_window.active_clients_table.setModel(gui_active_users(database))
+            main_window.active_clients_table.resizeColumnsToContents()
+            main_window.active_clients_table.resizeRowsToContents()
+            with CON_FLAG_LOCK:
+                NEW_CONNECTION = False
+
+    def server_config():
+        """
+        Функция создает окно настроек сервера.
+        :return:
+        """
+        global config_window
+        config_window = ConfigWindow()
+        config_window.db_path.insert(DB_PATH)
+        config_window.db_file_name.insert(DB_FILE_NAME)
+        config_window.ip_address_field.insert(DEFAULT_IP)
+        config_window.port_field.insert(str(DEFAULT_PORT))
+        config_window.save_button.clicked.connect(save_server_config)
+
+    def save_server_config():
+        """
+        Функция сохранения настроек.
+        :return:
+        """
+        global config_window
+        global DEFAULT_IP, DEFAULT_PORT
+        message = QMessageBox()
+        DB_PATH = config_window.db_path.text()
+        DB_FILE_NAME = config_window.db_file_name.text()
+        try:
+            port = int(config_window.port_field.text())
+        except ValueError:
+            message.warning(config_window, 'Ошибка', 'Порт должен быть числом')
+        else:
+            DEFAULT_IP = config_window.ip_address_field.text()
+            if 1023 < port < 65536:
+                DEFAULT_PORT = config_window.port_field.text()
+                message.information(config_window, 'Ok', 'Настройки сохранены')
+            else:
+                message.warning(config_window, 'Ошибка', 'Порт должен быть от 1024 до 65536')
+
+    # Таймер обновляет список клиентов 1 раз в секунду.
+    timer = QTimer()
+    timer.timeout.connect(active_list_update)
+    timer.start(1000)
+
+    # Связываем кнопки с процедурами.
+    main_window.refresh_button.triggered.connect(active_list_update)
+    main_window.setting_button.triggered.connect(server_config)
+
+    # Запускаем GUI.
+    server_app.exec_()
 
 
 if __name__ == '__main__':
     main()
 
-# TODO сервер падает если завершить работу клиента ctrl + D.
+# TODO сервер падает если завершить работу клиента ctrl+D.

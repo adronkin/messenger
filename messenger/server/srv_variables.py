@@ -6,7 +6,7 @@ import os
 DEFAULT_IP = '127.0.0.1'
 # Сетевой порт по умолчанию
 DEFAULT_PORT = 7777
-# Кодаровка
+# Кодировка
 ENCODING = 'utf-8'
 # Максимальная длина очереди на подключение
 MAX_QUEUE = 3
@@ -53,6 +53,10 @@ RESPONSE_400 = {
     ERROR: None
 }
 
+# Путь к БД для GUI.
+DB_PATH = ''
+# Имя файла БД
+DB_FILE_NAME = 'server_database.db3'
 # Путь к базе данных для хранения данных сервера:
 SERVER_DATABASE = f'sqlite:///{"/".join(map(str, os.path.dirname(__file__).split("/")[:-1]))}' \
-                  f'/server/server_database.db3'
+                  f'/server/{DB_FILE_NAME}'

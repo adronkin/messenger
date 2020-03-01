@@ -79,7 +79,6 @@ class ConfigWindow(QDialog):
         # Кнопка для сохранения настроек.
         self.save_button = QPushButton('Сохранить', self)
         self.save_button.move(80, 155)
-        # TODO написать действия для save_button
 
         # Кнопка закрытия окна
         self.close_button = QPushButton(' Закрыть ', self)
@@ -149,7 +148,7 @@ def gui_active_users(database):
         user.setEditable(False)
         ip = QStandardItem(ip)
         ip.setEditable(False)
-        port = QStandardItem(port)
+        port = QStandardItem(str(port))
         port.setEditable(False)
         # Убираем миллисекунды.
         time = QStandardItem(str(time.replace(microsecond=0)))
