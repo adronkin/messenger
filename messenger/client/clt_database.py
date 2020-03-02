@@ -64,8 +64,8 @@ class ClientDataBase:
         # с разных потоков, иначе sqlite3.ProgrammingError
         self.engine = create_engine(
             f'sqlite:///{"/".join(map(str, os.path.dirname(__file__).split("/")[:-1]))}'
-            f'/client/client_{name.lower()}_database.db3', echo=False, pool_recycle=3600,
-            connect_args={'check_same_thread': False})
+            f'/client/database/client_{name.lower()}_database.db3',
+            echo=False, pool_recycle=3600, connect_args={'check_same_thread': False})
 
         # Создаем таблицы
         BASE.metadata.create_all(self.engine)

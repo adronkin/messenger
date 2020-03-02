@@ -54,7 +54,7 @@ RESPONSE_400 = {
 }
 
 # Имя файла БД
-DB_FILE_NAME = 'server_database.db3'
+DB_FILE_NAME = 'server/database/server_database.db3'
 # Путь к базе данных для хранения данных сервера:
 SERVER_DATABASE = f'sqlite:///{"/".join(map(str, os.path.dirname(__file__).split("/")[:-1]))}' \
-                  f'/server/{DB_FILE_NAME}'
+                  f'/server/database/{DB_FILE_NAME}'
