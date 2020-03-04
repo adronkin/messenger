@@ -1,6 +1,5 @@
 """Модуль для реализации GUI сервера"""
 from sys import argv
-
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import QApplication, QMessageBox, QDialog, QLabel, QLineEdit, QPushButton, \
     QFileDialog, QMainWindow, QAction, qApp, QTableView
@@ -178,3 +177,5 @@ if __name__ == '__main__':
 
     # Запускаем приложение (цикл опроса событий).
     app.exec_()
+
+# TODO разделить на 2 файла.
