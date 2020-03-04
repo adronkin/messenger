@@ -116,7 +116,7 @@ class ClientDataBase:
     def get_all_contacts(self):
         """
         Метод возвращает список контактов.
-        :return:
+        :return {list}:
         """
         return [contact[0] for contact in self.session.query(self.Contacts.username).all()]
 
@@ -170,9 +170,16 @@ class ClientDataBase:
             self.session.add(reg_user)
         self.session.commit()
 
+    def get_register_users(self):
+        """
+        Метод возвращает список зарегистрированных пользователей.
+        :return {list}:
+        """
+        return [user[0] for user in self.session.query(self.RegisteredUsers.username).all()]
+
 
 if __name__ == '__main__':
-    TEST_DB = ClientDataBase('Petr')
+    TEST_DB = ClientDataBase('test_user_1')
     TEST_DB.add_contact('Ivan')
     TEST_DB.add_contact('Anton')
     TEST_DB.add_contact('Anton')
@@ -185,3 +192,4 @@ if __name__ == '__main__':
     # TEST_DB.save_message('Ivan', 'Anton', 'Чем занят?')
     for msg in TEST_DB.get_message_history(sender='Anton'):
         print(msg)
+    print(TEST_DB.get_register_users())
