@@ -1,4 +1,5 @@
 """Программа-сервер"""
+
 import os
 import sys
 from configparser import ConfigParser
@@ -9,17 +10,17 @@ from threading import Thread, Lock
 from PyQt5.QtCore import QTimer
 from PyQt5.QtWidgets import QApplication, QMessageBox
 from srv_gui import MainWindow, gui_active_users, ConfigWindow
-from srv_metaclass import ServerVerified
+sys.path.append('../')
 from srv_parse_args import args_parser
+from srv_metaclass import ServerVerified
 from srv_databese import ServerDataBase
 from srv_descriptors.address import Address
 from srv_descriptors.port import Port
-from srv_function import get_message, send_message, main_loop
+from srv_function import get_message, send_message
 from srv_variables import MAX_QUEUE, ACTION, PRESENCE, TIME, ERROR, USER, MESSAGE, MESSAGE_TEXT, \
     SENDER, RESPONSE_200, RESPONSE_300, RESPONSE_400, EXIT, RECIPIENT, DEL_CONTACT, ACCOUNT_NAME, \
     ADD_CONTACT, GET_CONTACTS, RESPONSE_202, DATA, GET_REGISTERED
-sys.path.append('../')
-import logs.server_log_config
+import log.log_config
 
 
 # Инициализируем логгера.
@@ -162,8 +163,8 @@ class Server(Thread, metaclass=ServerVerified):
         LOGGER.debug(f'Обработка сообщения от клиента - {message}')
 
         # Если PRESENCE-сообщение, проверяем и отвечаем.
-        if ACTION in message and message[ACTION] == PRESENCE \
-                and TIME in message and USER in message:
+        if ACTION in message and message[ACTION] == PRESENCE and TIME in message \
+                and USER in message:
             # Проверяем зарегистрирован пользователь или нет
             if message[USER] not in self.names.keys():
                 self.names[message[USER]] = client
@@ -188,9 +189,17 @@ class Server(Thread, metaclass=ServerVerified):
         # Если сообщение, то проверяем и добавляем его в очередь сообщений.
         elif ACTION in message and message[ACTION] == MESSAGE and TIME in message \
                 and SENDER in message and RECIPIENT in message and MESSAGE_TEXT in message:
-            self.messages.append(message)
-            # Сохраняем сообщение в БД
-            self.database.save_message(message[SENDER], message[RECIPIENT], message[MESSAGE_TEXT])
+            if message[RECIPIENT] in self.names:
+                self.messages.append(message)
+                # Сохраняем сообщение в БД
+                self.database.save_message(message[SENDER],
+                                           message[RECIPIENT],
+                                           message[MESSAGE_TEXT])
+                send_message(client, RESPONSE_200)
+            else:
+                response = RESPONSE_400
+                response[ERROR] = f'Пользователь {message[RECIPIENT]} не зарегистрирован.'
+                send_message(client, response)
             return
 
         # Если пользователь хочет завершить работу.

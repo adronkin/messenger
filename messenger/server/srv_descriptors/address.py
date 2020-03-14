@@ -1,17 +1,14 @@
 """Дескриптор для адреса."""
 
-
-import os
 import re
 import sys
 from logging import getLogger
-sys.path.append(os.path.join(os.getcwd(), '..'))
-from common_files.variables import IP_REGEX
-import logs.server_log_config
-import logs.client_log_config
+sys.path.append('../')
+from srv_variables import IP_REGEX
+import log.log_config
 
-PATH = sys.argv[0].split('/')[-1][:-3]
-LOGGER = getLogger(f'{PATH}_logger')
+
+LOGGER = getLogger('server_logger')
 
 
 class Address:

@@ -3,11 +3,9 @@
 import sys
 from logging import getLogger
 sys.path.append('../')
-import logs.server_log_config
-import logs.client_log_config
+import log.log_config
 
-PATH = sys.argv[0].split('/')[-1][:-3]
-LOGGER = getLogger(f'{PATH}_logger')
+LOGGER = getLogger('server_logger')
 
 
 class Port:

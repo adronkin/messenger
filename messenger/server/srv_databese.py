@@ -1,10 +1,10 @@
 """Модуль описания базы данных сервера."""
+
 import os
 from datetime import datetime
 from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, create_engine, Index, Text
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-from srv_variables import SERVER_DATABASE
 
 # Создаем базовый класс для декларативно работы.
 BASE = declarative_base()

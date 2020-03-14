@@ -1,11 +1,10 @@
 """Функции для парсинга из командной строки server.py"""
 
-import os
 import sys
 from argparse import ArgumentParser
 from logging import getLogger
-sys.path.append(os.path.join(os.getcwd(), '..'))
-from decorators import Log
+sys.path.append('../')
+from custom.decorators import Log
 
 # Инициализируем логгера.
 LOGGER = getLogger('server_logger')

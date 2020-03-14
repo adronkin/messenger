@@ -2,10 +2,10 @@
 
 import json
 import sys
-from srv_variables import MAX_DATA, ENCODING
 sys.path.append('../')
-from errors import IncorrectDataReceivedError, NonDictInputError
-from decorators import Log
+from srv_variables import MAX_DATA, ENCODING
+from custom.errors import IncorrectDataReceivedError, NonDictInputError
+from custom.decorators import Log
 
 
 @Log()
