@@ -272,3 +272,26 @@
 2020-02-23 01:30:30,667 - INFO     - decorators - Функция "get_message" из модуля "common_files.function" с аргументами ((<socket.socket fd=8, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 55818)>,), {})
 2020-02-23 01:30:30,668 - DEBUG    - server - Обработка сообщения от клиента - {'action': 'exit', 'time': 1582410630.223947, 'user': 'test_1'}
 2020-02-23 01:30:30,668 - INFO     - server - Клиент ('127.0.0.1', 55818) отключился от сервера.
+2020-02-23 16:44:24,823 - INFO     - decorators - Выполнен вызов функции "args_parser" из функции "main"
+2020-02-23 16:44:24,824 - INFO     - decorators - Функция "args_parser" из модуля "parse_args" с аргументами ((), {})
+2020-02-23 16:44:24,882 - INFO     - server - Сервер запущен с параметрами - 127.0.0.1:7777
+2020-02-23 16:44:51,819 - INFO     - decorators - Выполнен вызов функции "args_parser" из функции "main"
+2020-02-23 16:44:51,820 - INFO     - decorators - Функция "args_parser" из модуля "parse_args" с аргументами ((), {})
+2020-02-23 16:44:51,857 - INFO     - server - Сервер запущен с параметрами - 127.0.0.1:7777
+2020-02-23 16:45:07,417 - INFO     - server - Установлено соединение с клиентом ('127.0.0.1', 56885)
+2020-02-23 16:45:07,934 - INFO     - decorators - Выполнен вызов функции "get_message" из функции "run"
+2020-02-23 16:45:07,934 - INFO     - decorators - Функция "get_message" из модуля "common_files.function" с аргументами ((<socket.socket fd=7, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 56885)>,), {})
+2020-02-23 16:45:07,935 - DEBUG    - server - Обработка сообщения от клиента - {'action': 'presence', 'time': 1582465507.417404, 'user': 'Petr'}
+2020-02-23 16:45:07,936 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "processing_message"
+2020-02-23 16:45:07,938 - INFO     - decorators - Функция "send_message" из модуля "common_files.function" с аргументами ((<socket.socket fd=7, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 56885)>, {'response': 200}), {})
+2020-02-23 16:45:07,938 - INFO     - server - Клиент ('127.0.0.1', 56885) подключился. Отправлен ответ {'response': 200}
+2020-02-23 16:46:48,232 - INFO     - decorators - Выполнен вызов функции "args_parser" из функции "main"
+2020-02-23 16:46:48,233 - INFO     - decorators - Функция "args_parser" из модуля "parse_args" с аргументами ((), {})
+2020-02-23 16:46:48,276 - INFO     - server - Сервер запущен с параметрами - 127.0.0.1:7777
+2020-02-23 16:46:57,577 - INFO     - server - Установлено соединение с клиентом ('127.0.0.1', 56889)
+2020-02-23 16:46:58,088 - INFO     - decorators - Выполнен вызов функции "get_message" из функции "run"
+2020-02-23 16:46:58,088 - INFO     - decorators - Функция "get_message" из модуля "common_files.function" с аргументами ((<socket.socket fd=7, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 56889)>,), {})
+2020-02-23 16:46:58,089 - DEBUG    - server - Обработка сообщения от клиента - {'action': 'presence', 'time': 1582465617.577035, 'user': 'Peter'}
+2020-02-23 16:46:58,090 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "processing_message"
+2020-02-23 16:46:58,090 - INFO     - decorators - Функция "send_message" из модуля "common_files.function" с аргументами ((<socket.socket fd=7, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 56889)>, {'response': 200}), {})
+2020-02-23 16:46:58,090 - INFO     - server - Клиент ('127.0.0.1', 56889) подключился. Отправлен ответ {'response': 200}

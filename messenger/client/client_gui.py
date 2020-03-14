@@ -4,12 +4,11 @@ import sys
 from logging import getLogger
 from PyQt5.QtWidgets import QApplication
 sys.path.append('../')
-from clt_database import ClientDataBase
+from database.clt_database import ClientDataBase
 from clt_parse_args import get_command_args
 from gui.main_window import ClientMainWindow
 from gui.start_menu import AuthMenu
 from transport import ClientTransport
-import log.log_config
 
 # Initialize the logger.
 LOGGER = getLogger('client_logger')
