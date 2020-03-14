@@ -22,11 +22,15 @@ class ServerDataBase:
         id = Column(Integer, primary_key=True)
         username = Column(String, unique=True, nullable=False)
         last_login = Column(DateTime)
-        __table_args__ = (Index('users_index', 'id'),)
+        password = Column(String)
+        public_key = Column(Text)
+        __table_args__ = (Index('users_index', 'id'), )
 
-        def __init__(self, username):
+        def __init__(self, username, password, public_key):
             self.username = username
             self.last_login = datetime.now()
+            self.password = password
+            self.public_key = None
 
     class ActiveUser(BASE):
         """
@@ -116,26 +120,28 @@ class ServerDataBase:
         self.session.query(self.ActiveUser).delete()
         self.session.commit()
 
-    def user_login(self, username, ip_address, port):
+    def user_login(self, username, ip_address, port, key):
         """
         Метод запускается при входе пользователя. Записывает в базу информацию о входе.
         :param {str} username: имя пользователя.
         :param {str} ip_address: IP-адрес пользователя.
         :param {int} port: порт пользователя.
+        :param {str} key: публичный ключ пользователя.
         :return:
         """
-        # Поиск в таплице Users пользователя с именем username
+        # Поиск в таблице Users пользователя с именем username
         q_user = self.session.query(self.Users).filter_by(username=username)
+
         # Если пользователь есть в таблице
         if q_user.count():
             # Возвращаем результат запроса и обновляем дату последнего входа
             user = q_user.first()
             user.last_login = datetime.now()
+            if user.public_key != key:
+                user.public_key = key
         # Иначе, добавляем нового пользователя
         else:
-            user = self.Users(username)
-            self.session.add(user)
-            self.session.commit()
+            raise ValueError(f'Пользователь {username} не зарегистрирован.')
 
         # Обновляем данные в таблице ActiveUser и UserStory
         active_user = self.ActiveUser(user.id, ip_address, port, datetime.now())
@@ -143,6 +149,49 @@ class ServerDataBase:
         user_history = self.UserStory(user.id, ip_address, port, datetime.now(), None)
         self.session.add(user_history)
         self.session.commit()
+
+    def register_user(self, username, password):
+        """
+        Метод для регистрации пользователя. Делает запись в таблицу Users.
+        :param {str} username: имя пользователя.
+        :param {byte} password: хэш пароля пользователя.
+        :return:
+        """
+        new_user = self.Users(username, password)
+        self.session.add(new_user)
+        self.session.commit()
+
+    def del_user(self, username):
+        """
+        Метод удаления пользователя из БД.
+        :param {str} username: имя пользователя.
+        :return:
+        """
+        user = self.session.query(self.Users).filter_by(username=username).first()
+        self.session.query(self.ContactList).filter_by(user_id=user.id).delete()
+        self.session.query(self.ContactList).filter_by(friend_id=user.id).delete()
+        self.session.query(self.UserStory).filter_by(user_id=user.id).delete()
+        self.session.query(self.ActiveUser).filter_by(user_id=user.id).delete()
+        self.session.query(self.Users).filter_by(username=username).delete()
+        self.session.commit()
+
+    def get_pass_hash(self, username):
+        """
+        Метод возвращает хэш пароля пользователя.
+        :param {str} username: имя пользователя.
+        :return {byte}: хэш пароля пользователя.
+        """
+        user = self.session.query(self.Users).filter_by(username=username).first()
+        return user.password
+
+    def get_key(self, username):
+        """
+        Метод возвращает публичный ключ пользователя.
+        :param {str} username: имя пользователя.
+        :return {str}: публичный ключ.
+        """
+        user = self.session.query(self.Users).filter_by(username=username).first()
+        return user.public_key
 
     def user_logout(self, username):
         """
@@ -317,4 +366,5 @@ if __name__ == '__main__':
     #     print(msg)
     # TEST_DB.add_contact('Petr', 'Peter')
     # TEST_DB.del_contact('Petr', 'Peter')
-    print(TEST_DB.check_contact('test_user_1', 'Petr'))
+    # TEST_DB.del_user('Vasya')
+    # print(TEST_DB.check_contact('test_user_1', 'Petr'))
