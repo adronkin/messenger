@@ -1,16 +1,11 @@
 """Модуль для декораторов"""
+
 import inspect
-import sys
 from functools import wraps
 from logging import getLogger
-import logs.client_log_config
-import logs.server_log_config
+import log.log_config
 
-SYS_ARGS = sys.argv
-if SYS_ARGS[0].find('server.py') == -1:
-    LOGGER = getLogger('client_logger')
-else:
-    LOGGER = getLogger('server_logger')
+LOGGER = getLogger('server_logger')
 
 
 class Log:

@@ -1,0 +1,205 @@
+2020-03-14 11:26:52,781 - INFO     - decorators - Выполнен вызов функции "args_parser" из функции "main"
+2020-03-14 11:26:52,782 - INFO     - decorators - Функция "args_parser" из модуля "srv_parse_args" с аргументами (('127.0.0.1', '7777'), {})
+2020-03-14 11:26:52,828 - INFO     - server - Сервер запущен с параметрами - 127.0.0.1:7777
+2020-03-14 11:27:19,803 - INFO     - server - Установлено соединение с клиентом ('127.0.0.1', 65245)
+2020-03-14 11:27:20,328 - INFO     - decorators - Выполнен вызов функции "get_message" из функции "run"
+2020-03-14 11:27:20,328 - INFO     - decorators - Функция "get_message" из модуля "srv_function" с аргументами ((<socket.socket fd=17, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 65245)>,), {})
+2020-03-14 11:27:20,328 - DEBUG    - server - Обработка сообщения от клиента - {'action': 'presence', 'time': 1584174422.852563, 'user': 'Petr'}
+2020-03-14 11:27:20,329 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "processing_message"
+2020-03-14 11:27:20,329 - INFO     - decorators - Функция "send_message" из модуля "srv_function" с аргументами ((<socket.socket fd=17, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 65245)>, {'response': 200}), {})
+2020-03-14 11:27:20,329 - INFO     - server - Клиент ('127.0.0.1', 65245) подключился. Отправлен ответ {'response': 200}
+2020-03-14 11:27:20,857 - INFO     - decorators - Выполнен вызов функции "get_message" из функции "run"
+2020-03-14 11:27:20,857 - INFO     - decorators - Функция "get_message" из модуля "srv_function" с аргументами ((<socket.socket fd=17, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 65245)>,), {})
+2020-03-14 11:27:20,858 - DEBUG    - server - Обработка сообщения от клиента - {'action': 'get_registered', 'time': 1584174422.852569, 'user': 'Petr'}
+2020-03-14 11:27:20,860 - DEBUG    - server - Пользователь Petr запросил список зарегистрированных пользователей.
+2020-03-14 11:27:20,863 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "processing_message"
+2020-03-14 11:27:20,863 - INFO     - decorators - Функция "send_message" из модуля "srv_function" с аргументами ((<socket.socket fd=17, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 65245)>, {'response': 202, 'data': ['test_user_1', 'test_user_2', 'test_user_3', 'lola', 'test_1', 'test_2', 'test_3', 'test_4', 'test_5', 'Petr', 'Peter', 'Ivan', 'Vasya', 'Ignat']}), {})
+2020-03-14 11:27:21,369 - INFO     - decorators - Выполнен вызов функции "get_message" из функции "run"
+2020-03-14 11:27:21,369 - INFO     - decorators - Функция "get_message" из модуля "srv_function" с аргументами ((<socket.socket fd=17, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 65245)>,), {})
+2020-03-14 11:27:21,369 - DEBUG    - server - Обработка сообщения от клиента - {'action': 'get_contacts', 'time': 1584174422.8525681, 'user': 'Petr'}
+2020-03-14 11:27:21,373 - DEBUG    - server - Пользователь Petr запросил список контактов.
+2020-03-14 11:27:21,374 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "processing_message"
+2020-03-14 11:27:21,374 - INFO     - decorators - Функция "send_message" из модуля "srv_function" с аргументами ((<socket.socket fd=17, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 65245)>, {'response': 202, 'data': ['test_user_1', 'test_5', 'lola', 'test_3', 'Vasya', 'test_user_3']}), {})
+2020-03-14 11:28:22,590 - INFO     - decorators - Выполнен вызов функции "get_message" из функции "run"
+2020-03-14 11:28:22,592 - INFO     - decorators - Функция "get_message" из модуля "srv_function" с аргументами ((<socket.socket fd=17, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 65245)>,), {})
+2020-03-14 11:28:22,592 - DEBUG    - server - Обработка сообщения от клиента - {'action': 'exit', 'time': 1584174422.8525639, 'user': 'Petr'}
+2020-03-14 11:28:22,592 - INFO     - server - Клиент ('127.0.0.1', 65245) отключился от сервера.
+2020-03-14 11:33:51,119 - INFO     - decorators - Выполнен вызов функции "args_parser" из функции "main"
+2020-03-14 11:33:51,120 - INFO     - decorators - Функция "args_parser" из модуля "srv_parse_args" с аргументами (('127.0.0.1', '7777'), {})
+2020-03-14 11:33:51,161 - INFO     - server - Сервер запущен с параметрами - 127.0.0.1:7777
+2020-03-14 11:33:59,742 - INFO     - server - Установлено соединение с клиентом ('127.0.0.1', 65315)
+2020-03-14 11:33:59,750 - INFO     - decorators - Выполнен вызов функции "get_message" из функции "run"
+2020-03-14 11:33:59,750 - INFO     - decorators - Функция "get_message" из модуля "srv_function" с аргументами ((<socket.socket fd=17, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 65315)>,), {})
+2020-03-14 11:33:59,751 - DEBUG    - server - Обработка сообщения от клиента - {'action': 'presence', 'time': 1584174835.6619148, 'user': 'Petr'}
+2020-03-14 11:33:59,752 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "processing_message"
+2020-03-14 11:33:59,752 - INFO     - decorators - Функция "send_message" из модуля "srv_function" с аргументами ((<socket.socket fd=17, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 65315)>, {'response': 200}), {})
+2020-03-14 11:33:59,752 - INFO     - server - Клиент ('127.0.0.1', 65315) подключился. Отправлен ответ {'response': 200}
+2020-03-14 11:34:00,274 - INFO     - decorators - Выполнен вызов функции "get_message" из функции "run"
+2020-03-14 11:34:00,274 - INFO     - decorators - Функция "get_message" из модуля "srv_function" с аргументами ((<socket.socket fd=17, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 65315)>,), {})
+2020-03-14 11:34:00,274 - DEBUG    - server - Обработка сообщения от клиента - {'action': 'get_registered', 'time': 1584174835.661918, 'user': 'Petr'}
+2020-03-14 11:34:00,276 - DEBUG    - server - Пользователь Petr запросил список зарегистрированных пользователей.
+2020-03-14 11:34:00,277 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "processing_message"
+2020-03-14 11:34:00,277 - INFO     - decorators - Функция "send_message" из модуля "srv_function" с аргументами ((<socket.socket fd=17, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 65315)>, {'response': 202, 'data': ['test_user_1', 'test_user_2', 'test_user_3', 'lola', 'test_1', 'test_2', 'test_3', 'test_4', 'test_5', 'Petr', 'Peter', 'Ivan', 'Vasya', 'Ignat']}), {})
+2020-03-14 11:34:00,780 - INFO     - decorators - Выполнен вызов функции "get_message" из функции "run"
+2020-03-14 11:34:00,781 - INFO     - decorators - Функция "get_message" из модуля "srv_function" с аргументами ((<socket.socket fd=17, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 65315)>,), {})
+2020-03-14 11:34:00,781 - DEBUG    - server - Обработка сообщения от клиента - {'action': 'get_contacts', 'time': 1584174835.661918, 'user': 'Petr'}
+2020-03-14 11:34:00,784 - DEBUG    - server - Пользователь Petr запросил список контактов.
+2020-03-14 11:34:00,785 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "processing_message"
+2020-03-14 11:34:00,786 - INFO     - decorators - Функция "send_message" из модуля "srv_function" с аргументами ((<socket.socket fd=17, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 65315)>, {'response': 202, 'data': ['test_user_1', 'test_5', 'lola', 'test_3', 'Vasya', 'test_user_3']}), {})
+2020-03-14 11:34:22,159 - INFO     - server - Установлено соединение с клиентом ('127.0.0.1', 65319)
+2020-03-14 11:34:22,160 - INFO     - decorators - Выполнен вызов функции "get_message" из функции "run"
+2020-03-14 11:34:22,160 - INFO     - decorators - Функция "get_message" из модуля "srv_function" с аргументами ((<socket.socket fd=18, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 65319)>,), {})
+2020-03-14 11:34:22,160 - DEBUG    - server - Обработка сообщения от клиента - {'action': 'presence', 'time': 1584174861.689342, 'user': 'test_user_1'}
+2020-03-14 11:34:22,161 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "processing_message"
+2020-03-14 11:34:22,161 - INFO     - decorators - Функция "send_message" из модуля "srv_function" с аргументами ((<socket.socket fd=18, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 65319)>, {'response': 200}), {})
+2020-03-14 11:34:22,162 - INFO     - server - Клиент ('127.0.0.1', 65319) подключился. Отправлен ответ {'response': 200}
+2020-03-14 11:34:22,673 - INFO     - decorators - Выполнен вызов функции "get_message" из функции "run"
+2020-03-14 11:34:22,673 - INFO     - decorators - Функция "get_message" из модуля "srv_function" с аргументами ((<socket.socket fd=18, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 65319)>,), {})
+2020-03-14 11:34:22,673 - DEBUG    - server - Обработка сообщения от клиента - {'action': 'get_registered', 'time': 1584174861.689348, 'user': 'test_user_1'}
+2020-03-14 11:34:22,688 - DEBUG    - server - Пользователь test_user_1 запросил список зарегистрированных пользователей.
+2020-03-14 11:34:22,689 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "processing_message"
+2020-03-14 11:34:22,689 - INFO     - decorators - Функция "send_message" из модуля "srv_function" с аргументами ((<socket.socket fd=18, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 65319)>, {'response': 202, 'data': ['test_user_1', 'test_user_2', 'test_user_3', 'lola', 'test_1', 'test_2', 'test_3', 'test_4', 'test_5', 'Petr', 'Peter', 'Ivan', 'Vasya', 'Ignat']}), {})
+2020-03-14 11:34:23,194 - INFO     - decorators - Выполнен вызов функции "get_message" из функции "run"
+2020-03-14 11:34:23,195 - INFO     - decorators - Функция "get_message" из модуля "srv_function" с аргументами ((<socket.socket fd=18, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 65319)>,), {})
+2020-03-14 11:34:23,195 - DEBUG    - server - Обработка сообщения от клиента - {'action': 'get_contacts', 'time': 1584174861.689347, 'user': 'test_user_1'}
+2020-03-14 11:34:23,198 - DEBUG    - server - Пользователь test_user_1 запросил список контактов.
+2020-03-14 11:34:23,199 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "processing_message"
+2020-03-14 11:34:23,200 - INFO     - decorators - Функция "send_message" из модуля "srv_function" с аргументами ((<socket.socket fd=18, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 65319)>, {'response': 202, 'data': ['test_4', 'test_2', 'Vasya']}), {})
+2020-03-14 11:34:41,813 - INFO     - decorators - Выполнен вызов функции "get_message" из функции "run"
+2020-03-14 11:34:41,813 - INFO     - decorators - Функция "get_message" из модуля "srv_function" с аргументами ((<socket.socket fd=17, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 65315)>,), {})
+2020-03-14 11:34:41,813 - DEBUG    - server - Обработка сообщения от клиента - {'action': 'message', 'time': 1584174835.661916, 'sender': 'Petr', 'recipient': 'test_user_1', 'message_text': 'Hello'}
+2020-03-14 11:34:41,819 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "processing_message"
+2020-03-14 11:34:41,819 - INFO     - decorators - Функция "send_message" из модуля "srv_function" с аргументами ((<socket.socket fd=17, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 65315)>, {'response': 200}), {})
+2020-03-14 11:34:41,822 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "message_handler"
+2020-03-14 11:34:41,822 - INFO     - decorators - Функция "send_message" из модуля "srv_function" с аргументами ((<socket.socket fd=18, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 65319)>, {'action': 'message', 'time': 1584174835.661916, 'sender': 'Petr', 'recipient': 'test_user_1', 'message_text': 'Hello'}), {})
+2020-03-14 11:34:41,822 - INFO     - server - Сообщение от пользователя Petr передано пользователю test_user_1.
+2020-03-14 11:34:44,336 - INFO     - decorators - Выполнен вызов функции "get_message" из функции "run"
+2020-03-14 11:34:44,337 - INFO     - decorators - Функция "get_message" из модуля "srv_function" с аргументами ((<socket.socket fd=18, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 65319)>,), {})
+2020-03-14 11:34:44,337 - DEBUG    - server - Обработка сообщения от клиента - {'action': 'add_contact', 'time': 1584174861.689346, 'user': 'test_user_1', 'account_name': 'Petr'}
+2020-03-14 11:34:44,349 - DEBUG    - server - Пользователь test_user_1 добавил Petr в список контактов.
+2020-03-14 11:34:44,350 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "processing_message"
+2020-03-14 11:34:44,350 - INFO     - decorators - Функция "send_message" из модуля "srv_function" с аргументами ((<socket.socket fd=18, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 65319)>, {'response': 200}), {})
+2020-03-14 11:35:07,505 - INFO     - decorators - Выполнен вызов функции "get_message" из функции "run"
+2020-03-14 11:35:07,505 - INFO     - decorators - Функция "get_message" из модуля "srv_function" с аргументами ((<socket.socket fd=18, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 65319)>,), {})
+2020-03-14 11:35:07,505 - DEBUG    - server - Обработка сообщения от клиента - {'action': 'message', 'time': 1584174861.6893451, 'sender': 'test_user_1', 'recipient': 'Petr', 'message_text': 'Как дела?'}
+2020-03-14 11:35:07,579 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "processing_message"
+2020-03-14 11:35:07,579 - INFO     - decorators - Функция "send_message" из модуля "srv_function" с аргументами ((<socket.socket fd=18, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 65319)>, {'response': 200}), {})
+2020-03-14 11:35:07,580 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "message_handler"
+2020-03-14 11:35:07,580 - INFO     - decorators - Функция "send_message" из модуля "srv_function" с аргументами ((<socket.socket fd=17, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 65315)>, {'action': 'message', 'time': 1584174861.6893451, 'sender': 'test_user_1', 'recipient': 'Petr', 'message_text': 'Как дела?'}), {})
+2020-03-14 11:35:07,580 - INFO     - server - Сообщение от пользователя test_user_1 передано пользователю Petr.
+2020-03-14 11:35:13,845 - INFO     - decorators - Выполнен вызов функции "get_message" из функции "run"
+2020-03-14 11:35:13,846 - INFO     - decorators - Функция "get_message" из модуля "srv_function" с аргументами ((<socket.socket fd=18, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 65319)>,), {})
+2020-03-14 11:35:13,846 - DEBUG    - server - Обработка сообщения от клиента - {'action': 'exit', 'time': 1584174861.689344, 'user': 'test_user_1'}
+2020-03-14 11:35:13,846 - INFO     - server - Клиент ('127.0.0.1', 65319) отключился от сервера.
+2020-03-14 11:35:14,897 - INFO     - decorators - Выполнен вызов функции "get_message" из функции "run"
+2020-03-14 11:35:14,897 - INFO     - decorators - Функция "get_message" из модуля "srv_function" с аргументами ((<socket.socket fd=17, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 65315)>,), {})
+2020-03-14 11:35:14,897 - DEBUG    - server - Обработка сообщения от клиента - {'action': 'exit', 'time': 1584174835.661916, 'user': 'Petr'}
+2020-03-14 11:35:14,897 - INFO     - server - Клиент ('127.0.0.1', 65315) отключился от сервера.
+2020-03-14 11:44:40,379 - INFO     - server - Установлено соединение с клиентом ('127.0.0.1', 65377)
+2020-03-14 11:44:40,396 - INFO     - decorators - Выполнен вызов функции "get_message" из функции "run"
+2020-03-14 11:44:40,396 - INFO     - decorators - Функция "get_message" из модуля "srv_function" с аргументами ((<socket.socket fd=17, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 65377)>,), {})
+2020-03-14 11:44:40,396 - DEBUG    - server - Обработка сообщения от клиента - {'action': 'presence', 'time': 1584175480.0844228, 'user': 'test_user_1'}
+2020-03-14 11:44:40,399 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "processing_message"
+2020-03-14 11:44:40,399 - INFO     - decorators - Функция "send_message" из модуля "srv_function" с аргументами ((<socket.socket fd=17, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 65377)>, {'response': 200}), {})
+2020-03-14 11:44:40,399 - INFO     - server - Клиент ('127.0.0.1', 65377) подключился. Отправлен ответ {'response': 200}
+2020-03-14 11:44:44,983 - INFO     - decorators - Выполнен вызов функции "get_message" из функции "run"
+2020-03-14 11:44:44,983 - INFO     - decorators - Функция "get_message" из модуля "srv_function" с аргументами ((<socket.socket fd=17, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 65377)>,), {})
+2020-03-14 11:44:44,984 - DEBUG    - server - Обработка сообщения от клиента - {'action': 'get_registered', 'time': 1584175480.084427, 'user': 'test_user_1'}
+2020-03-14 11:44:45,004 - DEBUG    - server - Пользователь test_user_1 запросил список зарегистрированных пользователей.
+2020-03-14 11:44:45,029 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "processing_message"
+2020-03-14 11:44:45,029 - INFO     - decorators - Функция "send_message" из модуля "srv_function" с аргументами ((<socket.socket fd=17, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 65377)>, {'response': 202, 'data': ['test_user_1', 'test_user_2', 'test_user_3', 'lola', 'test_1', 'test_2', 'test_3', 'test_4', 'test_5', 'Petr', 'Peter', 'Ivan', 'Vasya', 'Ignat']}), {})
+2020-03-14 11:44:47,439 - INFO     - decorators - Выполнен вызов функции "get_message" из функции "run"
+2020-03-14 11:44:47,439 - INFO     - decorators - Функция "get_message" из модуля "srv_function" с аргументами ((<socket.socket fd=17, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 65377)>,), {})
+2020-03-14 11:44:47,439 - DEBUG    - server - Обработка сообщения от клиента - {'action': 'get_contacts', 'time': 1584175480.084426, 'user': 'test_user_1'}
+2020-03-14 11:44:47,449 - DEBUG    - server - Пользователь test_user_1 запросил список контактов.
+2020-03-14 11:44:47,454 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "processing_message"
+2020-03-14 11:44:47,455 - INFO     - decorators - Функция "send_message" из модуля "srv_function" с аргументами ((<socket.socket fd=17, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 65377)>, {'response': 202, 'data': ['test_4', 'test_2', 'Vasya', 'Petr']}), {})
+2020-03-14 11:45:10,733 - INFO     - decorators - Выполнен вызов функции "get_message" из функции "run"
+2020-03-14 11:45:10,735 - INFO     - decorators - Функция "get_message" из модуля "srv_function" с аргументами ((<socket.socket fd=17, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 65377)>,), {})
+2020-03-14 11:45:10,736 - DEBUG    - server - Обработка сообщения от клиента - {'action': 'exit', 'time': 1584175480.084424, 'user': 'test_user_1'}
+2020-03-14 11:45:10,737 - INFO     - server - Клиент ('127.0.0.1', 65377) отключился от сервера.
+2020-03-14 11:54:23,669 - INFO     - server - Установлено соединение с клиентом ('127.0.0.1', 65526)
+2020-03-14 11:54:23,709 - INFO     - decorators - Выполнен вызов функции "get_message" из функции "run"
+2020-03-14 11:54:23,710 - INFO     - decorators - Функция "get_message" из модуля "srv_function" с аргументами ((<socket.socket fd=17, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 65526)>,), {})
+2020-03-14 11:54:23,710 - DEBUG    - server - Обработка сообщения от клиента - {'action': 'presence', 'time': 1584176063.36658, 'user': 'test_user_1'}
+2020-03-14 11:54:23,710 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "processing_message"
+2020-03-14 11:54:23,711 - INFO     - decorators - Функция "send_message" из модуля "srv_function" с аргументами ((<socket.socket fd=17, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 65526)>, {'response': 200}), {})
+2020-03-14 11:54:23,711 - INFO     - server - Клиент ('127.0.0.1', 65526) подключился. Отправлен ответ {'response': 200}
+2020-03-14 11:54:27,628 - INFO     - decorators - Выполнен вызов функции "get_message" из функции "run"
+2020-03-14 11:54:27,628 - INFO     - decorators - Функция "get_message" из модуля "srv_function" с аргументами ((<socket.socket fd=17, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 65526)>,), {})
+2020-03-14 11:54:27,628 - DEBUG    - server - Обработка сообщения от клиента - {'action': 'get_registered', 'time': 1584176063.366584, 'user': 'test_user_1'}
+2020-03-14 11:54:27,660 - DEBUG    - server - Пользователь test_user_1 запросил список зарегистрированных пользователей.
+2020-03-14 11:54:27,661 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "processing_message"
+2020-03-14 11:54:27,661 - INFO     - decorators - Функция "send_message" из модуля "srv_function" с аргументами ((<socket.socket fd=17, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 65526)>, {'response': 202, 'data': ['test_user_1', 'test_user_2', 'test_user_3', 'lola', 'test_1', 'test_2', 'test_3', 'test_4', 'test_5', 'Petr', 'Peter', 'Ivan', 'Vasya', 'Ignat']}), {})
+2020-03-14 11:54:32,857 - INFO     - decorators - Выполнен вызов функции "get_message" из функции "run"
+2020-03-14 11:54:32,858 - INFO     - decorators - Функция "get_message" из модуля "srv_function" с аргументами ((<socket.socket fd=17, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 65526)>,), {})
+2020-03-14 11:54:32,858 - DEBUG    - server - Обработка сообщения от клиента - {'action': 'get_contacts', 'time': 1584176063.366583, 'user': 'test_user_1'}
+2020-03-14 11:54:32,861 - DEBUG    - server - Пользователь test_user_1 запросил список контактов.
+2020-03-14 11:54:32,862 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "processing_message"
+2020-03-14 11:54:32,863 - INFO     - decorators - Функция "send_message" из модуля "srv_function" с аргументами ((<socket.socket fd=17, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 65526)>, {'response': 202, 'data': ['test_4', 'test_2', 'Vasya', 'Petr']}), {})
+2020-03-14 11:54:37,888 - INFO     - decorators - Выполнен вызов функции "get_message" из функции "run"
+2020-03-14 11:54:37,890 - INFO     - decorators - Функция "get_message" из модуля "srv_function" с аргументами ((<socket.socket fd=17, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 65526)>,), {})
+2020-03-14 11:54:37,890 - DEBUG    - server - Обработка сообщения от клиента - {'action': 'exit', 'time': 1584176063.366581, 'user': 'test_user_1'}
+2020-03-14 11:54:37,890 - INFO     - server - Клиент ('127.0.0.1', 65526) отключился от сервера.
+2020-03-14 11:54:41,060 - INFO     - server - Установлено соединение с клиентом ('127.0.0.1', 65528)
+2020-03-14 11:54:41,563 - INFO     - decorators - Выполнен вызов функции "get_message" из функции "run"
+2020-03-14 11:54:41,563 - INFO     - decorators - Функция "get_message" из модуля "srv_function" с аргументами ((<socket.socket fd=17, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 65528)>,), {})
+2020-03-14 11:54:41,563 - DEBUG    - server - Обработка сообщения от клиента - {'action': 'presence', 'time': 1584176080.821117, 'user': 'test_user_1'}
+2020-03-14 11:54:41,564 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "processing_message"
+2020-03-14 11:54:41,564 - INFO     - decorators - Функция "send_message" из модуля "srv_function" с аргументами ((<socket.socket fd=17, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 65528)>, {'response': 200}), {})
+2020-03-14 11:54:41,564 - INFO     - server - Клиент ('127.0.0.1', 65528) подключился. Отправлен ответ {'response': 200}
+2020-03-14 11:54:42,076 - INFO     - decorators - Выполнен вызов функции "get_message" из функции "run"
+2020-03-14 11:54:42,077 - INFO     - decorators - Функция "get_message" из модуля "srv_function" с аргументами ((<socket.socket fd=17, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 65528)>,), {})
+2020-03-14 11:54:42,077 - DEBUG    - server - Обработка сообщения от клиента - {'action': 'get_registered', 'time': 1584176080.821121, 'user': 'test_user_1'}
+2020-03-14 11:54:42,078 - DEBUG    - server - Пользователь test_user_1 запросил список зарегистрированных пользователей.
+2020-03-14 11:54:42,079 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "processing_message"
+2020-03-14 11:54:42,080 - INFO     - decorators - Функция "send_message" из модуля "srv_function" с аргументами ((<socket.socket fd=17, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 65528)>, {'response': 202, 'data': ['test_user_1', 'test_user_2', 'test_user_3', 'lola', 'test_1', 'test_2', 'test_3', 'test_4', 'test_5', 'Petr', 'Peter', 'Ivan', 'Vasya', 'Ignat']}), {})
+2020-03-14 11:54:42,581 - INFO     - decorators - Выполнен вызов функции "get_message" из функции "run"
+2020-03-14 11:54:42,581 - INFO     - decorators - Функция "get_message" из модуля "srv_function" с аргументами ((<socket.socket fd=17, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 65528)>,), {})
+2020-03-14 11:54:42,581 - DEBUG    - server - Обработка сообщения от клиента - {'action': 'get_contacts', 'time': 1584176080.821121, 'user': 'test_user_1'}
+2020-03-14 11:54:42,584 - DEBUG    - server - Пользователь test_user_1 запросил список контактов.
+2020-03-14 11:54:42,585 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "processing_message"
+2020-03-14 11:54:42,585 - INFO     - decorators - Функция "send_message" из модуля "srv_function" с аргументами ((<socket.socket fd=17, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 65528)>, {'response': 202, 'data': ['test_4', 'test_2', 'Vasya', 'Petr']}), {})
+2020-03-14 11:55:43,846 - INFO     - server - Установлено соединение с клиентом ('127.0.0.1', 65532)
+2020-03-14 11:55:43,847 - INFO     - decorators - Выполнен вызов функции "get_message" из функции "run"
+2020-03-14 11:55:43,848 - INFO     - decorators - Функция "get_message" из модуля "srv_function" с аргументами ((<socket.socket fd=18, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 65532)>,), {})
+2020-03-14 11:55:43,848 - DEBUG    - server - Обработка сообщения от клиента - {'action': 'presence', 'time': 1584176139.616859, 'user': 'Petr'}
+2020-03-14 11:55:43,850 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "processing_message"
+2020-03-14 11:55:43,850 - INFO     - decorators - Функция "send_message" из модуля "srv_function" с аргументами ((<socket.socket fd=18, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 65532)>, {'response': 200}), {})
+2020-03-14 11:55:43,850 - INFO     - server - Клиент ('127.0.0.1', 65532) подключился. Отправлен ответ {'response': 200}
+2020-03-14 11:55:44,364 - INFO     - decorators - Выполнен вызов функции "get_message" из функции "run"
+2020-03-14 11:55:44,364 - INFO     - decorators - Функция "get_message" из модуля "srv_function" с аргументами ((<socket.socket fd=18, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 65532)>,), {})
+2020-03-14 11:55:44,364 - DEBUG    - server - Обработка сообщения от клиента - {'action': 'get_registered', 'time': 1584176139.616863, 'user': 'Petr'}
+2020-03-14 11:55:44,367 - DEBUG    - server - Пользователь Petr запросил список зарегистрированных пользователей.
+2020-03-14 11:55:44,368 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "processing_message"
+2020-03-14 11:55:44,368 - INFO     - decorators - Функция "send_message" из модуля "srv_function" с аргументами ((<socket.socket fd=18, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 65532)>, {'response': 202, 'data': ['test_user_1', 'test_user_2', 'test_user_3', 'lola', 'test_1', 'test_2', 'test_3', 'test_4', 'test_5', 'Petr', 'Peter', 'Ivan', 'Vasya', 'Ignat']}), {})
+2020-03-14 11:55:44,873 - INFO     - decorators - Выполнен вызов функции "get_message" из функции "run"
+2020-03-14 11:55:44,873 - INFO     - decorators - Функция "get_message" из модуля "srv_function" с аргументами ((<socket.socket fd=18, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 65532)>,), {})
+2020-03-14 11:55:44,874 - DEBUG    - server - Обработка сообщения от клиента - {'action': 'get_contacts', 'time': 1584176139.616863, 'user': 'Petr'}
+2020-03-14 11:55:44,876 - DEBUG    - server - Пользователь Petr запросил список контактов.
+2020-03-14 11:55:44,877 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "processing_message"
+2020-03-14 11:55:44,877 - INFO     - decorators - Функция "send_message" из модуля "srv_function" с аргументами ((<socket.socket fd=18, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 65532)>, {'response': 202, 'data': ['test_user_1', 'test_5', 'lola', 'test_3', 'Vasya', 'test_user_3']}), {})
+2020-03-14 11:56:06,513 - INFO     - decorators - Выполнен вызов функции "get_message" из функции "run"
+2020-03-14 11:56:06,513 - INFO     - decorators - Функция "get_message" из модуля "srv_function" с аргументами ((<socket.socket fd=17, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 65528)>,), {})
+2020-03-14 11:56:06,513 - DEBUG    - server - Обработка сообщения от клиента - {'action': 'message', 'time': 1584176080.821119, 'sender': 'test_user_1', 'recipient': 'Petr', 'message_text': 'Привет!'}
+2020-03-14 11:56:06,612 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "processing_message"
+2020-03-14 11:56:06,612 - INFO     - decorators - Функция "send_message" из модуля "srv_function" с аргументами ((<socket.socket fd=17, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 65528)>, {'response': 200}), {})
+2020-03-14 11:56:06,613 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "message_handler"
+2020-03-14 11:56:06,613 - INFO     - decorators - Функция "send_message" из модуля "srv_function" с аргументами ((<socket.socket fd=18, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 65532)>, {'action': 'message', 'time': 1584176080.821119, 'sender': 'test_user_1', 'recipient': 'Petr', 'message_text': 'Привет!'}), {})
+2020-03-14 11:56:06,613 - INFO     - server - Сообщение от пользователя test_user_1 передано пользователю Petr.
+2020-03-14 11:56:22,665 - INFO     - decorators - Выполнен вызов функции "get_message" из функции "run"
+2020-03-14 11:56:22,667 - INFO     - decorators - Функция "get_message" из модуля "srv_function" с аргументами ((<socket.socket fd=18, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 65532)>,), {})
+2020-03-14 11:56:22,667 - DEBUG    - server - Обработка сообщения от клиента - {'action': 'message', 'time': 1584176139.6168609, 'sender': 'Petr', 'recipient': 'test_user_1', 'message_text': 'Как дела?'}
+2020-03-14 11:56:22,678 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "processing_message"
+2020-03-14 11:56:22,678 - INFO     - decorators - Функция "send_message" из модуля "srv_function" с аргументами ((<socket.socket fd=18, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 65532)>, {'response': 200}), {})
+2020-03-14 11:56:22,712 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "message_handler"
+2020-03-14 11:56:22,713 - INFO     - decorators - Функция "send_message" из модуля "srv_function" с аргументами ((<socket.socket fd=17, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 65528)>, {'action': 'message', 'time': 1584176139.6168609, 'sender': 'Petr', 'recipient': 'test_user_1', 'message_text': 'Как дела?'}), {})
+2020-03-14 11:56:22,713 - INFO     - server - Сообщение от пользователя Petr передано пользователю test_user_1.
+2020-03-14 11:56:56,417 - INFO     - decorators - Выполнен вызов функции "get_message" из функции "run"
+2020-03-14 11:56:56,417 - INFO     - decorators - Функция "get_message" из модуля "srv_function" с аргументами ((<socket.socket fd=17, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 65528)>,), {})
+2020-03-14 11:56:56,417 - DEBUG    - server - Обработка сообщения от клиента - {'action': 'exit', 'time': 1584176080.8211179, 'user': 'test_user_1'}
+2020-03-14 11:56:56,417 - INFO     - server - Клиент ('127.0.0.1', 65528) отключился от сервера.
+2020-03-14 11:56:59,421 - INFO     - decorators - Выполнен вызов функции "get_message" из функции "run"
+2020-03-14 11:56:59,421 - INFO     - decorators - Функция "get_message" из модуля "srv_function" с аргументами ((<socket.socket fd=18, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 65532)>,), {})
+2020-03-14 11:56:59,421 - DEBUG    - server - Обработка сообщения от клиента - {'action': 'exit', 'time': 1584176139.61686, 'user': 'Petr'}
+2020-03-14 11:56:59,421 - INFO     - server - Клиент ('127.0.0.1', 65532) отключился от сервера.

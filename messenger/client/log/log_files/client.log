@@ -1,0 +1,300 @@
+2020-03-14 11:27:02,957 - INFO     - decorators - Выполнен вызов функции "args_parser" из функции "get_command_args"
+2020-03-14 11:27:02,959 - INFO     - decorators - Функция "args_parser" из модуля "clt_parse_args" с аргументами ((), {})
+2020-03-14 11:27:02,960 - INFO     - decorators - Выполнен вызов функции "check_address" из функции "get_command_args"
+2020-03-14 11:27:02,960 - INFO     - decorators - Функция "check_address" из модуля "clt_parse_args" с аргументами (('127.0.0.1',), {})
+2020-03-14 11:27:02,961 - INFO     - decorators - Выполнен вызов функции "check_port" из функции "get_command_args"
+2020-03-14 11:27:02,961 - INFO     - decorators - Функция "check_port" из модуля "clt_parse_args" с аргументами ((7777,), {})
+2020-03-14 11:27:02,961 - INFO     - decorators - Выполнен вызов функции "get_command_args" из функции "<module>"
+2020-03-14 11:27:02,962 - INFO     - decorators - Функция "get_command_args" из модуля "clt_parse_args" с аргументами ((), {})
+2020-03-14 11:27:19,751 - INFO     - client_gui - Запущено клиентское приложение. IP-адрес сервера: 127.0.0.1, порт сервера: 7777, имя пользователя: Petr.
+2020-03-14 11:27:19,802 - INFO     - transport - Попытка подключения №1.
+2020-03-14 11:27:19,802 - DEBUG    - transport - Установлено соединение с сервером.
+2020-03-14 11:27:19,803 - INFO     - transport - Сгенерировано presence сообщение для пользователя Petr.
+2020-03-14 11:27:19,808 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "connection_init"
+2020-03-14 11:27:19,808 - INFO     - decorators - Функция "send_message" из модуля "clt_function" с аргументами ((<socket.socket fd=15, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 65245), raddr=('127.0.0.1', 7777)>, {'action': 'presence', 'time': 1584174422.852563, 'user': 'Petr'}), {})
+2020-03-14 11:27:20,329 - INFO     - decorators - Выполнен вызов функции "get_message" из функции "connection_init"
+2020-03-14 11:27:20,329 - INFO     - decorators - Функция "get_message" из модуля "clt_function" с аргументами ((<socket.socket fd=15, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 65245), raddr=('127.0.0.1', 7777)>,), {})
+2020-03-14 11:27:20,329 - DEBUG    - transport - Обработка сообщения от сервера {'response': 200}.
+2020-03-14 11:27:20,329 - INFO     - transport - Сообщение корректно обработано. Response 200: OK
+2020-03-14 11:27:20,329 - INFO     - transport - Установлено соединение с сервером 127.0.0.1:7777.
+2020-03-14 11:27:20,329 - DEBUG    - transport - Запрос зарегистрированных пользователей.
+2020-03-14 11:27:20,330 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "get_registered_user_from_server"
+2020-03-14 11:27:20,330 - INFO     - decorators - Функция "send_message" из модуля "clt_function" с аргументами ((<socket.socket fd=15, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 65245), raddr=('127.0.0.1', 7777)>, {'action': 'get_registered', 'time': 1584174422.852569, 'user': 'Petr'}), {})
+2020-03-14 11:27:20,862 - INFO     - decorators - Выполнен вызов функции "get_message" из функции "get_registered_user_from_server"
+2020-03-14 11:27:20,862 - INFO     - decorators - Функция "get_message" из модуля "clt_function" с аргументами ((<socket.socket fd=15, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 65245), raddr=('127.0.0.1', 7777)>,), {})
+2020-03-14 11:27:20,871 - DEBUG    - transport - Запрос списка контактов пользователя Petr.
+2020-03-14 11:27:20,872 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "get_contact_list_from_server"
+2020-03-14 11:27:20,872 - INFO     - decorators - Функция "send_message" из модуля "clt_function" с аргументами ((<socket.socket fd=15, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 65245), raddr=('127.0.0.1', 7777)>, {'action': 'get_contacts', 'time': 1584174422.8525681, 'user': 'Petr'}), {})
+2020-03-14 11:27:21,374 - INFO     - decorators - Выполнен вызов функции "get_message" из функции "get_contact_list_from_server"
+2020-03-14 11:27:21,374 - INFO     - decorators - Функция "get_message" из модуля "clt_function" с аргументами ((<socket.socket fd=15, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 65245), raddr=('127.0.0.1', 7777)>,), {})
+2020-03-14 11:27:21,416 - DEBUG    - transport - Запущен процесс - приёмник сообщений с сервера.
+2020-03-14 11:28:22,099 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "transport_shutdown"
+2020-03-14 11:28:22,100 - INFO     - decorators - Функция "send_message" из модуля "clt_function" с аргументами ((<socket.socket fd=15, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 65245), raddr=('127.0.0.1', 7777)>, {'action': 'exit', 'time': 1584174422.8525639, 'user': 'Petr'}), {})
+2020-03-14 11:28:22,100 - DEBUG    - transport - Клиент завершает работу.
+2020-03-14 11:28:22,616 - CRITICAL - transport - Потеряно соединение с сервером.
+2020-03-14 11:33:55,756 - INFO     - decorators - Выполнен вызов функции "args_parser" из функции "get_command_args"
+2020-03-14 11:33:55,757 - INFO     - decorators - Функция "args_parser" из модуля "clt_parse_args" с аргументами ((), {})
+2020-03-14 11:33:55,758 - INFO     - decorators - Выполнен вызов функции "check_address" из функции "get_command_args"
+2020-03-14 11:33:55,758 - INFO     - decorators - Функция "check_address" из модуля "clt_parse_args" с аргументами (('127.0.0.1',), {})
+2020-03-14 11:33:55,759 - INFO     - decorators - Выполнен вызов функции "check_port" из функции "get_command_args"
+2020-03-14 11:33:55,759 - INFO     - decorators - Функция "check_port" из модуля "clt_parse_args" с аргументами ((7777,), {})
+2020-03-14 11:33:55,759 - INFO     - decorators - Выполнен вызов функции "get_command_args" из функции "<module>"
+2020-03-14 11:33:55,759 - INFO     - decorators - Функция "get_command_args" из модуля "clt_parse_args" с аргументами ((), {})
+2020-03-14 11:33:59,715 - INFO     - client_gui - Запущено клиентское приложение. IP-адрес сервера: 127.0.0.1, порт сервера: 7777, имя пользователя: Petr.
+2020-03-14 11:33:59,742 - INFO     - transport - Попытка подключения №1.
+2020-03-14 11:33:59,742 - DEBUG    - transport - Установлено соединение с сервером.
+2020-03-14 11:33:59,742 - INFO     - transport - Сгенерировано presence сообщение для пользователя Petr.
+2020-03-14 11:33:59,745 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "connection_init"
+2020-03-14 11:33:59,745 - INFO     - decorators - Функция "send_message" из модуля "clt_function" с аргументами ((<socket.socket fd=12, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 65315), raddr=('127.0.0.1', 7777)>, {'action': 'presence', 'time': 1584174835.6619148, 'user': 'Petr'}), {})
+2020-03-14 11:33:59,751 - INFO     - decorators - Выполнен вызов функции "get_message" из функции "connection_init"
+2020-03-14 11:33:59,752 - INFO     - decorators - Функция "get_message" из модуля "clt_function" с аргументами ((<socket.socket fd=12, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 65315), raddr=('127.0.0.1', 7777)>,), {})
+2020-03-14 11:33:59,752 - DEBUG    - transport - Обработка сообщения от сервера {'response': 200}.
+2020-03-14 11:33:59,752 - INFO     - transport - Сообщение корректно обработано. Response 200: OK
+2020-03-14 11:33:59,752 - INFO     - transport - Установлено соединение с сервером 127.0.0.1:7777.
+2020-03-14 11:33:59,752 - DEBUG    - transport - Запрос зарегистрированных пользователей.
+2020-03-14 11:33:59,753 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "get_registered_user_from_server"
+2020-03-14 11:33:59,753 - INFO     - decorators - Функция "send_message" из модуля "clt_function" с аргументами ((<socket.socket fd=12, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 65315), raddr=('127.0.0.1', 7777)>, {'action': 'get_registered', 'time': 1584174835.661918, 'user': 'Petr'}), {})
+2020-03-14 11:34:00,277 - INFO     - decorators - Выполнен вызов функции "get_message" из функции "get_registered_user_from_server"
+2020-03-14 11:34:00,277 - INFO     - decorators - Функция "get_message" из модуля "clt_function" с аргументами ((<socket.socket fd=12, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 65315), raddr=('127.0.0.1', 7777)>,), {})
+2020-03-14 11:34:00,286 - DEBUG    - transport - Запрос списка контактов пользователя Petr.
+2020-03-14 11:34:00,287 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "get_contact_list_from_server"
+2020-03-14 11:34:00,287 - INFO     - decorators - Функция "send_message" из модуля "clt_function" с аргументами ((<socket.socket fd=12, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 65315), raddr=('127.0.0.1', 7777)>, {'action': 'get_contacts', 'time': 1584174835.661918, 'user': 'Petr'}), {})
+2020-03-14 11:34:00,785 - INFO     - decorators - Выполнен вызов функции "get_message" из функции "get_contact_list_from_server"
+2020-03-14 11:34:00,786 - INFO     - decorators - Функция "get_message" из модуля "clt_function" с аргументами ((<socket.socket fd=12, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 65315), raddr=('127.0.0.1', 7777)>,), {})
+2020-03-14 11:34:00,826 - DEBUG    - transport - Запущен процесс - приёмник сообщений с сервера.
+2020-03-14 11:34:21,859 - INFO     - decorators - Выполнен вызов функции "args_parser" из функции "get_command_args"
+2020-03-14 11:34:21,860 - INFO     - decorators - Функция "args_parser" из модуля "clt_parse_args" с аргументами ((), {})
+2020-03-14 11:34:21,862 - INFO     - decorators - Выполнен вызов функции "check_address" из функции "get_command_args"
+2020-03-14 11:34:21,862 - INFO     - decorators - Функция "check_address" из модуля "clt_parse_args" с аргументами (('127.0.0.1',), {})
+2020-03-14 11:34:21,862 - INFO     - decorators - Выполнен вызов функции "check_port" из функции "get_command_args"
+2020-03-14 11:34:21,863 - INFO     - decorators - Функция "check_port" из модуля "clt_parse_args" с аргументами ((7777,), {})
+2020-03-14 11:34:21,863 - INFO     - decorators - Выполнен вызов функции "get_command_args" из функции "<module>"
+2020-03-14 11:34:21,863 - INFO     - decorators - Функция "get_command_args" из модуля "clt_parse_args" с аргументами ((), {})
+2020-03-14 11:34:22,107 - INFO     - client_gui - Запущено клиентское приложение. IP-адрес сервера: 127.0.0.1, порт сервера: 7777, имя пользователя: test_user_1.
+2020-03-14 11:34:22,157 - INFO     - transport - Попытка подключения №1.
+2020-03-14 11:34:22,157 - DEBUG    - transport - Установлено соединение с сервером.
+2020-03-14 11:34:22,157 - INFO     - transport - Сгенерировано presence сообщение для пользователя test_user_1.
+2020-03-14 11:34:22,158 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "connection_init"
+2020-03-14 11:34:22,158 - INFO     - decorators - Функция "send_message" из модуля "clt_function" с аргументами ((<socket.socket fd=5, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 65319), raddr=('127.0.0.1', 7777)>, {'action': 'presence', 'time': 1584174861.689342, 'user': 'test_user_1'}), {})
+2020-03-14 11:34:22,162 - INFO     - decorators - Выполнен вызов функции "get_message" из функции "connection_init"
+2020-03-14 11:34:22,162 - INFO     - decorators - Функция "get_message" из модуля "clt_function" с аргументами ((<socket.socket fd=5, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 65319), raddr=('127.0.0.1', 7777)>,), {})
+2020-03-14 11:34:22,163 - DEBUG    - transport - Обработка сообщения от сервера {'response': 200}.
+2020-03-14 11:34:22,163 - INFO     - transport - Сообщение корректно обработано. Response 200: OK
+2020-03-14 11:34:22,163 - INFO     - transport - Установлено соединение с сервером 127.0.0.1:7777.
+2020-03-14 11:34:22,163 - DEBUG    - transport - Запрос зарегистрированных пользователей.
+2020-03-14 11:34:22,164 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "get_registered_user_from_server"
+2020-03-14 11:34:22,164 - INFO     - decorators - Функция "send_message" из модуля "clt_function" с аргументами ((<socket.socket fd=5, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 65319), raddr=('127.0.0.1', 7777)>, {'action': 'get_registered', 'time': 1584174861.689348, 'user': 'test_user_1'}), {})
+2020-03-14 11:34:22,688 - INFO     - decorators - Выполнен вызов функции "get_message" из функции "get_registered_user_from_server"
+2020-03-14 11:34:22,689 - INFO     - decorators - Функция "get_message" из модуля "clt_function" с аргументами ((<socket.socket fd=5, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 65319), raddr=('127.0.0.1', 7777)>,), {})
+2020-03-14 11:34:22,699 - DEBUG    - transport - Запрос списка контактов пользователя test_user_1.
+2020-03-14 11:34:22,700 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "get_contact_list_from_server"
+2020-03-14 11:34:22,700 - INFO     - decorators - Функция "send_message" из модуля "clt_function" с аргументами ((<socket.socket fd=5, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 65319), raddr=('127.0.0.1', 7777)>, {'action': 'get_contacts', 'time': 1584174861.689347, 'user': 'test_user_1'}), {})
+2020-03-14 11:34:23,199 - INFO     - decorators - Выполнен вызов функции "get_message" из функции "get_contact_list_from_server"
+2020-03-14 11:34:23,200 - INFO     - decorators - Функция "get_message" из модуля "clt_function" с аргументами ((<socket.socket fd=5, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 65319), raddr=('127.0.0.1', 7777)>,), {})
+2020-03-14 11:34:23,223 - DEBUG    - transport - Запущен процесс - приёмник сообщений с сервера.
+2020-03-14 11:34:41,524 - DEBUG    - transport - Сформирован словарь-сообщение: {'action': 'message', 'time': 1584174835.661916, 'sender': 'Petr', 'recipient': 'test_user_1', 'message_text': 'Hello'}.
+2020-03-14 11:34:41,525 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "create_message"
+2020-03-14 11:34:41,525 - INFO     - decorators - Функция "send_message" из модуля "clt_function" с аргументами ((<socket.socket fd=12, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 65315), raddr=('127.0.0.1', 7777)>, {'action': 'message', 'time': 1584174835.661916, 'sender': 'Petr', 'recipient': 'test_user_1', 'message_text': 'Hello'}), {})
+2020-03-14 11:34:41,819 - INFO     - decorators - Выполнен вызов функции "get_message" из функции "create_message"
+2020-03-14 11:34:41,819 - INFO     - decorators - Функция "get_message" из модуля "clt_function" с аргументами ((<socket.socket fd=12, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 65315), raddr=('127.0.0.1', 7777)>,), {})
+2020-03-14 11:34:41,819 - DEBUG    - transport - Обработка сообщения от сервера {'response': 200}.
+2020-03-14 11:34:41,819 - INFO     - transport - Сообщение корректно обработано. Response 200: OK
+2020-03-14 11:34:41,819 - INFO     - transport - Сообщение отправлено пользователю test_user_1.
+2020-03-14 11:34:41,825 - DEBUG    - main_window - Отправлено сообщение для пользователя test_user_1: Hello
+2020-03-14 11:34:42,351 - INFO     - decorators - Выполнен вызов функции "get_message" из функции "run"
+2020-03-14 11:34:42,351 - INFO     - decorators - Функция "get_message" из модуля "clt_function" с аргументами ((<socket.socket fd=5, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 65319), raddr=('127.0.0.1', 7777)>,), {})
+2020-03-14 11:34:42,351 - DEBUG    - transport - Принято сообщение с сервера: {'action': 'message', 'time': 1584174835.661916, 'sender': 'Petr', 'recipient': 'test_user_1', 'message_text': 'Hello'}
+2020-03-14 11:34:42,351 - DEBUG    - transport - Обработка сообщения от сервера {'action': 'message', 'time': 1584174835.661916, 'sender': 'Petr', 'recipient': 'test_user_1', 'message_text': 'Hello'}.
+2020-03-14 11:34:42,351 - INFO     - transport - Пользователь test_user_1 получил сообщение Hello от пользователя Petr.
+2020-03-14 11:34:43,695 - DEBUG    - transport - Создание контакта Petr.
+2020-03-14 11:34:43,862 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "add_contact_to_server"
+2020-03-14 11:34:43,862 - INFO     - decorators - Функция "send_message" из модуля "clt_function" с аргументами ((<socket.socket fd=5, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 65319), raddr=('127.0.0.1', 7777)>, {'action': 'add_contact', 'time': 1584174861.689346, 'user': 'test_user_1', 'account_name': 'Petr'}), {})
+2020-03-14 11:34:44,350 - INFO     - decorators - Выполнен вызов функции "get_message" из функции "add_contact_to_server"
+2020-03-14 11:34:44,350 - INFO     - decorators - Функция "get_message" из модуля "clt_function" с аргументами ((<socket.socket fd=5, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 65319), raddr=('127.0.0.1', 7777)>,), {})
+2020-03-14 11:34:44,350 - DEBUG    - transport - Обработка сообщения от сервера {'response': 200}.
+2020-03-14 11:34:44,350 - INFO     - transport - Сообщение корректно обработано. Response 200: OK
+2020-03-14 11:34:44,356 - INFO     - main_window - Пользователь <PyQt5.QtGui.QStandardItem object at 0x109ba7dc8> успешно добавлен в список контактов.
+2020-03-14 11:35:02,454 - DEBUG    - transport - Сформирован словарь-сообщение: {'action': 'message', 'time': 1584174861.6893451, 'sender': 'test_user_1', 'recipient': 'Petr', 'message_text': 'Как дела?'}.
+2020-03-14 11:35:02,455 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "create_message"
+2020-03-14 11:35:02,455 - INFO     - decorators - Функция "send_message" из модуля "clt_function" с аргументами ((<socket.socket fd=5, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 65319), raddr=('127.0.0.1', 7777)>, {'action': 'message', 'time': 1584174861.6893451, 'sender': 'test_user_1', 'recipient': 'Petr', 'message_text': 'Как дела?'}), {})
+2020-03-14 11:35:07,579 - INFO     - decorators - Выполнен вызов функции "get_message" из функции "run"
+2020-03-14 11:35:07,579 - INFO     - decorators - Функция "get_message" из модуля "clt_function" с аргументами ((<socket.socket fd=5, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 65319), raddr=('127.0.0.1', 7777)>,), {})
+2020-03-14 11:35:07,579 - DEBUG    - transport - Принято сообщение с сервера: {'response': 200}
+2020-03-14 11:35:07,579 - DEBUG    - transport - Обработка сообщения от сервера {'response': 200}.
+2020-03-14 11:35:07,579 - INFO     - transport - Сообщение корректно обработано. Response 200: OK
+2020-03-14 11:35:08,121 - INFO     - decorators - Выполнен вызов функции "get_message" из функции "run"
+2020-03-14 11:35:08,121 - INFO     - decorators - Функция "get_message" из модуля "clt_function" с аргументами ((<socket.socket fd=12, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 65315), raddr=('127.0.0.1', 7777)>,), {})
+2020-03-14 11:35:08,121 - DEBUG    - transport - Принято сообщение с сервера: {'action': 'message', 'time': 1584174861.6893451, 'sender': 'test_user_1', 'recipient': 'Petr', 'message_text': 'Как дела?'}
+2020-03-14 11:35:08,121 - DEBUG    - transport - Обработка сообщения от сервера {'action': 'message', 'time': 1584174861.6893451, 'sender': 'test_user_1', 'recipient': 'Petr', 'message_text': 'Как дела?'}.
+2020-03-14 11:35:08,121 - INFO     - transport - Пользователь Petr получил сообщение Как дела? от пользователя test_user_1.
+2020-03-14 11:35:13,606 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "transport_shutdown"
+2020-03-14 11:35:13,607 - INFO     - decorators - Функция "send_message" из модуля "clt_function" с аргументами ((<socket.socket fd=5, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 65319), raddr=('127.0.0.1', 7777)>, {'action': 'exit', 'time': 1584174861.689344, 'user': 'test_user_1'}), {})
+2020-03-14 11:35:13,607 - DEBUG    - transport - Клиент завершает работу.
+2020-03-14 11:35:14,727 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "transport_shutdown"
+2020-03-14 11:35:14,727 - INFO     - decorators - Функция "send_message" из модуля "clt_function" с аргументами ((<socket.socket fd=12, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 65315), raddr=('127.0.0.1', 7777)>, {'action': 'exit', 'time': 1584174835.661916, 'user': 'Petr'}), {})
+2020-03-14 11:35:14,727 - DEBUG    - transport - Клиент завершает работу.
+2020-03-14 11:35:15,160 - CRITICAL - transport - Потеряно соединение с сервером.
+2020-03-14 11:44:40,164 - INFO     - decorators - Выполнен вызов функции "args_parser" из функции "get_command_args"
+2020-03-14 11:44:40,165 - INFO     - decorators - Функция "args_parser" из модуля "clt_parse_args" с аргументами ((), {})
+2020-03-14 11:44:40,167 - INFO     - decorators - Выполнен вызов функции "check_address" из функции "get_command_args"
+2020-03-14 11:44:40,168 - INFO     - decorators - Функция "check_address" из модуля "clt_parse_args" с аргументами (('127.0.0.1',), {})
+2020-03-14 11:44:40,168 - INFO     - decorators - Выполнен вызов функции "check_port" из функции "get_command_args"
+2020-03-14 11:44:40,168 - INFO     - decorators - Функция "check_port" из модуля "clt_parse_args" с аргументами ((7777,), {})
+2020-03-14 11:44:40,169 - INFO     - decorators - Выполнен вызов функции "get_command_args" из функции "<module>"
+2020-03-14 11:44:40,169 - INFO     - decorators - Функция "get_command_args" из модуля "clt_parse_args" с аргументами ((), {})
+2020-03-14 11:44:40,343 - INFO     - client_gui - Запущено клиентское приложение. IP-адрес сервера: 127.0.0.1, порт сервера: 7777, имя пользователя: test_user_1.
+2020-03-14 11:44:40,374 - INFO     - transport - Попытка подключения №1.
+2020-03-14 11:44:40,374 - DEBUG    - transport - Установлено соединение с сервером.
+2020-03-14 11:44:40,374 - INFO     - transport - Сгенерировано presence сообщение для пользователя test_user_1.
+2020-03-14 11:44:40,375 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "connection_init"
+2020-03-14 11:44:40,376 - INFO     - decorators - Функция "send_message" из модуля "clt_function" с аргументами ((<socket.socket fd=5, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 65377), raddr=('127.0.0.1', 7777)>, {'action': 'presence', 'time': 1584175480.0844228, 'user': 'test_user_1'}), {})
+2020-03-14 11:44:40,397 - INFO     - decorators - Выполнен вызов функции "get_message" из функции "connection_init"
+2020-03-14 11:44:40,397 - INFO     - decorators - Функция "get_message" из модуля "clt_function" с аргументами ((<socket.socket fd=5, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 65377), raddr=('127.0.0.1', 7777)>,), {})
+2020-03-14 11:44:40,397 - DEBUG    - transport - Обработка сообщения от сервера {'response': 200}.
+2020-03-14 11:44:40,398 - INFO     - transport - Сообщение корректно обработано. Response 200: OK
+2020-03-14 11:44:40,398 - INFO     - transport - Установлено соединение с сервером 127.0.0.1:7777.
+2020-03-14 11:44:40,398 - DEBUG    - transport - Запрос зарегистрированных пользователей.
+2020-03-14 11:44:40,398 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "get_registered_user_from_server"
+2020-03-14 11:44:40,398 - INFO     - decorators - Функция "send_message" из модуля "clt_function" с аргументами ((<socket.socket fd=5, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 65377), raddr=('127.0.0.1', 7777)>, {'action': 'get_registered', 'time': 1584175480.084427, 'user': 'test_user_1'}), {})
+2020-03-14 11:44:45,005 - INFO     - decorators - Выполнен вызов функции "get_message" из функции "get_registered_user_from_server"
+2020-03-14 11:44:45,005 - INFO     - decorators - Функция "get_message" из модуля "clt_function" с аргументами ((<socket.socket fd=5, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 65377), raddr=('127.0.0.1', 7777)>,), {})
+2020-03-14 11:44:45,014 - DEBUG    - transport - Запрос списка контактов пользователя test_user_1.
+2020-03-14 11:44:45,015 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "get_contact_list_from_server"
+2020-03-14 11:44:45,015 - INFO     - decorators - Функция "send_message" из модуля "clt_function" с аргументами ((<socket.socket fd=5, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 65377), raddr=('127.0.0.1', 7777)>, {'action': 'get_contacts', 'time': 1584175480.084426, 'user': 'test_user_1'}), {})
+2020-03-14 11:44:47,450 - INFO     - decorators - Выполнен вызов функции "get_message" из функции "get_contact_list_from_server"
+2020-03-14 11:44:47,450 - INFO     - decorators - Функция "get_message" из модуля "clt_function" с аргументами ((<socket.socket fd=5, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 65377), raddr=('127.0.0.1', 7777)>,), {})
+2020-03-14 11:44:47,478 - DEBUG    - transport - Запущен процесс - приёмник сообщений с сервера.
+2020-03-14 11:45:10,123 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "transport_shutdown"
+2020-03-14 11:45:10,124 - INFO     - decorators - Функция "send_message" из модуля "clt_function" с аргументами ((<socket.socket fd=5, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 65377), raddr=('127.0.0.1', 7777)>, {'action': 'exit', 'time': 1584175480.084424, 'user': 'test_user_1'}), {})
+2020-03-14 11:45:10,125 - DEBUG    - transport - Клиент завершает работу.
+2020-03-14 11:54:23,451 - INFO     - decorators - Выполнен вызов функции "args_parser" из функции "get_command_args"
+2020-03-14 11:54:23,452 - INFO     - decorators - Функция "args_parser" из модуля "clt_parse_args" с аргументами ((), {})
+2020-03-14 11:54:23,453 - INFO     - decorators - Выполнен вызов функции "check_address" из функции "get_command_args"
+2020-03-14 11:54:23,453 - INFO     - decorators - Функция "check_address" из модуля "clt_parse_args" с аргументами (('127.0.0.1',), {})
+2020-03-14 11:54:23,453 - INFO     - decorators - Выполнен вызов функции "check_port" из функции "get_command_args"
+2020-03-14 11:54:23,453 - INFO     - decorators - Функция "check_port" из модуля "clt_parse_args" с аргументами ((7777,), {})
+2020-03-14 11:54:23,454 - INFO     - decorators - Выполнен вызов функции "get_command_args" из функции "<module>"
+2020-03-14 11:54:23,454 - INFO     - decorators - Функция "get_command_args" из модуля "clt_parse_args" с аргументами ((), {})
+2020-03-14 11:54:23,632 - INFO     - client_gui - Запущено клиентское приложение. IP-адрес сервера: 127.0.0.1, порт сервера: 7777, имя пользователя: test_user_1.
+2020-03-14 11:54:23,666 - INFO     - transport - Попытка подключения №1.
+2020-03-14 11:54:23,666 - DEBUG    - transport - Установлено соединение с сервером.
+2020-03-14 11:54:23,666 - INFO     - transport - Сгенерировано presence сообщение для пользователя test_user_1.
+2020-03-14 11:54:23,667 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "connection_init"
+2020-03-14 11:54:23,668 - INFO     - decorators - Функция "send_message" из модуля "clt_function" с аргументами ((<socket.socket fd=5, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 65526), raddr=('127.0.0.1', 7777)>, {'action': 'presence', 'time': 1584176063.36658, 'user': 'test_user_1'}), {})
+2020-03-14 11:54:23,711 - INFO     - decorators - Выполнен вызов функции "get_message" из функции "connection_init"
+2020-03-14 11:54:23,711 - INFO     - decorators - Функция "get_message" из модуля "clt_function" с аргументами ((<socket.socket fd=5, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 65526), raddr=('127.0.0.1', 7777)>,), {})
+2020-03-14 11:54:23,711 - DEBUG    - transport - Обработка сообщения от сервера {'response': 200}.
+2020-03-14 11:54:23,711 - INFO     - transport - Сообщение корректно обработано. Response 200: OK
+2020-03-14 11:54:23,711 - INFO     - transport - Установлено соединение с сервером 127.0.0.1:7777.
+2020-03-14 11:54:23,711 - DEBUG    - transport - Запрос зарегистрированных пользователей.
+2020-03-14 11:54:23,712 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "get_registered_user_from_server"
+2020-03-14 11:54:23,712 - INFO     - decorators - Функция "send_message" из модуля "clt_function" с аргументами ((<socket.socket fd=5, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 65526), raddr=('127.0.0.1', 7777)>, {'action': 'get_registered', 'time': 1584176063.366584, 'user': 'test_user_1'}), {})
+2020-03-14 11:54:27,661 - INFO     - decorators - Выполнен вызов функции "get_message" из функции "get_registered_user_from_server"
+2020-03-14 11:54:27,661 - INFO     - decorators - Функция "get_message" из модуля "clt_function" с аргументами ((<socket.socket fd=5, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 65526), raddr=('127.0.0.1', 7777)>,), {})
+2020-03-14 11:54:27,671 - DEBUG    - transport - Запрос списка контактов пользователя test_user_1.
+2020-03-14 11:54:27,671 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "get_contact_list_from_server"
+2020-03-14 11:54:27,672 - INFO     - decorators - Функция "send_message" из модуля "clt_function" с аргументами ((<socket.socket fd=5, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 65526), raddr=('127.0.0.1', 7777)>, {'action': 'get_contacts', 'time': 1584176063.366583, 'user': 'test_user_1'}), {})
+2020-03-14 11:54:32,673 - ERROR    - transport - Timeout соединения при обновлении списков пользователей.
+2020-03-14 11:54:32,673 - DEBUG    - transport - Запущен процесс - приёмник сообщений с сервера.
+2020-03-14 11:54:33,731 - INFO     - decorators - Выполнен вызов функции "get_message" из функции "run"
+2020-03-14 11:54:33,732 - INFO     - decorators - Функция "get_message" из модуля "clt_function" с аргументами ((<socket.socket fd=5, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 65526), raddr=('127.0.0.1', 7777)>,), {})
+2020-03-14 11:54:33,732 - DEBUG    - transport - Принято сообщение с сервера: {'response': 202, 'data': ['test_4', 'test_2', 'Vasya', 'Petr']}
+2020-03-14 11:54:33,732 - DEBUG    - transport - Обработка сообщения от сервера {'response': 202, 'data': ['test_4', 'test_2', 'Vasya', 'Petr']}.
+2020-03-14 11:54:33,732 - DEBUG    - transport - Принят неизвестный код подтверждения 202
+2020-03-14 11:54:37,450 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "transport_shutdown"
+2020-03-14 11:54:37,450 - INFO     - decorators - Функция "send_message" из модуля "clt_function" с аргументами ((<socket.socket fd=5, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 65526), raddr=('127.0.0.1', 7777)>, {'action': 'exit', 'time': 1584176063.366581, 'user': 'test_user_1'}), {})
+2020-03-14 11:54:37,451 - DEBUG    - transport - Клиент завершает работу.
+2020-03-14 11:54:37,890 - CRITICAL - transport - Потеряно соединение с сервером.
+2020-03-14 11:54:40,888 - INFO     - decorators - Выполнен вызов функции "args_parser" из функции "get_command_args"
+2020-03-14 11:54:40,888 - INFO     - decorators - Функция "args_parser" из модуля "clt_parse_args" с аргументами ((), {})
+2020-03-14 11:54:40,889 - INFO     - decorators - Выполнен вызов функции "check_address" из функции "get_command_args"
+2020-03-14 11:54:40,890 - INFO     - decorators - Функция "check_address" из модуля "clt_parse_args" с аргументами (('127.0.0.1',), {})
+2020-03-14 11:54:40,890 - INFO     - decorators - Выполнен вызов функции "check_port" из функции "get_command_args"
+2020-03-14 11:54:40,890 - INFO     - decorators - Функция "check_port" из модуля "clt_parse_args" с аргументами ((7777,), {})
+2020-03-14 11:54:40,890 - INFO     - decorators - Выполнен вызов функции "get_command_args" из функции "<module>"
+2020-03-14 11:54:40,890 - INFO     - decorators - Функция "get_command_args" из модуля "clt_parse_args" с аргументами ((), {})
+2020-03-14 11:54:41,027 - INFO     - client_gui - Запущено клиентское приложение. IP-адрес сервера: 127.0.0.1, порт сервера: 7777, имя пользователя: test_user_1.
+2020-03-14 11:54:41,059 - INFO     - transport - Попытка подключения №1.
+2020-03-14 11:54:41,060 - DEBUG    - transport - Установлено соединение с сервером.
+2020-03-14 11:54:41,060 - INFO     - transport - Сгенерировано presence сообщение для пользователя test_user_1.
+2020-03-14 11:54:41,061 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "connection_init"
+2020-03-14 11:54:41,061 - INFO     - decorators - Функция "send_message" из модуля "clt_function" с аргументами ((<socket.socket fd=5, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 65528), raddr=('127.0.0.1', 7777)>, {'action': 'presence', 'time': 1584176080.821117, 'user': 'test_user_1'}), {})
+2020-03-14 11:54:41,564 - INFO     - decorators - Выполнен вызов функции "get_message" из функции "connection_init"
+2020-03-14 11:54:41,564 - INFO     - decorators - Функция "get_message" из модуля "clt_function" с аргументами ((<socket.socket fd=5, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 65528), raddr=('127.0.0.1', 7777)>,), {})
+2020-03-14 11:54:41,564 - DEBUG    - transport - Обработка сообщения от сервера {'response': 200}.
+2020-03-14 11:54:41,564 - INFO     - transport - Сообщение корректно обработано. Response 200: OK
+2020-03-14 11:54:41,564 - INFO     - transport - Установлено соединение с сервером 127.0.0.1:7777.
+2020-03-14 11:54:41,564 - DEBUG    - transport - Запрос зарегистрированных пользователей.
+2020-03-14 11:54:41,565 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "get_registered_user_from_server"
+2020-03-14 11:54:41,565 - INFO     - decorators - Функция "send_message" из модуля "clt_function" с аргументами ((<socket.socket fd=5, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 65528), raddr=('127.0.0.1', 7777)>, {'action': 'get_registered', 'time': 1584176080.821121, 'user': 'test_user_1'}), {})
+2020-03-14 11:54:42,078 - INFO     - decorators - Выполнен вызов функции "get_message" из функции "get_registered_user_from_server"
+2020-03-14 11:54:42,078 - INFO     - decorators - Функция "get_message" из модуля "clt_function" с аргументами ((<socket.socket fd=5, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 65528), raddr=('127.0.0.1', 7777)>,), {})
+2020-03-14 11:54:42,086 - DEBUG    - transport - Запрос списка контактов пользователя test_user_1.
+2020-03-14 11:54:42,087 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "get_contact_list_from_server"
+2020-03-14 11:54:42,087 - INFO     - decorators - Функция "send_message" из модуля "clt_function" с аргументами ((<socket.socket fd=5, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 65528), raddr=('127.0.0.1', 7777)>, {'action': 'get_contacts', 'time': 1584176080.821121, 'user': 'test_user_1'}), {})
+2020-03-14 11:54:42,585 - INFO     - decorators - Выполнен вызов функции "get_message" из функции "get_contact_list_from_server"
+2020-03-14 11:54:42,585 - INFO     - decorators - Функция "get_message" из модуля "clt_function" с аргументами ((<socket.socket fd=5, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 65528), raddr=('127.0.0.1', 7777)>,), {})
+2020-03-14 11:54:42,619 - DEBUG    - transport - Запущен процесс - приёмник сообщений с сервера.
+2020-03-14 11:55:39,682 - INFO     - decorators - Выполнен вызов функции "args_parser" из функции "get_command_args"
+2020-03-14 11:55:39,683 - INFO     - decorators - Функция "args_parser" из модуля "clt_parse_args" с аргументами ((), {})
+2020-03-14 11:55:39,684 - INFO     - decorators - Выполнен вызов функции "check_address" из функции "get_command_args"
+2020-03-14 11:55:39,684 - INFO     - decorators - Функция "check_address" из модуля "clt_parse_args" с аргументами (('127.0.0.1',), {})
+2020-03-14 11:55:39,684 - INFO     - decorators - Выполнен вызов функции "check_port" из функции "get_command_args"
+2020-03-14 11:55:39,684 - INFO     - decorators - Функция "check_port" из модуля "clt_parse_args" с аргументами ((7777,), {})
+2020-03-14 11:55:39,685 - INFO     - decorators - Выполнен вызов функции "get_command_args" из функции "<module>"
+2020-03-14 11:55:39,685 - INFO     - decorators - Функция "get_command_args" из модуля "clt_parse_args" с аргументами ((), {})
+2020-03-14 11:55:43,811 - INFO     - client_gui - Запущено клиентское приложение. IP-адрес сервера: 127.0.0.1, порт сервера: 7777, имя пользователя: Petr.
+2020-03-14 11:55:43,845 - INFO     - transport - Попытка подключения №1.
+2020-03-14 11:55:43,845 - DEBUG    - transport - Установлено соединение с сервером.
+2020-03-14 11:55:43,845 - INFO     - transport - Сгенерировано presence сообщение для пользователя Petr.
+2020-03-14 11:55:43,847 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "connection_init"
+2020-03-14 11:55:43,847 - INFO     - decorators - Функция "send_message" из модуля "clt_function" с аргументами ((<socket.socket fd=12, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 65532), raddr=('127.0.0.1', 7777)>, {'action': 'presence', 'time': 1584176139.616859, 'user': 'Petr'}), {})
+2020-03-14 11:55:43,848 - INFO     - decorators - Выполнен вызов функции "get_message" из функции "connection_init"
+2020-03-14 11:55:43,848 - INFO     - decorators - Функция "get_message" из модуля "clt_function" с аргументами ((<socket.socket fd=12, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 65532), raddr=('127.0.0.1', 7777)>,), {})
+2020-03-14 11:55:43,849 - DEBUG    - transport - Обработка сообщения от сервера {'response': 200}.
+2020-03-14 11:55:43,849 - INFO     - transport - Сообщение корректно обработано. Response 200: OK
+2020-03-14 11:55:43,849 - INFO     - transport - Установлено соединение с сервером 127.0.0.1:7777.
+2020-03-14 11:55:43,849 - DEBUG    - transport - Запрос зарегистрированных пользователей.
+2020-03-14 11:55:43,849 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "get_registered_user_from_server"
+2020-03-14 11:55:43,850 - INFO     - decorators - Функция "send_message" из модуля "clt_function" с аргументами ((<socket.socket fd=12, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 65532), raddr=('127.0.0.1', 7777)>, {'action': 'get_registered', 'time': 1584176139.616863, 'user': 'Petr'}), {})
+2020-03-14 11:55:44,368 - INFO     - decorators - Выполнен вызов функции "get_message" из функции "get_registered_user_from_server"
+2020-03-14 11:55:44,368 - INFO     - decorators - Функция "get_message" из модуля "clt_function" с аргументами ((<socket.socket fd=12, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 65532), raddr=('127.0.0.1', 7777)>,), {})
+2020-03-14 11:55:44,376 - DEBUG    - transport - Запрос списка контактов пользователя Petr.
+2020-03-14 11:55:44,377 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "get_contact_list_from_server"
+2020-03-14 11:55:44,377 - INFO     - decorators - Функция "send_message" из модуля "clt_function" с аргументами ((<socket.socket fd=12, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 65532), raddr=('127.0.0.1', 7777)>, {'action': 'get_contacts', 'time': 1584176139.616863, 'user': 'Petr'}), {})
+2020-03-14 11:55:44,876 - INFO     - decorators - Выполнен вызов функции "get_message" из функции "get_contact_list_from_server"
+2020-03-14 11:55:44,877 - INFO     - decorators - Функция "get_message" из модуля "clt_function" с аргументами ((<socket.socket fd=12, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 65532), raddr=('127.0.0.1', 7777)>,), {})
+2020-03-14 11:55:44,916 - DEBUG    - transport - Запущен процесс - приёмник сообщений с сервера.
+2020-03-14 11:56:01,466 - DEBUG    - transport - Сформирован словарь-сообщение: {'action': 'message', 'time': 1584176080.821119, 'sender': 'test_user_1', 'recipient': 'Petr', 'message_text': 'Привет!'}.
+2020-03-14 11:56:01,468 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "create_message"
+2020-03-14 11:56:01,469 - INFO     - decorators - Функция "send_message" из модуля "clt_function" с аргументами ((<socket.socket fd=5, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 65528), raddr=('127.0.0.1', 7777)>, {'action': 'message', 'time': 1584176080.821119, 'sender': 'test_user_1', 'recipient': 'Petr', 'message_text': 'Привет!'}), {})
+2020-03-14 11:56:06,585 - INFO     - decorators - Выполнен вызов функции "get_message" из функции "run"
+2020-03-14 11:56:06,585 - INFO     - decorators - Функция "get_message" из модуля "clt_function" с аргументами ((<socket.socket fd=5, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 65528), raddr=('127.0.0.1', 7777)>,), {})
+2020-03-14 11:56:06,585 - DEBUG    - transport - Принято сообщение с сервера: {'response': 200}
+2020-03-14 11:56:06,585 - DEBUG    - transport - Обработка сообщения от сервера {'response': 200}.
+2020-03-14 11:56:06,585 - INFO     - transport - Сообщение корректно обработано. Response 200: OK
+2020-03-14 11:56:07,049 - INFO     - decorators - Выполнен вызов функции "get_message" из функции "run"
+2020-03-14 11:56:07,049 - INFO     - decorators - Функция "get_message" из модуля "clt_function" с аргументами ((<socket.socket fd=12, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 65532), raddr=('127.0.0.1', 7777)>,), {})
+2020-03-14 11:56:07,049 - DEBUG    - transport - Принято сообщение с сервера: {'action': 'message', 'time': 1584176080.821119, 'sender': 'test_user_1', 'recipient': 'Petr', 'message_text': 'Привет!'}
+2020-03-14 11:56:07,049 - DEBUG    - transport - Обработка сообщения от сервера {'action': 'message', 'time': 1584176080.821119, 'sender': 'test_user_1', 'recipient': 'Petr', 'message_text': 'Привет!'}.
+2020-03-14 11:56:07,049 - INFO     - transport - Пользователь Petr получил сообщение Привет! от пользователя test_user_1.
+2020-03-14 11:56:17,148 - DEBUG    - transport - Сформирован словарь-сообщение: {'action': 'message', 'time': 1584176139.6168609, 'sender': 'Petr', 'recipient': 'test_user_1', 'message_text': 'Как дела?'}.
+2020-03-14 11:56:17,601 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "create_message"
+2020-03-14 11:56:17,601 - INFO     - decorators - Функция "send_message" из модуля "clt_function" с аргументами ((<socket.socket fd=12, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 65532), raddr=('127.0.0.1', 7777)>, {'action': 'message', 'time': 1584176139.6168609, 'sender': 'Petr', 'recipient': 'test_user_1', 'message_text': 'Как дела?'}), {})
+2020-03-14 11:56:22,677 - INFO     - decorators - Выполнен вызов функции "get_message" из функции "run"
+2020-03-14 11:56:22,677 - INFO     - decorators - Функция "get_message" из модуля "clt_function" с аргументами ((<socket.socket fd=12, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 65532), raddr=('127.0.0.1', 7777)>,), {})
+2020-03-14 11:56:22,677 - DEBUG    - transport - Принято сообщение с сервера: {'response': 200}
+2020-03-14 11:56:22,677 - DEBUG    - transport - Обработка сообщения от сервера {'response': 200}.
+2020-03-14 11:56:22,677 - INFO     - transport - Сообщение корректно обработано. Response 200: OK
+2020-03-14 11:56:22,679 - INFO     - decorators - Выполнен вызов функции "get_message" из функции "run"
+2020-03-14 11:56:22,679 - INFO     - decorators - Функция "get_message" из модуля "clt_function" с аргументами ((<socket.socket fd=5, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 65528), raddr=('127.0.0.1', 7777)>,), {})
+2020-03-14 11:56:22,679 - DEBUG    - transport - Принято сообщение с сервера: {'action': 'message', 'time': 1584176139.6168609, 'sender': 'Petr', 'recipient': 'test_user_1', 'message_text': 'Как дела?'}
+2020-03-14 11:56:22,679 - DEBUG    - transport - Обработка сообщения от сервера {'action': 'message', 'time': 1584176139.6168609, 'sender': 'Petr', 'recipient': 'test_user_1', 'message_text': 'Как дела?'}.
+2020-03-14 11:56:22,680 - INFO     - transport - Пользователь test_user_1 получил сообщение Как дела? от пользователя Petr.
+2020-03-14 11:56:55,806 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "transport_shutdown"
+2020-03-14 11:56:55,806 - INFO     - decorators - Функция "send_message" из модуля "clt_function" с аргументами ((<socket.socket fd=5, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 65528), raddr=('127.0.0.1', 7777)>, {'action': 'exit', 'time': 1584176080.8211179, 'user': 'test_user_1'}), {})
+2020-03-14 11:56:55,806 - DEBUG    - transport - Клиент завершает работу.
+2020-03-14 11:56:58,947 - INFO     - decorators - Выполнен вызов функции "send_message" из функции "transport_shutdown"
+2020-03-14 11:56:58,947 - INFO     - decorators - Функция "send_message" из модуля "clt_function" с аргументами ((<socket.socket fd=12, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 65532), raddr=('127.0.0.1', 7777)>, {'action': 'exit', 'time': 1584176139.61686, 'user': 'Petr'}), {})
+2020-03-14 11:56:58,947 - DEBUG    - transport - Клиент завершает работу.
+2020-03-14 11:56:59,819 - CRITICAL - transport - Потеряно соединение с сервером.
