@@ -132,11 +132,12 @@ class ClientDataBase:
         self.session.add(new_message)
         self.session.commit()
 
-    def get_message_history(self, sender=None, recipient=None):
+    def get_message_history(self, sender=None, recipient=None, chat=None):
         """
         Метод возвращает историю переписки по получателю и/или отправителю.
         :param {str} sender: отправитель сообщения.
         :param {str} recipient: получатель сообщения.
+        :param {str} chat: получатель сообщения.
         :return:
         """
         query = self.session.query(self.MessageHistory)
@@ -144,6 +145,10 @@ class ClientDataBase:
             query = query.filter_by(sender=sender)
         if recipient:
             query = query.filter_by(recipient=recipient)
+        if chat:
+            query_s = query.filter_by(sender=chat)
+            query_r = query.filter_by(recipient=chat)
+            query = query_s.union(query_r)
         return [(msg.date, msg.sender, msg.recipient, msg.message)
                 for msg in query.all()]
 
@@ -190,6 +195,6 @@ if __name__ == '__main__':
     # TEST_DB.save_message('Ivan', 'Anton', 'Привет, Антон!')
     # TEST_DB.save_message('Anton', 'Ivan', 'Привет, Иван.')
     # TEST_DB.save_message('Ivan', 'Anton', 'Чем занят?')
-    for msg in TEST_DB.get_message_history(sender='Anton'):
+    for msg in TEST_DB.get_message_history(chat='Petr'):
         print(msg)
     print(TEST_DB.get_register_users())

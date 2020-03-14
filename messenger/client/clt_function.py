@@ -1,14 +1,15 @@
 """Функции для использования server.py и client.py"""
 
-import sys
 import json
+import sys
 from logging import getLogger
+sys.path.append('../')
+from custom.decorators import Log
 from clt_variables import PRESENCE, USER, RESPONSE, ERROR, MAX_DATA, ENCODING, ADD_CONTACT_DICT, \
     ACCOUNT_NAME, DEL_CONTACT_DICT, GET_CONTACTS_DICT, DATA, CONFIRM_PRESENCE, GET_REGISTERED_DICT
-sys.path.append('../')
-import logs.client_log_config
-from decorators import Log
-from errors import ServerError, ReqFieldMissingError, IncorrectDataReceivedError, NonDictInputError
+from custom.errors import ServerError, ReqFieldMissingError, IncorrectDataReceivedError, \
+    NonDictInputError
+import log.log_config
 
 # Инициализируем логгера.
 LOGGER = getLogger('client_logger')
@@ -158,7 +159,7 @@ def get_registered_user_from_server(sock, username):
     Функция запрашивает с сервера список зарегистрированных пользователей.
     :param sock: сокет клиента.
     :param {str} username: имя пользователя-клиента.
-    :return {list}: контакты пользователя username.
+    :return {list}: список зарегистрированных пользователей.
     """
     LOGGER.debug(f'Запрос зарегистрированных пользователей клиентом {username}.')
     get_registered_dict = GET_REGISTERED_DICT

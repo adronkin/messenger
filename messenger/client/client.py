@@ -6,6 +6,7 @@ from time import strftime, strptime, ctime, sleep
 from logging import getLogger
 from json import JSONDecodeError
 from threading import Thread
+sys.path.append('../')
 from clt_parse_args import get_command_args
 from clt_metaclass import ClientVerified
 from clt_database import ClientDataBase
@@ -13,9 +14,8 @@ from clt_function import confirm_presence, receive_message, add_contact_to_serve
     get_message, remove_contact_to_server, load_data_from_server
 from clt_variables import ACTION, TIME, USER, RESPONSE, ERROR, MESSAGE, MESSAGE_TEXT, SENDER, \
     RECIPIENT, EXIT_MESSAGE, DICT_MESSAGE, CONTACT_HELP, MESSAGE_HELP, GET_HELP, DB_LOCK, SOCK_LOCK
-sys.path.append('../')
-import logs.client_log_config
-from errors import ServerError, ReqFieldMissingError, IncorrectDataReceivedError
+from custom.errors import ServerError, ReqFieldMissingError, IncorrectDataReceivedError
+import log.log_config
 
 # Инициализируем логгера.
 LOGGER = getLogger('client_logger')

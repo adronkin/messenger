@@ -1,5 +1,6 @@
 """A module describes a menu for removing a user from the contact list"""
-from sys import argv
+
+import sys
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QDialog, QLabel, QComboBox, QPushButton
 
@@ -40,12 +41,12 @@ class DeleteContact(QDialog):
 
         # Get the contact list from the database.
         if database:
-            self.selector.addItems(sorted(self.database.get_all_contacts()))
+            self.drop_menu.addItems(sorted(self.database.get_all_contacts()))
 
         self.show()
 
 
 if __name__ == '__main__':
-    app = QApplication(argv)
+    app = QApplication(sys.argv)
     del_menu = DeleteContact(None)
     app.exec_()

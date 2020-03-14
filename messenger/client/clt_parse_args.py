@@ -4,9 +4,9 @@ import re
 import sys
 from argparse import ArgumentParser
 from logging import getLogger
-from clt_variables import DEFAULT_PORT, DEFAULT_IP, IP_REGEX
 sys.path.append('../')
-from decorators import Log
+from clt_variables import DEFAULT_PORT, DEFAULT_IP, IP_REGEX
+from custom.decorators import Log
 
 # Инициализируем логгера.
 LOGGER = getLogger('client_logger')

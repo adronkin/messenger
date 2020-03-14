@@ -1,12 +1,12 @@
 """A module describes a menu for adding a user to the contact list"""
+
 import sys
+from logging import getLogger
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QDialog, QLabel, QComboBox, QPushButton
 sys.path.append('../')
-import logs.client_log_config
-from logging import getLogger
-from errors import ServerError
-from clt_function import get_registered_user_from_server
+import log.log_config
+from custom.errors import ServerError
 
 # Initialize the logger.
 LOGGER = getLogger('client_logger')
@@ -17,6 +17,7 @@ class AddContact(QDialog):
     The class describes the menu for adding user to the contact list.
     """
     def __init__(self, transport, database):
+        self.transport = transport
         self.database = database
         super().__init__()
 
@@ -78,11 +79,12 @@ class AddContact(QDialog):
         :return:
         """
         try:
-            get_registered_user_from_server()
+            user_list = self.transport.get_registered_user_from_server()
+            self.database.add_register_users(user_list)
         except ServerError:
             pass
         else:
-            LOGGER.error('Ошибка запроса списка зарегистрированных пользователей.')
+            LOGGER.debug('Обновление списка пользователей с сервера выполнено')
             self.get_possible_contacts()
 
 
