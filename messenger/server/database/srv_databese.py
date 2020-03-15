@@ -167,13 +167,15 @@ class ServerDataBase:
         :param {str} username: имя пользователя.
         :return:
         """
-        user = self.session.query(self.Users).filter_by(username=username).first()
-        self.session.query(self.ContactList).filter_by(user_id=user.id).delete()
-        self.session.query(self.ContactList).filter_by(friend_id=user.id).delete()
-        self.session.query(self.UserStory).filter_by(user_id=user.id).delete()
-        self.session.query(self.ActiveUser).filter_by(user_id=user.id).delete()
-        self.session.query(self.Users).filter_by(username=username).delete()
-        self.session.commit()
+        q_user = self.session.query(self.Users).filter_by(username=username)
+        if q_user.count():
+            user = q_user.first()
+            self.session.query(self.ContactList).filter_by(user_id=user.id).delete()
+            self.session.query(self.ContactList).filter_by(friend_id=user.id).delete()
+            self.session.query(self.UserStory).filter_by(user_id=user.id).delete()
+            self.session.query(self.ActiveUser).filter_by(user_id=user.id).delete()
+            self.session.query(self.Users).filter_by(username=username).delete()
+            self.session.commit()
 
     def get_pass_hash(self, username):
         """
@@ -366,5 +368,5 @@ if __name__ == '__main__':
     #     print(msg)
     # TEST_DB.add_contact('Petr', 'Peter')
     # TEST_DB.del_contact('Petr', 'Peter')
-    # TEST_DB.del_user('Vasya')
-    # print(TEST_DB.check_contact('test_user_1', 'Petr'))
+    TEST_DB.del_user('Vasya')
+    print(TEST_DB.check_contact('test_user_1', 'Petr'))

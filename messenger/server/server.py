@@ -11,13 +11,13 @@ from PyQt5.QtCore import QTimer
 from PyQt5.QtWidgets import QApplication, QMessageBox
 from srv_gui import MainWindow, gui_active_users, ConfigWindow
 sys.path.append('../')
-from srv_parse_args import args_parser
-from srv_metaclass import ServerVerified
+from custom.srv_parse_args import args_parser
+from custom.srv_metaclass import ServerVerified
 from database.srv_databese import ServerDataBase
 from srv_descriptors.address import Address
 from srv_descriptors.port import Port
-from srv_function import get_message, send_message
-from srv_variables import MAX_QUEUE, ACTION, PRESENCE, TIME, ERROR, USER, MESSAGE, MESSAGE_TEXT, \
+from custom.srv_function import get_message, send_message
+from custom.srv_variables import MAX_QUEUE, ACTION, PRESENCE, TIME, ERROR, USER, MESSAGE, MESSAGE_TEXT, \
     SENDER, RESPONSE_200, RESPONSE_300, RESPONSE_400, EXIT, RECIPIENT, DEL_CONTACT, ACCOUNT_NAME, \
     ADD_CONTACT, GET_CONTACTS, RESPONSE_202, DATA, GET_REGISTERED
 

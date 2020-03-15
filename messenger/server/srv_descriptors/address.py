@@ -4,9 +4,7 @@ import re
 import sys
 from logging import getLogger
 sys.path.append('../')
-from srv_variables import IP_REGEX
-import log.log_config
-
+from custom.srv_variables import IP_REGEX
 
 LOGGER = getLogger('server_logger')
 
