@@ -34,17 +34,6 @@ class ConfigWindow(QDialog):
         self.db_path_select = QPushButton('Обзор...', self)
         self.db_path_select.move(270, 30)
 
-        def open_path_select():
-            """
-            Метод обработчик открытия окна выбора пути.
-            :return:
-            """
-            window = QFileDialog()
-            path = window.getExistingDirectory()
-            self.db_path.insert(path)
-
-        self.db_path_select.clicked.connect(open_path_select)
-
         # Текст для поля имени файла БД.
         self.db_file_text = QLabel('Имя файла БД: ', self)
         self.db_file_text.move(15, 70)
@@ -84,7 +73,18 @@ class ConfigWindow(QDialog):
         self.close_button.move(190, 155)
         self.close_button.clicked.connect(self.close)
 
+        self.db_path_select.clicked.connect(self.open_path_select)
+
         self.show()
+
+    def open_path_select(self):
+        """
+        Метод обработчик открытия окна выбора пути.
+        :return:
+        """
+        window = QFileDialog()
+        path = window.getExistingDirectory()
+        self.db_path.insert(path)
 
 
 if __name__ == '__main__':
