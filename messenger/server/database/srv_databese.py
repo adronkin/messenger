@@ -344,6 +344,16 @@ class ServerDataBase:
             if q_contact.count():
                 return True
 
+    def check_user(self, username):
+        """
+        Метод возвращает True, если пользователь username есть в таблице Users.
+        :param {str} username: имя пользователя.
+        :return {bool}:
+        """
+        q_username = self.session.query(self.Users).filter_by(username=username)
+        if q_username.count():
+            return True
+
 
 if __name__ == '__main__':
     TEST_DB = ServerDataBase(os.path.join(os.path.dirname(os.path.realpath(__file__)),

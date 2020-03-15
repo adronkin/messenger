@@ -1,7 +1,6 @@
 """The module describes the user deletion window"""
 
 import sys
-
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QDialog, QApplication, QMessageBox, QLabel, QComboBox, QPushButton
 
@@ -11,16 +10,17 @@ class DeleteUserWindow(QDialog):
     Class describes the user deletion window.
     """
     def __init__(self, server, database):
+        super().__init__()
+
         self.server = server
         self.database = database
-        super().__init__()
 
         self.setFixedSize(220, 95)
         self.setWindowTitle('Удаление пользователя')
         self.setAttribute(Qt.WA_DeleteOnClose)
         self.setModal(True)
 
-        # Text for drop menu
+        # Text for drop menu.
         self.del_user_text = QLabel('Выберите пользователя: ', self)
         self.del_user_text.move(15, 5)
         self.del_user_text.setFixedSize(200, 20)
