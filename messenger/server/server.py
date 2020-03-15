@@ -9,8 +9,9 @@ from logging import getLogger
 from threading import Thread, Lock
 from PyQt5.QtCore import QTimer
 from PyQt5.QtWidgets import QApplication, QMessageBox
-from srv_gui import MainWindow, gui_active_users, ConfigWindow
 sys.path.append('../')
+from gui.main_window import MainWindow, gui_active_users
+from gui.config_window import ConfigWindow
 from custom.srv_parse_args import args_parser
 from custom.srv_metaclass import ServerVerified
 from database.srv_databese import ServerDataBase
