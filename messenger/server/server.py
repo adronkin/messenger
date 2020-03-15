@@ -18,9 +18,9 @@ from database.srv_databese import ServerDataBase
 from srv_descriptors.address import Address
 from srv_descriptors.port import Port
 from custom.srv_function import get_message, send_message
-from custom.srv_variables import MAX_QUEUE, ACTION, PRESENCE, TIME, ERROR, USER, MESSAGE, MESSAGE_TEXT, \
-    SENDER, RESPONSE_200, RESPONSE_300, RESPONSE_400, EXIT, RECIPIENT, DEL_CONTACT, ACCOUNT_NAME, \
-    ADD_CONTACT, GET_CONTACTS, RESPONSE_202, DATA, GET_REGISTERED
+from custom.srv_variables import MAX_QUEUE, ACTION, PRESENCE, TIME, ERROR, USER, MESSAGE, \
+    MESSAGE_TEXT, SENDER, RESPONSE_200, RESPONSE_300, RESPONSE_400, EXIT, RECIPIENT, DEL_CONTACT, \
+    ACCOUNT_NAME, ADD_CONTACT, GET_CONTACTS, RESPONSE_202, DATA, GET_REGISTERED, RESPONSE_205
 
 # Инициализируем логгера.
 LOGGER = getLogger('server_logger')
@@ -102,14 +102,7 @@ class Server(Thread, metaclass=ServerVerified):
                         self.processing_message(
                             get_message(client_with_message), client_with_message)
                     except OSError:
-                        LOGGER.info(
-                            f'Клиент {client_with_message.getpeername()} отключился от сервера.')
-                        # Ищем и удаляем клиента из словаря клиентов.
-                        for name in self.names:
-                            if self.names[name] == client_with_message:
-                                self.database.user_logout(name)
-                                del self.names[name]
-                        self.clients.remove(client_with_message)
+                        self.remove_client(client_with_message)
 
             # Если есть сообщения для отправки, обрабатываем.
             for message in self.messages:
@@ -262,6 +255,33 @@ class Server(Thread, metaclass=ServerVerified):
                          f' отправлен ответ {response}.')
             send_message(client, response)
             return
+
+    def remove_client(self, client):
+        """
+        Метод ищет клиента в словаре клиентов и удаляет его из списков и БД.
+        :param client:
+        :return:
+        """
+        LOGGER.info(f'Клиент {client.getpeername()} отключился от сервера.')
+        # Ищем и удаляем клиента из словаря клиентов.
+        for name in self.names:
+            if self.names[name] == client:
+                self.database.user_logout(name)
+                del self.names[name]
+                break
+        self.clients.remove(client)
+        client.close()
+
+    def send_update_list(self):
+        """
+        Метод отправляет сообщение 205 с требованием для клиентов обновить списки.
+        :return:
+        """
+        for client in self.names:
+            try:
+                send_message(self.names[client], RESPONSE_205)
+            except OSError:
+                self.remove_client(self.names[client])
 
 
 def main():

@@ -1,6 +1,6 @@
-"""Модуль для реализации GUI сервера"""
+"""Модуль описывает главное окно GUI сервера"""
 
-from sys import argv
+import sys
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import QApplication, QMessageBox, QLabel, QMainWindow, QAction, qApp, \
     QTableView
@@ -77,7 +77,7 @@ def gui_active_users(database):
 
 if __name__ == '__main__':
     # Создаем объект приложения.
-    app = QApplication(argv)
+    app = QApplication(sys.argv)
     # Создаем диалоговое окно сообщения.
     message = QMessageBox
     # Тест основного окна.

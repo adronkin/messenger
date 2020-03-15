@@ -38,6 +38,8 @@ IP_REGEX = r'^([0-9]\.|[1]?[0-9][0-9]\.|[2][0-4][0-9]\.|[2][5][0-5]\.){3}([0-9]|
 # Ответы
 RESPONSE_200 = {RESPONSE: 200}
 
+RESPONSE_205 = {RESPONSE: 205}
+
 RESPONSE_202 = {
     RESPONSE: 202,
     DATA: None
