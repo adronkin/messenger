@@ -3,7 +3,7 @@
 from PyQt5 import QtCore, QtWidgets
 
 
-class Ui_MainClientWindow(object):
+class Gui_MainClientWindow(object):
     """
     The class describes the GUI of the main window of clients.
     """
