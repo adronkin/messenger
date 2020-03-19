@@ -23,6 +23,7 @@ def args_parser(*args):
     parser.add_argument('address', default=DEFAULT_IP, type=str, nargs='?')
     parser.add_argument('port', default=DEFAULT_PORT, type=int, nargs='?')
     parser.add_argument('-n', '--name', default=None, type=str, nargs='?')
+    parser.add_argument('-p', '--password', default=None, type=str, nargs='?')
     return parser.parse_args(*args)
 
 
@@ -37,7 +38,7 @@ def check_port(port):
         return True
     else:
         LOGGER.critical(f'Порт "{port}" введен некорректно. '
-                        f'Необходимо ввести значение от 1024 до 65535')
+                        f'Необходимо ввести значение от 1024 до 65535.')
         return False
 
 
@@ -51,7 +52,7 @@ def check_address(address):
     if re.match(IP_REGEX, address):
         return True
     else:
-        LOGGER.critical(f'IP-адрес "{address}" введен некорректно')
+        LOGGER.critical(f'IP-адрес "{address}" введен некорректно.')
         return False
 
 
