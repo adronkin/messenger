@@ -23,14 +23,13 @@ class ServerDataBase:
         username = Column(String, unique=True, nullable=False)
         last_login = Column(DateTime)
         password = Column(String)
-        public_key = Column(Text)
+        public_key = Column(Text, nullable=True)
         __table_args__ = (Index('users_index', 'id'), )
 
-        def __init__(self, username, password, public_key):
+        def __init__(self, username, password):
             self.username = username
             self.last_login = datetime.now()
             self.password = password
-            self.public_key = None
 
     class ActiveUser(BASE):
         """
@@ -206,7 +205,7 @@ class ServerDataBase:
         user = user.first()
         # Удаляем пользователя из таблицы ActiveUser.
         self.session.query(self.ActiveUser).filter_by(user_id=user.id).delete()
-        # Вносим в таблицу UserStory вреля logout_time.
+        # Вносим в таблицу UserStory время logout_time.
         history_logout = self.session.query(self.UserStory).filter_by(user_id=user.id).all()[-1]
         history_logout.logout_time = datetime.now()
         self.session.commit()
@@ -224,7 +223,7 @@ class ServerDataBase:
 
     def get_all_active_users(self):
         """
-        Метод возвращает список всех активных пользователях.
+        Метод возвращает список всех активных пользователей.
         :return {list}: список всех активных пользователей.
         """
         query = self.session.query(
@@ -254,7 +253,7 @@ class ServerDataBase:
 
     def get_contact_list(self, username):
         """
-        Метод возвращает возвращает список контактов одного или всех пользователей.
+        Метод возвращает список контактов одного или всех пользователей.
         :param {str} username: имя пользователя.
         :return {list}: список контактов пользователей.
         """
@@ -313,9 +312,9 @@ class ServerDataBase:
 
     def del_contact(self, username, friend_name):
         """
-        Метод удаляет пользователя из списока контактов.
+        Метод удаляет пользователя из списка контактов.
         :param {str} username: имя пользователя.
-        :param {str} friend_name: пользователь для удаления из списока контактов.
+        :param {str} friend_name: пользователь для удаления из списка контактов.
         :return:
         """
         q_username = self.session.query(self.Users).filter_by(username=username).first()
@@ -333,7 +332,7 @@ class ServerDataBase:
         """
         Метод возвращает True, если пользователь username есть в списке контактов.
         :param {str} username: имя пользователя.
-        :param {str} friend_name: пользователь для удаления из списока контактов.
+        :param {str} friend_name: пользователь для проверки в списке контактов.
         :return {bool}:
         """
         q_username = self.session.query(self.Users).filter_by(username=username).first()
@@ -358,7 +357,7 @@ class ServerDataBase:
 if __name__ == '__main__':
     TEST_DB = ServerDataBase(os.path.join(os.path.dirname(os.path.realpath(__file__)),
                                           'server_database.db3'))
-    # TEST_DB.user_login('test_user_1', '192.168.0.1', 7777)
+    # TEST_DB.user_login('test', '192.168.0.1', 7777)
     # for user in TEST_DB.get_all_active_users():
     #     print(f'Пользователь: {user[0]} ({user[1]}:{user[2]}).'
     #           f' Последний вход: {user[3]}.')
@@ -367,9 +366,9 @@ if __name__ == '__main__':
     # TEST_DB.user_logout('test_user_2')
     # for user in TEST_DB.get_all_users():
     #     print(f'Пользователь: {user.username}. Последний вход: {user.last_login}.')
-    # for user in TEST_DB.get_connect_history('test_user_1'):
-    #     print(f'Пользователь: {user.username} ({user.ip_address}:{user.port}).'
-    #           f' Login: {user.login_time}. Logout: {user.logout_time}.')
+    for user in TEST_DB.get_connect_history('test'):
+        print(f'Пользователь: {user[0]} ({user[1]}:{user[2]}).'
+              f' Login: {user[3]}. Logout: {user[4]}.')
     # print(f'Список контактов пользователя: {TEST_DB.get_contact_list("test_user_2")}')
     # TEST_DB.save_message('Ivan', 'Anton', 'Привет, Антон!')
     # TEST_DB.save_message('Anton', 'Ivan', 'Привет, Иван.')
@@ -378,5 +377,5 @@ if __name__ == '__main__':
     #     print(msg)
     # TEST_DB.add_contact('Petr', 'Peter')
     # TEST_DB.del_contact('Petr', 'Peter')
-    TEST_DB.del_user('Vasya')
-    print(TEST_DB.check_contact('test_user_1', 'Petr'))
+    # TEST_DB.del_user('Vasya')
+    # print(TEST_DB.check_contact('test_user_1', 'Petr'))
