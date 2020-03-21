@@ -106,17 +106,16 @@ class ClientTransport(Thread, QObject):
         # Authorization on the server.
         with SOCK_LOCK:
             presence_dict = CONFIRM_PRESENCE
-            password_hash[USER] = self.username
-            password_hash[PUBLIC_KEY] = public_key
+            presence_dict[USER] = self.username
+            presence_dict[PUBLIC_KEY] = public_key
         # Send server confirmation of presence.
-        try:
-            with SOCK_LOCK:
+            try:
                 send_message(self.client_sock, presence_dict)
                 server_answer = get_message(self.client_sock)
                 if RESPONSE in server_answer:
                     if server_answer[RESPONSE] == 400 and ERROR in server_answer:
-                        LOGGER.error(f'Сервер не смог обработать клиентский запрос. '
-                                     f'Получен ответ "Response 400: {server_answer[ERROR]}".')
+                        LOGGER.error(f'Сервер не смог обработать клиентский запрос.'
+                                     f' Получен ответ "Response 400: {server_answer[ERROR]}".')
                         raise ServerError(f'400: {server_answer[ERROR]}')
                     if server_answer[RESPONSE] == 511 and DATA in server_answer:
                         answer_data = server_answer[DATA]
@@ -126,9 +125,9 @@ class ClientTransport(Thread, QObject):
                         client_answer[DATA] = b2a_base64(hash_digest).decode('ascii')
                         send_message(self.client_sock, client_answer)
                         self.receive_message(get_message(self.client_sock))
-        except (OSError, JSONDecodeError):
-            LOGGER.critical('Потеряно соединение с сервером.')
-            raise ServerError('Потеряно соединение с сервером.')
+            except (OSError, JSONDecodeError):
+                LOGGER.critical('Потеряно соединение с сервером.')
+                raise ServerError('Потеряно соединение с сервером.')
 
         LOGGER.info(f'Установлено соединение с сервером {ip_address}:{port}.')
 
@@ -215,6 +214,7 @@ class ClientTransport(Thread, QObject):
             server_answer = get_message(self.client_sock)
         if RESPONSE in server_answer and server_answer[RESPONSE] == 202 and DATA in server_answer:
             self.database.add_register_users(server_answer[DATA])
+            return server_answer[DATA]
         else:
             LOGGER.error('Не удалось обновить список известных пользователей.')
 

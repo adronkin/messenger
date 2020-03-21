@@ -84,8 +84,8 @@ class AddContact(QDialog):
         except ServerError:
             pass
         else:
-            LOGGER.debug('Обновление списка пользователей с сервера выполнено')
             self.get_possible_contacts()
+            LOGGER.debug('Обновление списка пользователей с сервера выполнено')
 
 
 if __name__ == '__main__':

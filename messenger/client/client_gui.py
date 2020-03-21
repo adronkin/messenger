@@ -23,9 +23,10 @@ server_ip, server_port, client_name, client_password = parser.address, parser.po
 # Create a client application.
 client_app = QApplication(sys.argv)
 
+start_dialog = AuthMenu()
+
 # If the username was not specified on the command line then request it.
 if not client_name or not client_password:
-    start_dialog = AuthMenu()
     client_app.exec_()
     # # If the user entered a name and clicked OK,
     # then save the entered name and delete the object, otherwise exit.
