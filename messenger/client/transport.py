@@ -1,19 +1,26 @@
 """The module describes the interaction with the server"""
 
+import hmac
 import sys
 import time
+from _hashlib import pbkdf2_hmac
+from binascii import hexlify, b2a_base64
 from logging import getLogger
 from json import JSONDecodeError
 from socket import socket, AF_INET, SOCK_STREAM
-from threading import Thread
+from threading import Thread, Lock
 from PyQt5.QtCore import QObject, pyqtSignal
 sys.path.append('../')
 from custom.errors import ServerError
 from clt_function import send_message, get_message
-from clt_variables import SOCK_LOCK, CONFIRM_PRESENCE, USER, PRESENCE, RESPONSE, ERROR, ACTION, \
-    MESSAGE, TIME, SENDER, RECIPIENT, MESSAGE_TEXT, GET_CONTACTS_DICT, DATA, GET_REGISTERED_DICT, \
-    ADD_CONTACT_DICT, ACCOUNT_NAME, DEL_CONTACT_DICT, EXIT_MESSAGE, DICT_MESSAGE
+from clt_variables import CONFIRM_PRESENCE, USER, RESPONSE, ERROR, ACTION, MESSAGE, TIME, SENDER, \
+    RECIPIENT, MESSAGE_TEXT, GET_CONTACTS_DICT, DATA, GET_REGISTERED_DICT, ADD_CONTACT_DICT, \
+    ACCOUNT_NAME, DEL_CONTACT_DICT, EXIT_MESSAGE, DICT_MESSAGE, ENCODING, PUBLIC_KEY, RESPONSE_511,\
+    GET_PUBLIC_KEY
 import log.log_config
+
+# The socket lock object.
+SOCK_LOCK = Lock()
 
 # Initialize the logger.
 LOGGER = getLogger('client_logger')
@@ -24,16 +31,19 @@ class ClientTransport(Thread, QObject):
     Class - Transport, is responsible for interacting with the server.
     """
     # New message alert and connection loss.
-    new_message = pyqtSignal(str)
+    new_message = pyqtSignal(dict)
+    message_205 = pyqtSignal()
     connection_loss = pyqtSignal()
 
-    def __init__(self, ip_address, port, database, username):
+    def __init__(self, ip_address, port, database, username, password, keys):
         # Ancestor constructor call.
         Thread.__init__(self)
         QObject.__init__(self)
 
         self.database = database
         self.username = username
+        self.password = password
+        self.keys = keys
         # Server socket.
         self.client_sock = None
 
@@ -43,8 +53,8 @@ class ClientTransport(Thread, QObject):
         try:
             self.get_registered_user_from_server()
             self.get_contact_list_from_server()
-        except OSError as error:
-            if error.errno:
+        except OSError as err:
+            if err.errno:
                 LOGGER.critical('Потеряно соединение с сервером.')
                 raise ServerError('Потеряно соединение с сервером.')
             LOGGER.error('Timeout соединения при обновлении списков пользователей.')
@@ -84,28 +94,43 @@ class ClientTransport(Thread, QObject):
             LOGGER.critical('Не удалось установить соединение с сервером.')
             raise ServerError('Не удалось установить соединение с сервером.')
 
-        LOGGER.debug('Установлено соединение с сервером.')
-
-        # Send server confirmation of presence.
-        try:
-            with SOCK_LOCK:
-                send_message(self.client_sock, self.confirm_presence())
-                self.receive_message(get_message(self.client_sock))
-        except (OSError, JSONDecodeError):
-            LOGGER.critical('Потеряно соединение с сервером.')
-            raise ServerError('Потеряно соединение с сервером.')
-
         LOGGER.info(f'Установлено соединение с сервером {ip_address}:{port}.')
 
-    def confirm_presence(self):
-        """
-        The function generates a dictionary to send a message about the user's presence.
-        :return {dict}: presence message dict.
-        """
-        message = CONFIRM_PRESENCE
-        message[USER] = self.username
-        LOGGER.info(f'Сгенерировано {PRESENCE} сообщение для пользователя {self.username}.')
-        return message
+        # Start Authorization Procedure.
+        # Get password hash.
+        password_bytes = self.password.encode(ENCODING)
+        salt = self.username.lower().encode(ENCODING)
+        password_hash = pbkdf2_hmac('sha512', password_bytes, salt, 10000)
+        password_hash_string = hexlify(password_hash)
+
+        # Get the public key and decode it from bytes.
+        public_key = self.keys.publickey().export_key().decode('ascii')
+
+        # Authorization on the server.
+        with SOCK_LOCK:
+            presence_dict = CONFIRM_PRESENCE
+            presence_dict[USER] = self.username
+            presence_dict[PUBLIC_KEY] = public_key
+        # Send server confirmation of presence.
+            try:
+                send_message(self.client_sock, presence_dict)
+                server_answer = get_message(self.client_sock)
+                if RESPONSE in server_answer:
+                    if server_answer[RESPONSE] == 400 and ERROR in server_answer:
+                        LOGGER.error(f'Сервер не смог обработать клиентский запрос.'
+                                     f' Получен ответ "Response 400: {server_answer[ERROR]}".')
+                        raise ServerError(server_answer[ERROR])
+                    elif server_answer[RESPONSE] == 511 and DATA in server_answer:
+                        answer_data = server_answer[DATA]
+                        answer_hash = hmac.new(password_hash_string, answer_data.encode(ENCODING))
+                        hash_digest = answer_hash.digest()
+                        client_answer = RESPONSE_511
+                        client_answer[DATA] = b2a_base64(hash_digest).decode('ascii')
+                        send_message(self.client_sock, client_answer)
+                        self.receive_message(get_message(self.client_sock))
+            except (OSError, JSONDecodeError):
+                LOGGER.critical('Потеряно соединение с сервером.')
+                raise ServerError('Потеряно соединение с сервером.')
 
     def transport_shutdown(self):
         """
@@ -131,16 +156,22 @@ class ClientTransport(Thread, QObject):
         :return:
         """
         LOGGER.debug(f'Обработка сообщения от сервера {message}.')
+
         if RESPONSE in message:
             if message[RESPONSE] == 200:
                 LOGGER.info('Сообщение корректно обработано. Response 200: OK')
+                return
             elif message[RESPONSE] == 400 and ERROR in message:
                 LOGGER.error(f'Сервер не смог обработать клиентский запрос. '
                              f'Получен ответ "Response 400: {message[ERROR]}".')
-                raise ServerError(f'400: {message[ERROR]}')
+                raise ServerError(message[ERROR])
+            elif message[RESPONSE] == 205:
+                self.get_contact_list_from_server()
+                self.get_registered_user_from_server()
+                self.message_205.emit()
             else:
-                # raise ReqFieldMissingError(RESPONSE)
                 LOGGER.debug(f'Принят неизвестный код подтверждения {message[RESPONSE]}')
+
         # If this message from the user is added to the database
         # and give a signal about a new message.
         elif ACTION in message and message[ACTION] == MESSAGE and TIME in message \
@@ -148,22 +179,24 @@ class ClientTransport(Thread, QObject):
                 and message[RECIPIENT] == self.username:
             LOGGER.info(f'Пользователь {self.username} получил сообщение {message[MESSAGE_TEXT]}'
                         f' от пользователя {message[SENDER]}.')
-            self.database.save_message(message[SENDER], message[RECIPIENT], message[MESSAGE_TEXT])
-            self.new_message.emit(message[SENDER])
+            self.new_message.emit(message)
 
     def get_contact_list_from_server(self):
         """
         The method requests a list of user contacts from the server.
         :return {list}: user contact list.
         """
+        self.database.clear_contacts()
         LOGGER.debug(f'Запрос списка контактов пользователя {self.username}.')
         get_contacts_dict = GET_CONTACTS_DICT
         get_contacts_dict[USER] = self.username
+        LOGGER.debug(f'Сформирован запрос {get_contacts_dict}.')
         # Send a message to the server.
         with SOCK_LOCK:
             send_message(self.client_sock, get_contacts_dict)
             # Get a response from the server.
             server_answer = get_message(self.client_sock)
+        LOGGER.debug(f'Получен ответ {server_answer}.')
         if RESPONSE in server_answer and server_answer[RESPONSE] == 202 and DATA in server_answer:
             for contact in server_answer[DATA]:
                 self.database.add_contact(contact)
@@ -175,14 +208,16 @@ class ClientTransport(Thread, QObject):
         The method requests from the server a list of registered users.
         :return {list}: list of registered users.
         """
-        LOGGER.debug('Запрос зарегистрированных пользователей.')
+        LOGGER.debug(f'Запрос зарегистрированных пользователей {self.username}.')
         get_registered_dict = GET_REGISTERED_DICT
         get_registered_dict[USER] = self.username
         # Send a message to the server.
+        LOGGER.debug(f'Сформирован запрос {get_registered_dict}.')
         with SOCK_LOCK:
             send_message(self.client_sock, get_registered_dict)
             # Get a response from the server.
             server_answer = get_message(self.client_sock)
+        LOGGER.debug(f'Получен ответ {server_answer}.')
         if RESPONSE in server_answer and server_answer[RESPONSE] == 202 and DATA in server_answer:
             self.database.add_register_users(server_answer[DATA])
         else:
@@ -238,6 +273,23 @@ class ClientTransport(Thread, QObject):
             self.receive_message(get_message(self.client_sock))
             LOGGER.info(f'Сообщение отправлено пользователю {recipient}.')
 
+    def get_key_from_server(self, username):
+        """
+        The method requests the public key from the server.
+        :param {str} username: username.
+        :return:
+        """
+        LOGGER.debug(f'Запрос публичного ключа для {username}.')
+        dict_message = GET_PUBLIC_KEY
+        dict_message[USER] = username
+        with SOCK_LOCK:
+            send_message(self.client_sock, dict_message)
+            server_answer = get_message(self.client_sock)
+        if RESPONSE in server_answer and server_answer[RESPONSE] == 511 and DATA in server_answer:
+            return server_answer[DATA]
+        else:
+            LOGGER.error(f'Не удалось получить ключ собеседника{username}.')
+
     def run(self):
         """
         Method for starting the process of receiving messages from the server.
@@ -247,12 +299,13 @@ class ClientTransport(Thread, QObject):
         while self.running:
             # If you do not delay, sending can wait a long time until the socket is released.
             time.sleep(1)
+            message = None
             with SOCK_LOCK:
                 try:
                     self.client_sock.settimeout(0.5)
                     message = get_message(self.client_sock)
-                except OSError as error:
-                    if error.errno:
+                except OSError as err:
+                    if err.errno:
                         LOGGER.critical('Потеряно соединение с сервером.')
                         self.running = False
                         self.connection_loss.emit()
@@ -261,8 +314,9 @@ class ClientTransport(Thread, QObject):
                     LOGGER.critical('Потеряно соединение с сервером.')
                     self.running = False
                     self.connection_loss.emit()
-                else:
-                    LOGGER.debug(f'Принято сообщение с сервера: {message}')
-                    self.receive_message(message)
                 finally:
                     self.client_sock.settimeout(5)
+
+            if message:
+                LOGGER.debug(f'Принято сообщение с сервера: {message}')
+                self.receive_message(message)

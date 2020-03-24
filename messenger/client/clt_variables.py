@@ -1,5 +1,5 @@
 """Переменные для использования client.py"""
-from threading import Lock
+
 from time import time
 
 # IP-адрес по умолчанию
@@ -9,7 +9,7 @@ DEFAULT_PORT = 7777
 # Кодировка
 ENCODING = 'utf-8'
 # Максимальная длина сообщения (байт)
-MAX_DATA = 1024
+MAX_DATA = 10240
 
 # Ключи JIM протокола
 ACTION = 'action'
@@ -29,19 +29,18 @@ DEL_CONTACT = 'del_contact'
 DATA = 'data'
 GET_CONTACTS = 'get_contacts'
 GET_REGISTERED = 'get_registered'
+PUBLIC_KEY_REQUEST = 'public_key_request'
+PUBLIC_KEY = 'public_key'
 
 # Регулярное выражение для проверки корректности IP
 IP_REGEX = r'^([0-9]\.|[1]?[0-9][0-9]\.|[2][0-4][0-9]\.|[2][5][0-5]\.){3}([0-9]|[1]?[0-9][0-9]|[2][0-4][0-9]|[2][5][0-5])$'
-
-# Объект блокировки сокета и работы БД
-SOCK_LOCK = Lock()
-DB_LOCK = Lock()
 
 # Подтверждение присутствия.
 CONFIRM_PRESENCE = {
     ACTION: PRESENCE,
     TIME: time(),
-    USER: None
+    USER: None,
+    PUBLIC_KEY: None
 }
 
 # Сообщение о выходе.
@@ -87,6 +86,18 @@ GET_REGISTERED_DICT = {
     ACTION: GET_REGISTERED,
     TIME: time(),
     USER: None
+}
+
+# Запрос открытого ключа.
+GET_PUBLIC_KEY = {
+    ACTION: PUBLIC_KEY_REQUEST,
+    TIME: time(),
+    USER: None
+}
+
+RESPONSE_511 = {
+    RESPONSE: 511,
+    DATA: None
 }
 
 GET_HELP = """
