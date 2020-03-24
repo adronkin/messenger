@@ -1,6 +1,7 @@
 """The module describes the main window"""
 
 import sys
+from PyQt5.QtCore import QTimer
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import QApplication, QMessageBox, QLabel, QMainWindow, QAction, qApp, \
     QTableView
@@ -36,6 +37,7 @@ class MainWindow(QMainWindow):
         self.del_user_button = QAction('Удалить пользователя', self)
 
         self.statusBar()
+        self.statusBar().showMessage('Server Working')
 
         # Toolbar.
         self.toolbar = self.addToolBar('Toolbar')
@@ -56,8 +58,15 @@ class MainWindow(QMainWindow):
         self.active_clients_table.setFixedSize(690, 515)
 
         # Associate buttons with procedures.
+        self.refresh_button.triggered.connect(self.gui_active_users)
         self.register_user_button.triggered.connect(self.reg_user_window)
         self.del_user_button.triggered.connect(self.del_user_window)
+
+        # The timer updates the client list 1 time per second.
+        if database:
+            self.timer = QTimer()
+            self.timer.timeout.connect(self.gui_active_users)
+            self.timer.start(1000)
 
         self.show()
 
@@ -77,30 +86,30 @@ class MainWindow(QMainWindow):
         global del_window
         del_window = DeleteUserWindow(self.server, self.database)
 
-
-def gui_active_users(database):
-    """
-    The function creates a table of active users for display in the program window.
-    :param database: database.
-    :return: class instance QStandardItemModel.
-    """
-    list_users = database.get_all_active_users()
-    active_user_list = QStandardItemModel()
-    active_user_list.setHorizontalHeaderLabels(['Имя клиента', 'IP-адрес',
-                                                'Порт', 'Время подключения'])
-    for row in list_users:
-        user, ip, port, time = row
-        user = QStandardItem(user)
-        user.setEditable(False)
-        ip = QStandardItem(ip)
-        ip.setEditable(False)
-        port = QStandardItem(str(port))
-        port.setEditable(False)
-        # Убираем миллисекунды.
-        time = QStandardItem(str(time.replace(microsecond=0)))
-        time.setEditable(False)
-        active_user_list.appendRow([user, ip, port, time])
-    return active_user_list
+    def gui_active_users(self):
+        """
+        The method creates a table of active users for display in the program window.
+        :return: class instance QStandardItemModel.
+        """
+        list_users = self.database.get_all_active_users()
+        active_user_list = QStandardItemModel()
+        active_user_list.setHorizontalHeaderLabels(['Имя клиента', 'IP-адрес',
+                                                    'Порт', 'Время подключения'])
+        for row in list_users:
+            user, ip, port, time = row
+            user = QStandardItem(user)
+            user.setEditable(False)
+            ip = QStandardItem(ip)
+            ip.setEditable(False)
+            port = QStandardItem(str(port))
+            port.setEditable(False)
+            # Убираем миллисекунды.
+            time = QStandardItem(str(time.replace(microsecond=0)))
+            time.setEditable(False)
+            active_user_list.appendRow([user, ip, port, time])
+        self.active_clients_table.setModel(active_user_list)
+        self.active_clients_table.resizeColumnsToContents()
+        self.active_clients_table.resizeRowsToContents()
 
 
 if __name__ == '__main__':

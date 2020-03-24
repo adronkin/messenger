@@ -10,7 +10,6 @@ from socket import socket, AF_INET, SOCK_STREAM
 from select import select
 from logging import getLogger
 from threading import Thread, Lock
-from PyQt5.QtCore import QTimer
 from PyQt5.QtWidgets import QApplication, QMessageBox
 sys.path.append('../')
 from gui.main_window import MainWindow
@@ -25,14 +24,10 @@ from custom.srv_variables import MAX_QUEUE, ACTION, PRESENCE, TIME, ERROR, USER,
     MESSAGE_TEXT, SENDER, RESPONSE_200, RESPONSE_400, EXIT, RECIPIENT, DEL_CONTACT, ACCOUNT_NAME, \
     ADD_CONTACT, GET_CONTACTS, RESPONSE_202, DATA, GET_REGISTERED, RESPONSE_205, RESPONSE, \
     PUBLIC_KEY_REQUEST, RESPONSE_511, PUBLIC_KEY
+import log.log_config
 
 # Logger initialization.
 LOGGER = getLogger('server_logger')
-
-# The flag that a new user has been connected is needed so
-# as not to torment the database with constant update requests.
-NEW_CONNECTION = False
-CON_FLAG_LOCK = Lock()
 
 
 class Server(Thread, metaclass=ServerVerified):
@@ -45,6 +40,8 @@ class Server(Thread, metaclass=ServerVerified):
         self.port = listen_port
         self.database = database
 
+        self.sock = None
+
         # Sockets.
         self.listen_sockets = None
         self.error_sockets = None
@@ -53,6 +50,9 @@ class Server(Thread, metaclass=ServerVerified):
         self.clients = []
         # A dictionary with user names and sockets.
         self.names = dict()
+
+        # Flag to continue work.
+        self.running = True
 
         super().__init__()
 
@@ -78,14 +78,14 @@ class Server(Thread, metaclass=ServerVerified):
         # Socket initialization.
         self.init_socket()
 
-        while True:
+        while self.running:
             # Accept Connection Request.
             try:
-                client_sock, address = self.sock.accept()
+                client_sock, client_address = self.sock.accept()
             except OSError:
                 pass
             else:
-                LOGGER.info(f'Установлено соединение с клиентом {address}')
+                LOGGER.info(f'Установлено соединение с клиентом {client_address}')
                 client_sock.settimeout(5)
                 self.clients.append(client_sock)
 
@@ -97,8 +97,8 @@ class Server(Thread, metaclass=ServerVerified):
                     # Request information on readiness for input and output.
                     clients_senders, self.listen_sockets, self.error_sockets = select(
                         self.clients, self.clients, [], 0)
-            except OSError as error:
-                LOGGER.info(f'Ошибка работы с сокетами: {error}.')
+            except OSError as err:
+                LOGGER.info(f'Ошибка работы с сокетами: {err.error}.')
 
             # Receive messages, if an error is returned,
             # exclude the client from the list of clients.
@@ -152,7 +152,7 @@ class Server(Thread, metaclass=ServerVerified):
         # If message.
         elif ACTION in message and message[ACTION] == MESSAGE and TIME in message \
                 and SENDER in message and RECIPIENT in message and MESSAGE_TEXT in message \
-                and client == self.names[message[USER]]:
+                and client == self.names[message[SENDER]]:
             if message[RECIPIENT] in self.names:
                 # Сохраняем сообщение в БД
                 self.database.save_message(message[SENDER],
@@ -178,8 +178,8 @@ class Server(Thread, metaclass=ServerVerified):
             self.remove_client(client)
 
         # If the user requests a contact list.
-        elif ACTION in message and message[ACTION] == GET_CONTACTS and TIME in message \
-                and USER in message and client == self.names[message[USER]]:
+        elif ACTION in message and message[ACTION] == GET_CONTACTS and USER in message \
+                and self.names[message[USER]] == client:
             server_answer = RESPONSE_202
             server_answer[DATA] = self.database.get_contact_list(message[USER])
             LOGGER.debug(f'Пользователь {message[USER]} запросил список контактов.')
@@ -213,13 +213,13 @@ class Server(Thread, metaclass=ServerVerified):
                 self.remove_client(client)
 
         # If the user requests a list of known users.
-        elif ACTION in message and message[ACTION] == GET_REGISTERED and TIME in message \
-                and USER in message and client == self.names[message[USER]]:
+        elif ACTION in message and message[ACTION] == GET_REGISTERED and USER in message \
+                and self.names[message[USER]] == client:
             server_answer = RESPONSE_202
             server_answer[DATA] = [user[0] for user in self.database.get_all_users()]
             # TODO оптимизировать запрос.
-            LOGGER.debug(f'Пользователь {message[USER]}'
-                         f' запросил список зарегистрированных пользователей.')
+            LOGGER.debug(f'Пользователь {message[USER]} запросил список'
+                         f' зарегистрированных пользователей.')
             try:
                 send_message(client, server_answer)
             except OSError:
@@ -349,6 +349,7 @@ class Server(Thread, metaclass=ServerVerified):
                 send_message(self.names[client], RESPONSE_205)
             except OSError:
                 self.remove_client(self.names[client])
+        LOGGER.debug('Ответ 205 отправлен пользователям.')
 
 
 def main():
@@ -423,8 +424,12 @@ def main():
     # Запускаем GUI.
     server_app.exec_()
 
+    # By closing the windows, we stop the message handler.
+    server_app.running = False
+
 
 if __name__ == '__main__':
     main()
 
 # TODO сервер падает если завершить работу клиента ctrl+D.
+# TODO удается зарегать пользователя без пароля.
