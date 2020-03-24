@@ -1,16 +1,18 @@
 """GUI client launcher"""
+
 import os
 import sys
 from logging import getLogger
 from Crypto.PublicKey import RSA
 from PyQt5.QtWidgets import QApplication, QMessageBox
-from errors import ServerError
 sys.path.append('../')
+from custom.errors import ServerError
 from database.clt_database import ClientDataBase
+from gui.clt_main_window import ClientMainWindow
 from clt_parse_args import get_command_args
-from main_window import ClientMainWindow
-from start_menu import AuthMenu
+from gui.start_menu import AuthMenu
 from transport import ClientTransport
+import log.log_config
 
 # Initialize the logger.
 LOGGER = getLogger('client_logger')
@@ -58,12 +60,12 @@ database = ClientDataBase(client_name)
 try:
     transport = ClientTransport(server_ip, server_port, database,
                                 client_name, client_password, keys)
+    transport.setDaemon(True)
+    transport.start()
 except ServerError as error:
     message = QMessageBox()
     message.critical(start_dialog, 'Ошибка сервера', error.text)
     exit(1)
-transport.setDaemon(True)
-transport.start()
 
 del start_dialog
 

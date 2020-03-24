@@ -11,9 +11,9 @@ from PyQt5.QtGui import QStandardItemModel, QStandardItem, QBrush, QColor
 from PyQt5.QtWidgets import QMainWindow, QMessageBox
 sys.path.append('../')
 from clt_variables import ENCODING, MESSAGE_TEXT, SENDER, RECIPIENT
-from add_contact import AddContact
-from delete_contact import DeleteContact
-from main_window_gui import Gui_MainClientWindow
+from gui.clt_add_contact import AddContact
+from gui.clt_delete_contact import DeleteContact
+from gui.main_window_gui import Gui_MainClientWindow
 from custom.errors import ServerError
 import log.log_config
 
@@ -189,7 +189,6 @@ class ClientMainWindow(QMainWindow):
             if error.errno:
                 self.messages.critical(self, 'Ошибка', 'Потеряно соединение с сервером.')
                 self.close()
-            # TODO проверить, почему часто возникает timed out
             self.messages.critical(self, 'Ошибка', 'Таймаут соединения.')
         else:
             self.database.add_contact(item)
@@ -225,7 +224,6 @@ class ClientMainWindow(QMainWindow):
             if error.errno:
                 self.messages.critical(self, 'Ошибка', 'Потеряно соединение с сервером.')
                 self.close()
-            # TODO проверить, почему часто возникает timed out
             self.messages.critical(self, 'Ошибка', 'Таймаут соединения.')
         else:
             self.database.delete_contact(contact)
@@ -254,7 +252,7 @@ class ClientMainWindow(QMainWindow):
         """
         # Request the public key of the user and create an encryption object.
         try:
-            self.current_chat_key = self.transport.key_request(self.current_chat)
+            self.current_chat_key = self.transport.get_key_from_server(self.current_chat)
             LOGGER.debug(f'Загружен открытый ключ для {self.current_chat}')
             if self.current_chat_key:
                 self.cryptographer = PKCS1_OAEP.new(RSA.import_key(self.current_chat_key))
@@ -293,7 +291,7 @@ class ClientMainWindow(QMainWindow):
         self.current_chat = None
         self.current_chat_key = None
 
-    @pyqtSlot(str)
+    @pyqtSlot(dict)
     def new_message(self, message):
         """
         Receive new message slot.
@@ -361,7 +359,7 @@ class ClientMainWindow(QMainWindow):
         close the chat with a warning. Otherwise, just update the contact list without giving a
         warning to the user.
         """
-        if self.current_chat and not self.database.add_register_users(self.current_chat):
+        if self.current_chat and not self.database.check_registered_user(self.current_chat):
             self.messages.warning(self, 'Ошибка', 'Собеседник был удалён с сервера.')
             self.set_disabled_input()
             self.current_chat = None

@@ -78,6 +78,13 @@ class ClientDataBase:
         self.session.query(self.Contacts).delete()
         self.session.commit()
 
+    def clear_contacts(self):
+        """
+        Метод для очистки списка контактов.
+        :return:
+        """
+        self.session.query(self.Contacts).delete()
+
     def check_contact(self, username):
         """
         Метод возвращает True, если пользователь username есть в списке контактов.
@@ -185,16 +192,5 @@ class ClientDataBase:
 
 if __name__ == '__main__':
     TEST_DB = ClientDataBase('test_user_1')
-    TEST_DB.add_contact('Ivan')
-    TEST_DB.add_contact('Anton')
-    TEST_DB.add_contact('Anton')
-    TEST_DB.add_contact('Ignat')
-    TEST_DB.delete_contact('Ignat')
-    TEST_DB.delete_contact('Ignat')
     print(TEST_DB.get_all_contacts())
-    # TEST_DB.save_message('Ivan', 'Anton', 'Привет, Антон!')
-    # TEST_DB.save_message('Anton', 'Ivan', 'Привет, Иван.')
-    # TEST_DB.save_message('Ivan', 'Anton', 'Чем занят?')
-    for msg in TEST_DB.get_message_history(chat='Petr'):
-        print(msg)
     print(TEST_DB.get_register_users())
