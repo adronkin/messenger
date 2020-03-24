@@ -13,7 +13,7 @@ from threading import Thread, Lock
 from PyQt5.QtCore import QTimer
 from PyQt5.QtWidgets import QApplication, QMessageBox
 sys.path.append('../')
-from gui.main_window import MainWindow, gui_active_users
+from gui.main_window import MainWindow
 from gui.config_window import ConfigWindow
 from custom.srv_parse_args import args_parser
 from custom.srv_metaclass import ServerVerified
@@ -98,7 +98,7 @@ class Server(Thread, metaclass=ServerVerified):
                     clients_senders, self.listen_sockets, self.error_sockets = select(
                         self.clients, self.clients, [], 0)
             except OSError as error:
-                print(f'Ошибка работы с сокетами: {error}.')
+                LOGGER.info(f'Ошибка работы с сокетами: {error}.')
 
             # Receive messages, if an error is returned,
             # exclude the client from the list of clients.
@@ -291,7 +291,7 @@ class Server(Thread, metaclass=ServerVerified):
             auth_answer[DATA] = random_str.decode('ascii')
             # Create a password hash and a string with a random string,
             # save the server version of the key.
-            password_hash = hmac.new(self.database.get_key(message[USER]), random_str)
+            password_hash = hmac.new(self.database.get_pass_hash(message[USER]), random_str)
             digest = password_hash.digest()
 
             try:
@@ -375,32 +375,9 @@ def main():
     server.daemon = True
     server.start()
 
-    # Запуск основного меню сервера.
-    # main_loop(database)
-
     # Создаем графическое окружение для сервера.
     server_app = QApplication(sys.argv)
     main_window = MainWindow(server, database)
-
-    # Инициализируем параметры окна.
-    main_window.statusBar().showMessage('Server Working')
-    main_window.active_clients_table.setModel(gui_active_users(database))
-    main_window.active_clients_table.resizeColumnsToContents()
-    main_window.active_clients_table.resizeRowsToContents()
-
-    def active_list_update():
-        """
-        Функция для обновления списка активных пользователей в GUI сервера.
-        Проверяет флаг подключения, если необходимо, обновляет список подключенных пользователей.
-        :return:
-        """
-        global NEW_CONNECTION
-        if NEW_CONNECTION:
-            main_window.active_clients_table.setModel(gui_active_users(database))
-            main_window.active_clients_table.resizeColumnsToContents()
-            main_window.active_clients_table.resizeRowsToContents()
-            with CON_FLAG_LOCK:
-                NEW_CONNECTION = False
 
     def server_config():
         """
@@ -427,7 +404,7 @@ def main():
         try:
             port = int(config_window.port_field.text())
         except ValueError:
-            message.warning(config_window, 'Ошибка', 'Порт должен быть числом')
+            message.warning(config_window, 'Ошибка', 'Порт должен быть числом.')
         else:
             # TODO добавить проверку корректности IP-адреса.
             config['SETTINGS']['default_ip'] = config_window.ip_address_field.text()
@@ -436,17 +413,11 @@ def main():
                 # Записываем новы порт в файл.
                 with open(os.path.join(dir_path, 'server.ini'), 'w') as conf:
                     config.write(conf)
-                    message.information(config_window, 'Ok', 'Настройки сохранены')
+                    message.information(config_window, 'Ok', 'Настройки сохранены.')
             else:
-                message.warning(config_window, 'Ошибка', 'Порт должен быть от 1024 до 65536')
-
-    # Таймер обновляет список клиентов 1 раз в секунду.
-    timer = QTimer()
-    timer.timeout.connect(active_list_update)
-    timer.start(1000)
+                message.warning(config_window, 'Ошибка', 'Порт должен быть от 1024 до 65536.')
 
     # Связываем кнопки с процедурами.
-    main_window.refresh_button.triggered.connect(active_list_update)
     main_window.setting_button.triggered.connect(server_config)
 
     # Запускаем GUI.
