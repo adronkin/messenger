@@ -1,29 +1,30 @@
-"""Модуль для метакласса выполняющего базовую проверку сервера"""
+"""Module with metaclass performing basic server check"""
 
 from dis import get_instructions
 
 
 class ServerVerified(type):
     """
-    Метакласс выполняющий базовую проверку сервера.
-    Отсутствие вызовов connect для сокетов.
-    Использование сокетов для работы по TCP.
+    A metaclass that performs basic server validation.
+    Lack of connect calls for sockets.
+    Using sockets to work on TCP.
     """
 
     def __init__(self, class_name, bases, class_dict):
         """
-        :param class_name: экземпляр класса Server.
-        :param bases: кортеж базовых классов.
-        :param class_dict: словарь атрибутов и методов экземпляра метакласса.
+        :param class_name: instance of the Server class.
+        :param bases: tuple of base classes.
+        :param class_dict: a dictionary of attributes and methods of an instance of a metaclass.
         """
-        # Список медодов используемых в функциях класса.
+        # List of methods used in class functions.
         methods = []
 
         for func in class_dict:
             try:
-                # Сохранем в переменную итератор по инструкциям функции.
+                # Save the iterator to the variable according to
+                # the instructions of the function.
                 ret = get_instructions(class_dict[func])
-            # Если не функция.
+            # If not a function.
             except TypeError:
                 pass
             else:
@@ -32,17 +33,17 @@ class ServerVerified(type):
                     # operation - Instruction(opname='LOAD_GLOBAL', opcode=116,
                     # arg=9, argval='send_message', argrepr='send_message',
                     # offset=308, starts_line=201, is_jump_target=False)
-                    # opname - имя для операции.
+                    # opname - name for the operation.
                     if operation.opname == 'LOAD_GLOBAL':
                         if operation.argval not in methods:
-                            # Добавляем в список метод, использующийся в
-                            # функции класса.
+                            # Add to the list the method used in the class function.
                             methods.append(operation.argval)
         # print(f'Методы - {methods}')
         if 'connect' in methods:
             raise TypeError(
-                'Использование метода connect недопустимо в серверном классе')
+                'Использование метода connect недопустимо в серверном классе'
+            )
         if not ('AF_INET' in methods and 'SOCK_STREAM' in methods):
             raise TypeError('Некорректная инициализация сокета.')
-        # Обязательно вызываем конструктор предка.
+        # Be sure to call the constructor of the ancestor.
         super().__init__(class_name, bases, class_dict)

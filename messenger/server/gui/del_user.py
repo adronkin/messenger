@@ -2,7 +2,8 @@
 
 import sys
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QDialog, QApplication, QMessageBox, QLabel, QComboBox, QPushButton
+from PyQt5.QtWidgets import QDialog, QApplication, QMessageBox, QLabel, \
+    QComboBox, QPushButton
 
 
 class DeleteUserWindow(QDialog):
@@ -56,8 +57,8 @@ class DeleteUserWindow(QDialog):
 
     def remove_user(self):
         """
-        Method handler deletion. Checks if the client is connected and closes the connection,
-        also deleting it from the database.
+        Method handler deletion. Checks if the client is connected
+        and closes the connection, also deleting it from the database.
         :return:
         """
         self.database.del_user(self.del_drop_menu.currentText())
@@ -72,9 +73,9 @@ class DeleteUserWindow(QDialog):
 
 if __name__ == '__main__':
     # Create an application object.
-    app = QApplication(sys.argv)
+    APP = QApplication(sys.argv)
     # Create a message dialog box.
-    message = QMessageBox
-    del_window = DeleteUserWindow(None, None)
+    MESSAGE = QMessageBox
+    DEL_WINDOW = DeleteUserWindow(None, None)
     # Application launch (event polling cycle).
-    app.exec_()
+    APP.exec_()

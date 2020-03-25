@@ -5,8 +5,9 @@ from PyQt5.QtCore import QTimer
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import QApplication, QMessageBox, QLabel, QMainWindow, QAction, qApp, \
     QTableView
-from add_user import AddUserWindow
-from del_user import DeleteUserWindow
+sys.path.append('../')
+from gui.add_user import AddUserWindow
+from gui.del_user import DeleteUserWindow
 
 
 class MainWindow(QMainWindow):
@@ -23,9 +24,9 @@ class MainWindow(QMainWindow):
         self.setWindowTitle('Server menu')
 
         # Exit button.
-        self.exitAction = QAction('Выход', self)
-        self.exitAction.setShortcut('Ctrl+Q')
-        self.exitAction.triggered.connect(qApp.quit)
+        self.exit_button = QAction('Выход', self)
+        self.exit_button.setShortcut('Ctrl+Q')
+        self.exit_button.triggered.connect(qApp.quit)
 
         # Client list refresh button.
         self.refresh_button = QAction('Обновить', self)
@@ -41,7 +42,7 @@ class MainWindow(QMainWindow):
 
         # Toolbar.
         self.toolbar = self.addToolBar('Toolbar')
-        self.toolbar.addAction(self.exitAction)
+        self.toolbar.addAction(self.exit_button)
         self.toolbar.addAction(self.refresh_button)
         self.toolbar.addAction(self.setting_button)
         self.toolbar.addAction(self.register_user_button)
@@ -75,16 +76,16 @@ class MainWindow(QMainWindow):
         The method calls the user registration window.
         :return:
         """
-        global reg_window
-        reg_window = AddUserWindow(self.server, self.database)
+        global REG_WINDOW
+        REG_WINDOW = AddUserWindow(self.server, self.database)
 
     def del_user_window(self):
         """
         The method calls the user deletion window.
         :return:
         """
-        global del_window
-        del_window = DeleteUserWindow(self.server, self.database)
+        global DEL_WINDOW
+        DEL_WINDOW = DeleteUserWindow(self.server, self.database)
 
     def gui_active_users(self):
         """
@@ -93,8 +94,12 @@ class MainWindow(QMainWindow):
         """
         list_users = self.database.get_all_active_users()
         active_user_list = QStandardItemModel()
-        active_user_list.setHorizontalHeaderLabels(['Имя клиента', 'IP-адрес',
-                                                    'Порт', 'Время подключения'])
+        active_user_list.setHorizontalHeaderLabels([
+            'Имя клиента',
+            'IP-адрес',
+            'Порт',
+            'Время подключения'
+        ])
         for row in list_users:
             user, ip, port, time = row
             user = QStandardItem(user)
@@ -114,19 +119,32 @@ class MainWindow(QMainWindow):
 
 if __name__ == '__main__':
     # Create an application object.
-    app = QApplication(sys.argv)
-    # Создаем диалоговое окно сообщения.
-    message = QMessageBox
+    APP = QApplication(sys.argv)
+    # Create a message box.
+    MESSAGE = QMessageBox
     # Create a message dialog box.
-    main_window = MainWindow(None, None)
-    main_window.statusBar().showMessage('Test run')
-    test_list = QStandardItemModel(main_window)
-    test_list.setHorizontalHeaderLabels(['Имя клиента', 'IP-адрес', 'Порт', 'Время подключения'])
-    test_list.appendRow([QStandardItem('test_user_1'), QStandardItem('127.0.0.1'),
-                         QStandardItem('53245'), QStandardItem('2020-01-01 15:36')])
-    test_list.appendRow([QStandardItem('test_user_2'), QStandardItem('127.0.0.1'),
-                         QStandardItem('52123'), QStandardItem('2020-01-02 12:21')])
-    main_window.active_clients_table.setModel(test_list)
-    main_window.active_clients_table.resizeColumnsToContents()
+    MAIN_WINDOW = MainWindow(None, None)
+    MAIN_WINDOW.statusBar().showMessage('Test run')
+    TEST_LIST = QStandardItemModel(MAIN_WINDOW)
+    TEST_LIST.setHorizontalHeaderLabels([
+        'Имя клиента',
+        'IP-адрес',
+        'Порт',
+        'Время подключения'
+    ])
+    TEST_LIST.appendRow([
+        QStandardItem('test_user_1'),
+        QStandardItem('127.0.0.1'),
+        QStandardItem('53245'),
+        QStandardItem('2020-01-01 15:36')
+    ])
+    TEST_LIST.appendRow([
+        QStandardItem('test_user_2'),
+        QStandardItem('127.0.0.1'),
+        QStandardItem('52123'),
+        QStandardItem('2020-01-02 12:21')
+    ])
+    MAIN_WINDOW.active_clients_table.setModel(TEST_LIST)
+    MAIN_WINDOW.active_clients_table.resizeColumnsToContents()
     # Application launch (event polling cycle).
-    app.exec_()
+    APP.exec_()

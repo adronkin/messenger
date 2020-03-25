@@ -4,9 +4,10 @@ import binascii
 import sys
 from hashlib import pbkdf2_hmac
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QDialog, QApplication, QMessageBox, QLabel, QLineEdit, QPushButton
+from PyQt5.QtWidgets import QDialog, QApplication, QMessageBox, QLabel, \
+    QLineEdit, QPushButton
 sys.path.append('../')
-from srv_variables import ENCODING
+from custom.srv_variables import ENCODING
 
 
 class AddUserWindow(QDialog):
@@ -74,26 +75,45 @@ class AddUserWindow(QDialog):
 
     def save_data(self):
         """
-        The method checks the correctness of the input and saves the new user in the database.
+        The method checks the correctness of the input
+        and saves the new user in the database.
         :return:
         """
         if not self.username.text():
-            self.messages.critical(self, 'Ошибка', 'Не введено имя пользователя.')
+            self.messages.critical(
+                self,
+                'Ошибка',
+                'Не введено имя пользователя.'
+            )
             return
         elif self.database.check_user(self.username.text()):
-            self.messages.critical(self, 'Ошибка',
-                                   f'Пользователь с именем {self.username.text()} существует.')
+            self.messages.critical(
+                self,
+                'Ошибка',
+                f'Пользователь с именем {self.username.text()} существует.'
+            )
             return
         elif self.password.text() != self.password_confirm.text():
-            self.messages.critical(self, 'Ошибка', 'Введенные пароли не совпадают.')
+            self.messages.critical(
+                self,
+                'Ошибка',
+                'Введенные пароли не совпадают.'
+            )
             return
         else:
             # Generate a password hash, use a lowercase login as a salt.
             password_bytes = self.password.text().encode(ENCODING)
             salt = self.username.text().lower().encode(ENCODING)
             password_hash = pbkdf2_hmac('sha512', password_bytes, salt, 10000)
-            self.database.register_user(self.username.text(), binascii.hexlify(password_hash))
-            self.messages.information(self, 'Успех', 'Пользователь зарегистрирован.')
+            self.database.register_user(
+                self.username.text(),
+                binascii.hexlify(password_hash)
+            )
+            self.messages.information(
+                self,
+                'Успех',
+                'Пользователь зарегистрирован.'
+            )
             # Send clients messages about the need to update directories.
             self.server.send_update_list()
             self.close()
@@ -101,9 +121,9 @@ class AddUserWindow(QDialog):
 
 if __name__ == '__main__':
     # Create an application object.
-    app = QApplication(sys.argv)
+    APP = QApplication(sys.argv)
     # Create a message dialog box.
-    message = QMessageBox
-    del_window = AddUserWindow(None, None)
+    MESSAGE = QMessageBox
+    DEL_WINDOW = AddUserWindow(None, None)
     # Application launch (event polling cycle).
-    app.exec_()
+    APP.exec_()

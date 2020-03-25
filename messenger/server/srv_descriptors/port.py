@@ -1,4 +1,4 @@
-"""Дескриптор для порта."""
+"""Port handle"""
 
 import sys
 from logging import getLogger
@@ -10,19 +10,19 @@ LOGGER = getLogger('server_logger')
 
 class Port:
     """
-    Дескриптор для описания порта.
+    A class describing the handle to the port.
     """
 
     def __set__(self, instance, value):
         """
-        Проерка порта.
-        :param instance: экземпляр класса.
-        :param value: значение для порта, по умолчанию 7777.
-        :return: если порт прошел проверку, то добавляется в список атрибутов экземпляра.
+        Check port.
+        :param instance: class instance.
+        :param value: value for port.
+        :return: if the port passes the check, it is added to the list of instance attributes.
         """
         if not 1023 < value < 65536:
             LOGGER.critical(f'Порт "{value}" введен некорректно. '
-                            f'Необходимо ввести значение от 1024 до 65535')
+                            f'Необходимо ввести значение от 1024 до 65535.')
             sys.exit(1)
         instance.__dict__[self.port] = value
 
