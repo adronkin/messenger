@@ -1,19 +1,12 @@
-"""Переменные для использования server.py"""
+"""Variables for the server side."""
 
-import os
-
-# IP-адрес по умолчанию
-DEFAULT_IP = '127.0.0.1'
-# Сетевой порт по умолчанию
-DEFAULT_PORT = 7777
-# Кодировка
 ENCODING = 'utf-8'
-# Максимальная длина очереди на подключение
+# Maximum Connection Queue Length.
 MAX_QUEUE = 5
-# Максимальная длина сообщения (байт)
+# Maximum message length (bytes).
 MAX_DATA = 10240
 
-# Ключи JIM протокола
+# JIM protocol keys.
 ACTION = 'action'
 USER = 'user'
 TIME = 'time'
@@ -34,10 +27,10 @@ GET_REGISTERED = 'get_registered'
 PUBLIC_KEY_REQUEST = 'public_key_request'
 PUBLIC_KEY = 'public_key'
 
-# Регулярное выражение для проверки корректности IP
+# Regular expression for validating an IP address.
 IP_REGEX = r'^([0-9]\.|[1]?[0-9][0-9]\.|[2][0-4][0-9]\.|[2][5][0-5]\.){3}([0-9]|[1]?[0-9][0-9]|[2][0-4][0-9]|[2][5][0-5])$'
 
-# Ответы
+# The answers.
 RESPONSE_200 = {RESPONSE: 200}
 
 RESPONSE_205 = {RESPONSE: 205}
@@ -61,9 +54,3 @@ RESPONSE_511 = {
     RESPONSE: 511,
     DATA: None
 }
-
-# Имя файла БД
-DB_FILE_NAME = 'server/database/server_database.db3'
-# Путь к базе данных для хранения данных сервера:
-SERVER_DATABASE = f'sqlite:///{"/".join(map(str, os.path.dirname(__file__).split("/")[:-1]))}' \
-                  f'/server/database/{DB_FILE_NAME}'

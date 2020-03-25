@@ -1,22 +1,23 @@
-"""Модуль описания базы данных сервера."""
+"""Server Database Description Module"""
 
 import os
 from datetime import datetime
-from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, create_engine, Index, Text
+from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, \
+    create_engine, Index, Text
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-# Создаем базовый класс для декларативно работы.
+# Create a base class for declarative work.
 BASE = declarative_base()
 
 
 class ServerDataBase:
     """
-    Класс описывающий таблицы БД и методы сервера.
+    A class describing database tables and server methods.
     """
     class Users(BASE):
         """
-        Класс описывает таблицу всех пользователей.
+        The class describes the table of all users.
         """
         __tablename__ = 'users'
         id = Column(Integer, primary_key=True)
@@ -33,7 +34,7 @@ class ServerDataBase:
 
     class ActiveUser(BASE):
         """
-        Класс описывает таблицу активных пользователей.
+        The class describes the table of active users.
         """
         __tablename__ = 'active_user'
         id = Column(Integer, primary_key=True)
@@ -51,7 +52,7 @@ class ServerDataBase:
 
     class UserStory(BASE):
         """
-        Класс описывает таблицу истории подключений пользователей.
+        The class describes a table of user connection history.
         """
         __tablename__ = 'user_story'
         id = Column(Integer, primary_key=True)
@@ -71,7 +72,7 @@ class ServerDataBase:
 
     class ContactList(BASE):
         """
-        Класс описывает таблицу контактов пользователей.
+        The class describes the user contact table.
         """
         __tablename__ = 'contact_list'
         id = Column(Integer, primary_key=True)
@@ -85,7 +86,7 @@ class ServerDataBase:
 
     class MessageHistory(BASE):
         """
-        Класс описывает таблицу с историей переписки пользователя.
+        The class describes a table with the user's correspondence history.
         """
         __tablename__ = 'message_history'
         id = Column(Integer, primary_key=True)
@@ -93,7 +94,9 @@ class ServerDataBase:
         recipient = Column(String)
         date = Column(DateTime)
         message = Column(Text)
-        __table_args__ = (Index('message_history_index', 'id', 'sender', 'recipient'), )
+        __table_args__ = (
+            Index('message_history_index', 'id', 'sender', 'recipient'),
+        )
 
         def __init__(self, sender, recipient, message):
             self.sender = sender
@@ -102,58 +105,74 @@ class ServerDataBase:
             self.message = message
 
     def __init__(self, path):
-        # Создаем БД (echo - логирование через стандартный модуль logging).
-        # connect_args={'check_same_thread': False} - созданное в потоке может
-        # использоваться не только в данном потоке.
-        self.engine = create_engine(f'sqlite:///{path}', echo=False, pool_recycle=3600,
-                                    connect_args={'check_same_thread': False})
+        # Create a database (echo - logging through the standard logging module).
+        # connect_args={'check_same_thread': False} -
+        # created in a stream can be used not only in this stream.
+        self.engine = create_engine(
+            f'sqlite:///{path}',
+            echo=False,
+            pool_recycle=3600,
+            connect_args={'check_same_thread': False}
+        )
 
-        # Создаем таблицы
+        # Create tables.
         BASE.metadata.create_all(self.engine)
 
-        # Создаем сессию
+        # Create session.
         Session = sessionmaker(bind=self.engine)
         self.session = Session()
 
-        # После установки соединения очищаем таблицу активных пользователей
+        # After the connection is established, clear the table of active users.
         self.session.query(self.ActiveUser).delete()
         self.session.commit()
 
     def user_login(self, username, ip_address, port, key):
         """
-        Метод запускается при входе пользователя. Записывает в базу информацию о входе.
-        :param {str} username: имя пользователя.
-        :param {str} ip_address: IP-адрес пользователя.
-        :param {int} port: порт пользователя.
-        :param {str} key: публичный ключ пользователя.
+        The method is launched when the user logs in.
+        Writes entry information to the database.
+        :param {str} username: username.
+        :param {str} ip_address: User IP.
+        :param {int} port: user port.
+        :param {str} key: public key of the user.
         :return:
         """
-        # Поиск в таблице Users пользователя с именем username
+        # Search in the Users table for a user named username.
         q_user = self.session.query(self.Users).filter_by(username=username)
 
-        # Если пользователь есть в таблице
+        # If the user is in the table.
         if q_user.count():
-            # Возвращаем результат запроса и обновляем дату последнего входа
-            user = q_user.first()
-            user.last_login = datetime.now()
-            if user.public_key != key:
-                user.public_key = key
-        # Иначе, добавляем нового пользователя
+            # Return the result of the request and update the date of the last login.
+            client = q_user.first()
+            client.last_login = datetime.now()
+            if client.public_key != key:
+                client.public_key = key
+        # Otherwise, add a new user.
         else:
             raise ValueError(f'Пользователь {username} не зарегистрирован.')
 
-        # Обновляем данные в таблице ActiveUser и UserStory
-        active_user = self.ActiveUser(user.id, ip_address, port, datetime.now())
+        # Updating data in the ActiveUser and UserStory tables.
+        active_user = self.ActiveUser(
+            client.id,
+            ip_address,
+            port,
+            datetime.now()
+        )
         self.session.add(active_user)
-        user_history = self.UserStory(user.id, ip_address, port, datetime.now(), None)
+        user_history = self.UserStory(
+            client.id,
+            ip_address,
+            port,
+            datetime.now(),
+            None
+        )
         self.session.add(user_history)
         self.session.commit()
 
     def register_user(self, username, password):
         """
-        Метод для регистрации пользователя. Делает запись в таблицу Users.
-        :param {str} username: имя пользователя.
-        :param {byte} password: хэш пароля пользователя.
+        Method for user registration. Writes to the Users table.
+        :param {str} username: username.
+        :param {byte} password: user password hash.
         :return:
         """
         new_user = self.Users(username, password)
@@ -162,58 +181,56 @@ class ServerDataBase:
 
     def del_user(self, username):
         """
-        Метод удаления пользователя из БД.
-        :param {str} username: имя пользователя.
+        Method for deleting a user from the database.
+        :param {str} username: username.
         :return:
         """
         q_user = self.session.query(self.Users).filter_by(username=username)
         if q_user.count():
-            user = q_user.first()
-            self.session.query(self.ContactList).filter_by(user_id=user.id).delete()
-            self.session.query(self.ContactList).filter_by(friend_id=user.id).delete()
-            self.session.query(self.UserStory).filter_by(user_id=user.id).delete()
-            self.session.query(self.ActiveUser).filter_by(user_id=user.id).delete()
+            client = q_user.first()
+            self.session.query(self.ContactList).filter_by(user_id=client.id).delete()
+            self.session.query(self.ContactList).filter_by(friend_id=client.id).delete()
+            self.session.query(self.UserStory).filter_by(user_id=client.id).delete()
+            self.session.query(self.ActiveUser).filter_by(user_id=client.id).delete()
             self.session.query(self.Users).filter_by(username=username).delete()
             self.session.commit()
 
     def get_pass_hash(self, username):
         """
-        Метод возвращает хэш пароля пользователя.
-        :param {str} username: имя пользователя.
-        :return {byte}: хэш пароля пользователя.
+        The method returns the hash of the user's password.
+        :param {str} username: username.
+        :return {byte}: user password hash.
         """
-        user = self.session.query(self.Users).filter_by(username=username).first()
-        return user.password
+        client = self.session.query(self.Users).filter_by(username=username).first()
+        return client.password
 
     def get_key(self, username):
         """
-        Метод возвращает публичный ключ пользователя.
-        :param {str} username: имя пользователя.
-        :return {str}: публичный ключ.
+        The method returns the public key of the user.
+        :param {str} username: username.
+        :return {str}: public key.
         """
-        user = self.session.query(self.Users).filter_by(username=username).first()
-        return user.public_key
+        client = self.session.query(self.Users).filter_by(username=username).first()
+        return client.public_key
 
     def user_logout(self, username):
         """
-        Метод запускается при выходе пользователя. Удаляет пользователя из таблицы
-        ActiveUser и вносит время выхода в таблицу UserStory.
-        :param {str} username:
+        The method is launched when the user exits. Removes the user from
+        the ActiveUser table and enters the exit time into the UserStory table.
+        :param {str} username: username.
         :return:
         """
-        user = self.session.query(self.Users).filter_by(username=username)
-        user = user.first()
-        # Удаляем пользователя из таблицы ActiveUser.
-        self.session.query(self.ActiveUser).filter_by(user_id=user.id).delete()
-        # Вносим в таблицу UserStory время logout_time.
-        history_logout = self.session.query(self.UserStory).filter_by(user_id=user.id).all()[-1]
+        client = self.session.query(self.Users).filter_by(username=username).first()
+        self.session.query(self.ActiveUser).filter_by(user_id=client.id).delete()
+        # Add logout_time to the UserStory table.
+        history_logout = self.session.query(self.UserStory).filter_by(user_id=client.id).all()[-1]
         history_logout.logout_time = datetime.now()
         self.session.commit()
 
     def get_all_users(self):
         """
-        Метод возвращает список всех пользователей и время последнего входа.
-        :return {list}: список всех пользователей.
+        The method returns a list of all users and the time of the last login.
+        :return {list}: list of all users.
         """
         query = self.session.query(
             self.Users.username,
@@ -223,8 +240,8 @@ class ServerDataBase:
 
     def get_all_active_users(self):
         """
-        Метод возвращает список всех активных пользователей.
-        :return {list}: список всех активных пользователей.
+        The method returns a list of all active users.
+        :return {list}: list of all active users.
         """
         query = self.session.query(
             self.Users.username,
@@ -236,9 +253,9 @@ class ServerDataBase:
 
     def get_connect_history(self, username=None):
         """
-        Метод возвращает историю посещений одного или всех пользователей.
-        :param {str} username: имя пользователя.
-        :return {list}: список посещений пользователей.
+        The method returns the history of visits of one or all users.
+        :param {str} username: username.
+        :return {list}: list of user visits.
         """
         query = self.session.query(
             self.Users.username,
@@ -253,23 +270,26 @@ class ServerDataBase:
 
     def get_contact_list(self, username):
         """
-        Метод возвращает список контактов одного или всех пользователей.
-        :param {str} username: имя пользователя.
-        :return {list}: список контактов пользователей.
+        The method returns a contact list of one or all users.
+        :param {str} username: username.
+        :return {list}: user contact list.
         """
-        user = self.session.query(self.Users).filter_by(username=username).one()
+        client = self.session.query(self.Users).filter_by(username=username).one()
         query = self.session.query(
             self.ContactList,
             self.Users.username,
-        ).filter_by(user_id=user.id).join(self.Users, self.ContactList.friend_id == self.Users.id)
+        ).filter_by(user_id=client.id).join(
+            self.Users,
+            self.ContactList.friend_id == self.Users.id
+        )
         return [contact[1] for contact in query.all()]
 
     def save_message(self, sender, recipient, msg_text):
         """
-        Метод сохраняет сообщение в базу.
-        :param {str} sender: отправитель сообщения.
-        :param {str} recipient: получатель сообщения.
-        :param {str} msg_text: текст сообщения.
+        The method saves the message to the database.
+        :param {str} sender: message sender.
+        :param {str} recipient: the recipient of the message.
+        :param {str} msg_text: message text.
         :return:
         """
         new_message = self.MessageHistory(sender, recipient, msg_text)
@@ -278,9 +298,9 @@ class ServerDataBase:
 
     def get_message_history(self, sender=None, recipient=None):
         """
-        Метод возвращает историю переписки по получателю и/или отправителю.
-        :param {str} sender: отправитель сообщения.
-        :param {str} recipient: получатель сообщения.
+        The method returns the history of correspondence by recipient and/or sender.
+        :param {str} sender: message sender.
+        :param {str} recipient: the recipient of the message.
         :return:
         """
         query = self.session.query(self.MessageHistory)
@@ -293,17 +313,19 @@ class ServerDataBase:
 
     def add_contact(self, username, friend_name):
         """
-        Метод добавляет пользователя в список контактов.
-        :param {str} username: имя пользователя.
-        :param {str} friend_name: пользователь для добавления в список контактов.
+        The method adds the user to the contact list.
+        :param {str} username: username
+        :param {str} friend_name: user to add to your contact list.
         :return:
         """
         q_username = self.session.query(self.Users).filter_by(username=username).first()
         q_friend_name = self.session.query(self.Users).filter_by(username=friend_name).first()
 
-        # Проверяем, что контакт существует и запись не дублируется.
-        if not q_friend_name or self.session.query(self.ContactList).\
-                filter_by(user_id=q_username.id, friend_id=q_friend_name.id).count():
+        # Check that the contact exists and the record is not duplicated.
+        if not q_friend_name or self.session.query(self.ContactList).filter_by(
+                user_id=q_username.id,
+                friend_id=q_friend_name.id
+        ).count():
             return
 
         new_contact = self.ContactList(q_username.id, q_friend_name.id)
@@ -312,41 +334,45 @@ class ServerDataBase:
 
     def del_contact(self, username, friend_name):
         """
-        Метод удаляет пользователя из списка контактов.
-        :param {str} username: имя пользователя.
-        :param {str} friend_name: пользователь для удаления из списка контактов.
+        The method removes the user from the contact list.
+        :param {str} username: username
+        :param {str} friend_name: user to remove from contact list.
         :return:
         """
         q_username = self.session.query(self.Users).filter_by(username=username).first()
         q_friend_name = self.session.query(self.Users).filter_by(username=friend_name).first()
 
-        # Проверяем, что контакт существует.
+        # Check that the contact exists.
         if not q_friend_name:
             return
 
-        self.session.query(self.ContactList).\
-            filter_by(user_id=q_username.id, friend_id=q_friend_name.id).delete()
+        self.session.query(self.ContactList).filter_by(
+            user_id=q_username.id,
+            friend_id=q_friend_name.id
+        ).delete()
         self.session.commit()
 
     def check_contact(self, username, friend_name):
         """
-        Метод возвращает True, если пользователь username есть в списке контактов.
-        :param {str} username: имя пользователя.
-        :param {str} friend_name: пользователь для проверки в списке контактов.
+        The method returns True if the username is in the contact list.
+        :param {str} username: username
+        :param {str} friend_name: user to check in the contact list.
         :return {bool}:
         """
         q_username = self.session.query(self.Users).filter_by(username=username).first()
         q_friend_name = self.session.query(self.Users).filter_by(username=friend_name).first()
         if q_username and q_friend_name:
-            q_contact = self.session.query(
-                self.ContactList).filter_by(user_id=q_username.id, friend_id=q_friend_name.id)
+            q_contact = self.session.query(self.ContactList).filter_by(
+                user_id=q_username.id,
+                friend_id=q_friend_name.id
+            )
             if q_contact.count():
                 return True
 
     def check_user(self, username):
         """
-        Метод возвращает True, если пользователь username есть в таблице Users.
-        :param {str} username: имя пользователя.
+        The method returns True if the username is in the Users table.
+        :param {str} username: username.
         :return {bool}:
         """
         q_username = self.session.query(self.Users).filter_by(username=username)

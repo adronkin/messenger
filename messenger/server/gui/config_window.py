@@ -1,45 +1,44 @@
-"""Модуль описывает окно настроек GUI сервера"""
+"""The module describes the server GUI settings window"""
 
 import sys
-from PyQt5.QtWidgets import QApplication, QMessageBox, QDialog, QLabel, QLineEdit, QPushButton, \
-    QFileDialog
+from PyQt5.QtWidgets import QApplication, QMessageBox, QDialog, QLabel, \
+    QLineEdit, QPushButton, QFileDialog
 
 
 class ConfigWindow(QDialog):
     """
-    Класс описывающий окно настроек.
+    The class describes the settings window.
     """
     def __init__(self):
         super().__init__()
-        # Вызываем конструктор.
+        # Call the constructor.
         self.initUI()
 
     def initUI(self):
-        # Настройки окна (задаем фиксированный размер окна и заголовок).
         self.setFixedSize(370, 200)
         self.setWindowTitle('Настройки сервера')
 
-        # Текст к строке с путем к БД.
+        # Text to the line with the path to the database.
         self.db_path_text = QLabel('Путь к файлу БД: ', self)
         self.db_path_text.move(15, 15)
         self.db_path_text.setFixedSize(240, 15)
 
-        # Путь к БД.
+        # The path to the database.
         self.db_path = QLineEdit(self)
         self.db_path.move(15, 35)
         self.db_path.setFixedSize(250, 20)
         self.db_path.setReadOnly(True)
 
-        # Кнопка выбора пути к БД.
+        # Button to select the path to the database.
         self.db_path_select = QPushButton('Обзор...', self)
         self.db_path_select.move(270, 30)
 
-        # Текст для поля имени файла БД.
+        # The text for the database file name field.
         self.db_file_text = QLabel('Имя файла БД: ', self)
         self.db_file_text.move(15, 70)
         self.db_file_text.setFixedSize(150, 20)
 
-        # Поле для ввода имени файла БД.
+        # Field for entering database file name.
         self.db_file_name = QLineEdit(self)
         self.db_file_name.move(125, 70)
         self.db_file_name.setFixedSize(235, 20)
@@ -49,26 +48,26 @@ class ConfigWindow(QDialog):
         self.ip_address_text.move(15, 95)
         self.ip_address_text.setFixedSize(150, 20)
 
-        # Поле для ввода IP-адреса.
+        # A field for entering an IP address.
         self.ip_address_field = QLineEdit(self)
         self.ip_address_field.move(125, 95)
         self.ip_address_field.setFixedSize(235, 20)
 
-        # Текст для поля ввода порта.
+        # Text for port input field.
         self.port_text = QLabel('Порт: ', self)
         self.port_text.move(15, 120)
         self.port_text.setFixedSize(150, 20)
 
-        # Поле для ввода порта.
+        # Field for entering the port.
         self.port_field = QLineEdit(self)
         self.port_field.move(125, 120)
         self.port_field.setFixedSize(235, 20)
 
-        # Кнопка для сохранения настроек.
+        # Button for saving settings.
         self.save_button = QPushButton('Сохранить', self)
         self.save_button.move(80, 155)
 
-        # Кнопка закрытия окна
+        # Button to close the window.
         self.close_button = QPushButton(' Закрыть ', self)
         self.close_button.move(190, 155)
         self.close_button.clicked.connect(self.close)
@@ -79,7 +78,7 @@ class ConfigWindow(QDialog):
 
     def open_path_select(self):
         """
-        Метод обработчик открытия окна выбора пути.
+        The handler method opens the path selection window.
         :return:
         """
         window = QFileDialog()
@@ -88,11 +87,11 @@ class ConfigWindow(QDialog):
 
 
 if __name__ == '__main__':
-    # Создаем объект приложения.
-    app = QApplication(sys.argv)
-    # Создаем диалоговое окно сообщения.
-    message = QMessageBox
-    # Тест меню настроек.
-    config_window = ConfigWindow()
-    # Запускаем приложение (цикл опроса событий).
-    app.exec_()
+    # Create an application object.
+    APP = QApplication(sys.argv)
+    # Create a message box.
+    MESSAGE = QMessageBox
+    # Test settings menu.
+    CONFIG_WINDOW = ConfigWindow()
+    # Application launch (event polling cycle).
+    APP.exec_()
