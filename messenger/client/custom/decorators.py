@@ -1,4 +1,4 @@
-"""Модуль для декораторов"""
+"""Module for client decorators"""
 
 import inspect
 import sys
@@ -11,16 +11,18 @@ LOGGER = getLogger('client_logger')
 
 
 class Log:
-    """Класс-декоратор для логирования имени и аргументов вызываемой функции"""
+    """
+    Decorator class for logging the name and arguments of the called function.
+    """
     def __call__(self, func):
-        # Копируем атрибуты функции в атрибуты обернутой функции
+        # Copy the attributes of a function to the attributes of a wrapped function.
         @wraps(func)
         def decorated(*args, **kwargs):
             res = func(*args, **kwargs)
-            # Определяем функцию из которой была вызвана func
+            # Define the function from which func was called.
             stack = inspect.stack()[1][3]
-            LOGGER.info(f'Выполнен вызов функции "{func.__name__}" из функции "{stack}"')
-            LOGGER.info(f'Функция "{func.__name__}" из модуля '
-                        f'"{func.__module__}" с аргументами ({args}, {kwargs})')
+            LOGGER.info(f'Выполнен вызов функции {func.__name__} из функции {stack}.')
+            LOGGER.info(f'Функция {func.__name__} из модуля {func.__module__}'
+                        f' с аргументами ({args}, {kwargs}).')
             return res
         return decorated

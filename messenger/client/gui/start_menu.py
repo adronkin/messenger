@@ -1,6 +1,8 @@
 """The module describes a menu for entering a username at program startup"""
-from sys import argv
-from PyQt5.QtWidgets import QDialog, QApplication, QLabel, QLineEdit, QPushButton, qApp
+
+import sys
+from PyQt5.QtWidgets import QDialog, QApplication, QLabel, QLineEdit, \
+    QPushButton, qApp
 
 
 class AuthMenu(QDialog):
@@ -60,6 +62,6 @@ class AuthMenu(QDialog):
 
 
 if __name__ == '__main__':
-    app = QApplication(argv)
-    start_menu = AuthMenu()
-    app.exec_()
+    APP = QApplication(sys.argv)
+    START_MENU = AuthMenu()
+    APP.exec_()

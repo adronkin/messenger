@@ -12,12 +12,12 @@ from threading import Thread, Lock
 from PyQt5.QtCore import QObject, pyqtSignal
 sys.path.append('../')
 from custom.errors import ServerError
-from clt_function import send_message, get_message
-from clt_variables import CONFIRM_PRESENCE, USER, RESPONSE, ERROR, ACTION, MESSAGE, TIME, SENDER, \
-    RECIPIENT, MESSAGE_TEXT, GET_CONTACTS_DICT, DATA, GET_REGISTERED_DICT, ADD_CONTACT_DICT, \
-    ACCOUNT_NAME, DEL_CONTACT_DICT, EXIT_MESSAGE, DICT_MESSAGE, ENCODING, PUBLIC_KEY, RESPONSE_511,\
+from custom.clt_function import send_message, get_message
+from custom.clt_variables import CONFIRM_PRESENCE, USER, RESPONSE, ERROR, \
+    ACTION, MESSAGE, TIME, SENDER, RECIPIENT, MESSAGE_TEXT, GET_CONTACTS_DICT, \
+    DATA, GET_REGISTERED_DICT, ADD_CONTACT_DICT, ACCOUNT_NAME, DICT_MESSAGE, \
+    DEL_CONTACT_DICT, EXIT_MESSAGE, ENCODING, PUBLIC_KEY, RESPONSE_511,\
     GET_PUBLIC_KEY
-import log.log_config
 
 # The socket lock object.
 SOCK_LOCK = Lock()
@@ -116,18 +116,25 @@ class ClientTransport(Thread, QObject):
                 send_message(self.client_sock, presence_dict)
                 server_answer = get_message(self.client_sock)
                 if RESPONSE in server_answer:
+
                     if server_answer[RESPONSE] == 400 and ERROR in server_answer:
-                        LOGGER.error(f'Сервер не смог обработать клиентский запрос.'
-                                     f' Получен ответ "Response 400: {server_answer[ERROR]}".')
+                        LOGGER.error(f'Сервер не смог обработать клиентский'
+                                     f' запрос. Получен ответ "Response 400:'
+                                     f' {server_answer[ERROR]}".')
                         raise ServerError(server_answer[ERROR])
+
                     elif server_answer[RESPONSE] == 511 and DATA in server_answer:
                         answer_data = server_answer[DATA]
-                        answer_hash = hmac.new(password_hash_string, answer_data.encode(ENCODING))
+                        answer_hash = hmac.new(
+                            password_hash_string,
+                            answer_data.encode(ENCODING)
+                        )
                         hash_digest = answer_hash.digest()
                         client_answer = RESPONSE_511
                         client_answer[DATA] = b2a_base64(hash_digest).decode('ascii')
                         send_message(self.client_sock, client_answer)
                         self.receive_message(get_message(self.client_sock))
+
             except (OSError, JSONDecodeError):
                 LOGGER.critical('Потеряно соединение с сервером.')
                 raise ServerError('Потеряно соединение с сервером.')
@@ -159,7 +166,7 @@ class ClientTransport(Thread, QObject):
 
         if RESPONSE in message:
             if message[RESPONSE] == 200:
-                LOGGER.info('Сообщение корректно обработано. Response 200: OK')
+                LOGGER.info('Сообщение корректно обработано. Response 200: OK.')
                 return
             elif message[RESPONSE] == 400 and ERROR in message:
                 LOGGER.error(f'Сервер не смог обработать клиентский запрос. '
@@ -174,11 +181,13 @@ class ClientTransport(Thread, QObject):
 
         # If this message from the user is added to the database
         # and give a signal about a new message.
-        elif ACTION in message and message[ACTION] == MESSAGE and TIME in message \
-                and SENDER in message and RECIPIENT in message and MESSAGE_TEXT in message \
+        elif ACTION in message and message[ACTION] == MESSAGE \
+                and TIME in message and SENDER in message \
+                and RECIPIENT in message and MESSAGE_TEXT in message \
                 and message[RECIPIENT] == self.username:
-            LOGGER.info(f'Пользователь {self.username} получил сообщение {message[MESSAGE_TEXT]}'
-                        f' от пользователя {message[SENDER]}.')
+            LOGGER.info(f'Пользователь {self.username} получил сообщение'
+                        f' {message[MESSAGE_TEXT]} от пользователя'
+                        f' {message[SENDER]}.')
             self.new_message.emit(message)
 
     def get_contact_list_from_server(self):
@@ -191,13 +200,16 @@ class ClientTransport(Thread, QObject):
         get_contacts_dict = GET_CONTACTS_DICT
         get_contacts_dict[USER] = self.username
         LOGGER.debug(f'Сформирован запрос {get_contacts_dict}.')
+
         # Send a message to the server.
         with SOCK_LOCK:
             send_message(self.client_sock, get_contacts_dict)
             # Get a response from the server.
             server_answer = get_message(self.client_sock)
         LOGGER.debug(f'Получен ответ {server_answer}.')
-        if RESPONSE in server_answer and server_answer[RESPONSE] == 202 and DATA in server_answer:
+
+        if RESPONSE in server_answer and server_answer[RESPONSE] == 202 \
+                and DATA in server_answer:
             for contact in server_answer[DATA]:
                 self.database.add_contact(contact)
         else:
@@ -218,8 +230,10 @@ class ClientTransport(Thread, QObject):
             # Get a response from the server.
             server_answer = get_message(self.client_sock)
         LOGGER.debug(f'Получен ответ {server_answer}.')
-        if RESPONSE in server_answer and server_answer[RESPONSE] == 202 and DATA in server_answer:
+        if RESPONSE in server_answer and server_answer[RESPONSE] == 202 \
+                and DATA in server_answer:
             self.database.add_register_users(server_answer[DATA])
+            return server_answer[DATA]
         else:
             LOGGER.error('Не удалось обновить список известных пользователей.')
 
@@ -285,10 +299,10 @@ class ClientTransport(Thread, QObject):
         with SOCK_LOCK:
             send_message(self.client_sock, dict_message)
             server_answer = get_message(self.client_sock)
-        if RESPONSE in server_answer and server_answer[RESPONSE] == 511 and DATA in server_answer:
+        if RESPONSE in server_answer and server_answer[RESPONSE] == 511 \
+                and DATA in server_answer:
             return server_answer[DATA]
-        else:
-            LOGGER.error(f'Не удалось получить ключ собеседника{username}.')
+        LOGGER.error(f'Не удалось получить ключ собеседника{username}.')
 
     def run(self):
         """

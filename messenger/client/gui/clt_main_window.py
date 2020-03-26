@@ -10,12 +10,11 @@ from PyQt5.QtCore import Qt, pyqtSlot
 from PyQt5.QtGui import QStandardItemModel, QStandardItem, QBrush, QColor
 from PyQt5.QtWidgets import QMainWindow, QMessageBox
 sys.path.append('../')
-from clt_variables import ENCODING, MESSAGE_TEXT, SENDER, RECIPIENT
+from custom.clt_variables import ENCODING, MESSAGE_TEXT, SENDER, RECIPIENT
+from custom.errors import ServerError
 from gui.clt_add_contact import AddContact
 from gui.clt_delete_contact import DeleteContact
 from gui.main_window_gui import Gui_MainClientWindow
-from custom.errors import ServerError
-import log.log_config
 
 # Initialize the logger.
 LOGGER = getLogger('client_logger')
@@ -120,8 +119,11 @@ class ClientMainWindow(QMainWindow):
         :return:
         """
         # Get message history received by date.
-        message_list = sorted(self.database.get_message_history(chat=self.current_chat),
-                              key=lambda item: item[0])
+        message_list = sorted(
+            self.database.get_message_history(chat=self.current_chat),
+            key=lambda item: item[0]
+        )
+
         # Create a model if not created.
         if not self.history_model:
             self.history_model = QStandardItemModel()
@@ -131,10 +133,12 @@ class ClientMainWindow(QMainWindow):
         # Show no more than 20 recent entries.
         length = len(message_list)
         start_index = 0
+
         if length > 20:
             start_index = length - 20
-        # Fill the model with records. Separate incoming and outgoing messages in color.
-        # Records in the reverse order, so select them from the end and no more than 20.
+        # Fill the model with records. Separate incoming and outgoing messages
+        # in color. Records in the reverse order, so select them from the end
+        # and no more than 20.
         for i in range(start_index, length):
             item = message_list[i]
             # Incoming messages.
@@ -195,7 +199,7 @@ class ClientMainWindow(QMainWindow):
             new_contact = QStandardItem(item)
             new_contact.setEditable(False)
             self.contact_model.appendRow(new_contact)
-            LOGGER.info(f'Пользователь {new_contact} успешно добавлен в список контактов.')
+            LOGGER.info(f'Пользователь {new_contact} добавлен в список контактов.')
             self.messages.information(self, 'Успех', 'Контакт добавлен.')
 
     def remove_contact_window(self):
@@ -260,8 +264,9 @@ class ClientMainWindow(QMainWindow):
             self.current_chat_key = None
             self.cryptographer = None
             LOGGER.debug(f'Не удалось получить ключ для {self.current_chat}')
-        # # If there is no key, then the error is that it was
-        # not possible to start a chat with the user.
+
+        # If there is no key, then the error is that it was not possible
+        # to start a chat with the user.
         if not self.current_chat_key:
             self.messages.warning(self, 'Ошибка', 'Для пользователя нет ключа шифрования.')
             return
@@ -282,7 +287,7 @@ class ClientMainWindow(QMainWindow):
         if self.history_model:
             self.history_model.clear()
 
-        # new_message_field and send_button are inactive until the recipient is selected.
+        # New_message_field and send_button are inactive until the recipient is selected.
         self.gui.new_message_field.setDisabled(True)
         self.gui.send_button.setDisabled(True)
         self.gui.clear_message_button.setDisabled(True)

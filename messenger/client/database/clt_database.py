@@ -1,23 +1,23 @@
-"""Модуль описания базы данных клиента."""
+"""Client Database Description Module"""
 
 import os
 from datetime import datetime
-from sqlalchemy import Column, Integer, String, Index, DateTime, Text, create_engine
+from sqlalchemy import Column, Integer, String, Index, DateTime, Text, \
+    create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-
-# Создаем базовый класс для декларативно работы.
+# Create a base class for declarative work.
 BASE = declarative_base()
 
 
 class ClientDataBase:
     """
-    Класс описывающий таблицы БД и методы клиента.
+    A class describing database tables and client methods.
     """
     class Contacts(BASE):
         """
-        Класс описывает таблицу со списком контактов пользователя.
+        The class describes a table with a list of user contacts.
         """
         __tablename__ = 'contacts'
         id = Column(Integer, primary_key=True)
@@ -29,7 +29,7 @@ class ClientDataBase:
 
     class MessageHistory(BASE):
         """
-        Класс описывает таблицу с историей переписки пользователя.
+        The class describes a table with the user's correspondence history.
         """
         __tablename__ = 'message_history'
         id = Column(Integer, primary_key=True)
@@ -47,7 +47,7 @@ class ClientDataBase:
 
     class RegisteredUsers(BASE):
         """
-        Класс описывает таблицу зарегистрированных в приложении пользователей.
+        The class describes a table of users registered in the application.
         """
         __tablename__ = 'registered_users'
         id = Column(Integer, primary_key=True)
@@ -58,48 +58,51 @@ class ClientDataBase:
             self.username = username
 
     def __init__(self, name):
-        # Создаем БД (echo - логирование через стандартный модуль logging).
-        # Т.к. разрешено несколько клиентов одновременно, каждый должен иметь свою БД.
-        # Поскольку клиент мультипоточный необходимо отключить проверки на подключения
-        # с разных потоков, иначе sqlite3.ProgrammingError
+        # Create a database (echo - logging through the standard logging module).
+        # Because multiple clients are allowed at the same time, each must have its own database.
+        # Since the client is multi-threaded, it is necessary to disable
+        # connection checks from different threads, otherwise sqlite3.ProgrammingError
         self.engine = create_engine(
             f'sqlite:///{"/".join(map(str, os.path.dirname(__file__).split("/")[:-1]))}'
             f'/database/client_{name.lower()}_database.db3',
-            echo=False, pool_recycle=3600, connect_args={'check_same_thread': False})
+            echo=False,
+            pool_recycle=3600,
+            connect_args={'check_same_thread': False}
+        )
 
-        # Создаем таблицы
+        # Create tables.
         BASE.metadata.create_all(self.engine)
 
-        # Создаем сессию
-        Session = sessionmaker(bind=self.engine)
-        self.session = Session()
+        # Create session.
+        session_engine = sessionmaker(bind=self.engine)
+        self.session = session_engine()
 
-        # После подключения очищаем таблицу контактов, т.к. они загружаются с сервера.
+        # After connecting, clear the contact table,
+        # as they are downloaded from the server.
         self.session.query(self.Contacts).delete()
         self.session.commit()
 
     def clear_contacts(self):
         """
-        Метод для очистки списка контактов.
+        Method for clearing the contact list.
         :return:
         """
         self.session.query(self.Contacts).delete()
 
     def check_contact(self, username):
         """
-        Метод возвращает True, если пользователь username есть в списке контактов.
-        :param {str} username: имя пользователя.
+        The method returns True if the user is in the contact list.
+        :param {str} username: username.
         :return {bool}:
         """
-        # Поиск в таблице Contacts пользователя с именем username
         q_user = self.session.query(self.Contacts).filter_by(username=username)
         if q_user.count():
             return True
 
     def add_contact(self, username):
         """
-        Метод добавляет пользователя username в список контактов, если его нет в таблице.
-        :param {str} username: имя пользователя.
+        The method adds the user to the contact list if he is not in the table.
+        :param {str} username: username.
         :return:
         """
         if self.check_contact(username):
@@ -110,8 +113,8 @@ class ClientDataBase:
 
     def delete_contact(self, username):
         """
-        Метод удаляет пользователя username из списока контактов, если он есть в таблице.
-        :param {str} username: имя пользователя.
+        The method removes the user from the contact list, if it is in the table.
+        :param {str} username: username.
         :return:
         """
         if not self.check_contact(username):
@@ -122,17 +125,17 @@ class ClientDataBase:
 
     def get_all_contacts(self):
         """
-        Метод возвращает список контактов.
-        :return {list}:
+        The method returns a list of contacts.
+        :return {list}: list of contacts.
         """
         return [contact[0] for contact in self.session.query(self.Contacts.username).all()]
 
     def save_message(self, sender, recipient, msg_text):
         """
-        Метод сохраняет сообщение в базу.
-        :param {str} sender: отправитель сообщения.
-        :param {str} recipient: получатель сообщения.
-        :param {str} msg_text: текст сообщения.
+        The method saves the message to the database.
+        :param {str} sender: message sender.
+        :param {str} recipient: the recipient of the message.
+        :param {str} msg_text: message text.
         :return:
         """
         new_message = self.MessageHistory(sender, recipient, msg_text)
@@ -141,11 +144,11 @@ class ClientDataBase:
 
     def get_message_history(self, sender=None, recipient=None, chat=None):
         """
-        Метод возвращает историю переписки по получателю и/или отправителю.
-        :param {str} sender: отправитель сообщения.
-        :param {str} recipient: получатель сообщения.
-        :param {str} chat: получатель сообщения.
-        :return:
+        The method returns the history of correspondence by recipient and/or sender.
+        :param {str} sender: message sender.
+        :param {str} recipient: the recipient of the message.
+        :param {str} chat: message text.
+        :return {list}: list of messages.
         """
         query = self.session.query(self.MessageHistory)
         if sender:
@@ -161,8 +164,8 @@ class ClientDataBase:
 
     def check_registered_user(self, username):
         """
-        Метод возвращает True, если пользователь username зарегистрирован на сервере.
-        :param {str} username: имя пользователя.
+        The method returns True if the user is registered on the server.
+        :param {str} username: username.
         :return {bool}:
         """
         q_user = self.session.query(self.RegisteredUsers).filter_by(username=username)
@@ -171,11 +174,11 @@ class ClientDataBase:
 
     def add_register_users(self, user_list):
         """
-        Метод для добавления пользователей из списка в таблицу RegisteredUsers.
-        :param {str} user_list: список зарегистрированных на сервере пользователей.
+        Method for adding users from the list to the RegisteredUsers table.
+        :param {str} user_list: list of users registered on the server.
         :return:
         """
-        # Очищаем таблицу, т.к. список пользователей получаем только с сервера при запуске.
+        # Clear the table as the list of users is loaded from the server at startup.
         self.session.query(self.RegisteredUsers).delete()
         for user in user_list:
             reg_user = self.RegisteredUsers(user)
@@ -184,13 +187,13 @@ class ClientDataBase:
 
     def get_register_users(self):
         """
-        Метод возвращает список зарегистрированных пользователей.
+        The method returns a list of registered users.
         :return {list}:
         """
         return [user[0] for user in self.session.query(self.RegisteredUsers.username).all()]
 
 
 if __name__ == '__main__':
-    TEST_DB = ClientDataBase('test_user_1')
+    TEST_DB = ClientDataBase('test')
     print(TEST_DB.get_all_contacts())
     print(TEST_DB.get_register_users())

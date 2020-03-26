@@ -2,7 +2,8 @@
 
 import sys
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QApplication, QDialog, QLabel, QComboBox, QPushButton
+from PyQt5.QtWidgets import QApplication, QDialog, QLabel, QComboBox, \
+    QPushButton
 
 
 class DeleteContact(QDialog):
@@ -47,6 +48,6 @@ class DeleteContact(QDialog):
 
 
 if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    del_menu = DeleteContact(None)
-    app.exec_()
+    APP = QApplication(sys.argv)
+    DEL_MENU = DeleteContact(None)
+    APP.exec_()

@@ -1,23 +1,22 @@
-"""Модуль для метакласса выполняющего базовую проверку клиента"""
+"""Module with metaclass performing basic client check"""
 
 from dis import get_instructions
 
 
 class ClientVerified(type):
     """
-    Метакласс выполняющий базовую проверку клиента.
-    Отсутствие вызовов accept и listen для сокетов.
-    Использование сокетов для работы по TCP.
-    Отсутствие создания сокетов на уровне класса (class Client: s = socket()...).
+    A metaclass that performs basic client validation.
+    Lack of accept and listen calls for sockets. Using sockets to work on TCP.
+    Lack of creating sockets at the class level (class Client: s = socket()).
     """
 
     def __init__(self, class_name, bases, class_dict):
         """
-        :param class_name: Экземпляр класса клиент.
-        :param bases: кортеж базовых классов.
-        :param class_dict: словарь атрибутов и методов экземпляра метакласса.
+        :param class_name: instance of the Server class.
+        :param bases: tuple of base classes.
+        :param class_dict: a dictionary of attributes and methods of an instance of a metaclass.
         """
-        # Список методов используемых в функциях класса.
+        # List of methods used in class functions.
         methods = []
 
         for func in class_dict:
@@ -37,7 +36,7 @@ class ClientVerified(type):
             if command in methods:
                 raise TypeError(
                     f'Использование метода {command} недопустимо в клиентском классе.')
-        # Вызов get_message или send_message из utils считаем корректным использованием сокетов
+        # Call get_message or send_message from utils considered correct using sockets.
         if 'get_message' in methods or 'send_message' in methods:
             pass
         else:
