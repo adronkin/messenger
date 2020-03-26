@@ -89,6 +89,6 @@ class AddContact(QDialog):
 
 
 if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    del_menu = AddContact(None, None)
-    app.exec_()
+    APP = QApplication(sys.argv)
+    ADD_MENU = AddContact(None, None)
+    APP.exec_()

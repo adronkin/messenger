@@ -1,9 +1,9 @@
-"""Переменные для использования в модуле логирования."""
+"""Variables for use in the logging module"""
 
 from logging import DEBUG
 
 ENCODING = 'utf-8'
-# Уровень логирования
+# Logging level.
 LOGGING_LEVEL = DEBUG
-# Формат сообщений лога
+# Log message format.
 LOGGING_FORMAT = '%(asctime)s - %(levelname)-8s - %(module)s - %(message)s'

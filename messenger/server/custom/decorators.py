@@ -1,8 +1,10 @@
 """Module for server decorators"""
 
 import inspect
+import sys
 from functools import wraps
 from logging import getLogger
+sys.path.append('../')
 import log.log_config
 
 LOGGER = getLogger('server_logger')
@@ -19,8 +21,8 @@ class Log:
             res = func(*args, **kwargs)
             # Define the function from which func was called.
             stack = inspect.stack()[1][3]
-            LOGGER.info(f'Выполнен вызов функции "{func.__name__}" из функции "{stack}".')
-            LOGGER.info(f'Функция "{func.__name__}" из модуля '
-                        f'"{func.__module__}" с аргументами ({args}, {kwargs}).')
+            LOGGER.info(f'Выполнен вызов функции {func.__name__} из функции {stack}.')
+            LOGGER.info(f'Функция {func.__name__} из модуля {func.__module__}'
+                        f' с аргументами ({args}, {kwargs}).')
             return res
         return decorated

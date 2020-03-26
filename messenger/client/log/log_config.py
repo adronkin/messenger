@@ -1,4 +1,4 @@
-"""Логирование client.py"""
+"""Logging module"""
 
 import os
 import sys
@@ -16,21 +16,20 @@ LOG = getLogger('client_logger')
 
 CLIENT_FORMATTER = Formatter(LOGGING_FORMAT)
 
-# Создаем обработчик, подключеаем Formatter, задаем уровень отслеживания
+# Create a handler, enable Formatter, set the tracking level.
 ERROR_HANDLER = StreamHandler(sys.stderr)
 ERROR_HANDLER.setFormatter(CLIENT_FORMATTER)
 ERROR_HANDLER.setLevel(ERROR)
 
-# Создаем обработчик, задаем формат
+# Create a handler, set the format.
 LOG_FILE = FileHandler(PATH, encoding=ENCODING)
 LOG_FILE.setFormatter(CLIENT_FORMATTER)
 LOG.setLevel(LOGGING_LEVEL)
 
-# Добавляем обработчик к регистратору
+# Add a handler to the registrar.
 LOG.addHandler(ERROR_HANDLER)
 LOG.addHandler(LOG_FILE)
 
-# Отладка
 if __name__ == '__main__':
     LOG.debug('Отладочная информация')
     LOG.info('Информационное сообщение')
