@@ -1,4 +1,4 @@
-"""The module describes the main window"""
+"""The module describes the main window."""
 
 import sys
 from PyQt5.QtCore import QTimer
@@ -6,13 +6,13 @@ from PyQt5.QtGui import QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import QApplication, QMessageBox, QLabel, QMainWindow, QAction, qApp, \
     QTableView
 sys.path.append('../')
-from gui.add_user import AddUserWindow
-from gui.del_user import DeleteUserWindow
+from server.gui.add_user import AddUserWindow
+from server.gui.del_user import DeleteUserWindow
 
 
 class MainWindow(QMainWindow):
     """
-    Class describes the main window.
+    Class - the main window of the server.
     """
     def __init__(self, server, database):
         super().__init__()
@@ -74,7 +74,6 @@ class MainWindow(QMainWindow):
     def reg_user_window(self):
         """
         The method calls the user registration window.
-        :return:
         """
         global REG_WINDOW
         REG_WINDOW = AddUserWindow(self.server, self.database)
@@ -82,14 +81,13 @@ class MainWindow(QMainWindow):
     def del_user_window(self):
         """
         The method calls the user deletion window.
-        :return:
         """
         global DEL_WINDOW
         DEL_WINDOW = DeleteUserWindow(self.server, self.database)
 
     def gui_active_users(self):
         """
-        The method creates a table of active users for display in the program window.
+        The method creates a table of active users for display in the program window.\n
         :return: class instance QStandardItemModel.
         """
         list_users = self.database.get_all_active_users()

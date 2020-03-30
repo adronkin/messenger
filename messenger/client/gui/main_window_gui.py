@@ -1,4 +1,4 @@
-"""The module describes the GUI of the main window of clients"""
+"""The module describes the GUI of the main window of clients."""
 
 from PyQt5 import QtCore, QtWidgets
 
@@ -8,6 +8,7 @@ class Gui_MainClientWindow(object):
     The class describes the GUI of the main window of clients.
     """
     def setupUi(self, MainClientWindow):
+        """The method creates interface elements of the main window."""
         MainClientWindow.setObjectName('MainClientWindow')
         MainClientWindow.resize(700, 621)
         MainClientWindow.setMinimumSize(QtCore.QSize(700, 621))
@@ -95,6 +96,7 @@ class Gui_MainClientWindow(object):
         QtCore.QMetaObject.connectSlotsByName(MainClientWindow)
 
     def retranslateUi(self, MainClientWindow):
+        """The method assigns Russian-language names to interface elements."""
         _translate = QtCore.QCoreApplication.translate
         MainClientWindow.setWindowTitle(_translate('MainClientWindow', 'Messenger'))
         self.contact_text.setText(_translate('MainClientWindow', 'Список контактов: '))

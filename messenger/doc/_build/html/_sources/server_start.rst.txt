@@ -1,0 +1,18 @@
+Server module documentation
+===========================
+
+.. toctree::
+
+   server.custom
+   server.database
+   server.gui
+   server.log
+   server.srv_descriptors
+
+server.server_start module
+--------------------------
+
+.. automodule:: server.server_start
+   :members:
+   :undoc-members:
+   :show-inheritance:

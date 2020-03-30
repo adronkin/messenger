@@ -1,0 +1,278 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Client database module documentation &#8212; Messenger 1.0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Client GUI modules documentation" href="client.gui.html" />
+    <link rel="prev" title="Client custom modules documentation" href="client.custom.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="client-database-module-documentation">
+<h1>Client database module documentation<a class="headerlink" href="#client-database-module-documentation" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-client.database.database">
+<span id="database-py"></span><h2>database.py<a class="headerlink" href="#module-client.database.database" title="Permalink to this headline">¶</a></h2>
+<p>Client Database Description Module.</p>
+<dl class="class">
+<dt id="client.database.database.ClientDataBase">
+<em class="property">class </em><code class="sig-prename descclassname">client.database.database.</code><code class="sig-name descname">ClientDataBase</code><span class="sig-paren">(</span><em class="sig-param">name</em><span class="sig-paren">)</span><a class="headerlink" href="#client.database.database.ClientDataBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A class describing database tables and client methods.</p>
+<dl class="class">
+<dt id="client.database.database.ClientDataBase.Contacts">
+<em class="property">class </em><code class="sig-name descname">Contacts</code><span class="sig-paren">(</span><em class="sig-param">username</em><span class="sig-paren">)</span><a class="headerlink" href="#client.database.database.ClientDataBase.Contacts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
+<p>The class describes a table with a list of user contacts.</p>
+<p>Stores data: id, username.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="client.database.database.ClientDataBase.MessageHistory">
+<em class="property">class </em><code class="sig-name descname">MessageHistory</code><span class="sig-paren">(</span><em class="sig-param">sender</em>, <em class="sig-param">recipient</em>, <em class="sig-param">message</em><span class="sig-paren">)</span><a class="headerlink" href="#client.database.database.ClientDataBase.MessageHistory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
+<p>The class describes a table with the user’s correspondence history.</p>
+<p>Stores data: id, sender, recipient, date, message.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="client.database.database.ClientDataBase.RegisteredUsers">
+<em class="property">class </em><code class="sig-name descname">RegisteredUsers</code><span class="sig-paren">(</span><em class="sig-param">username</em><span class="sig-paren">)</span><a class="headerlink" href="#client.database.database.ClientDataBase.RegisteredUsers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
+<p>The class describes a table of users registered in the application.</p>
+<p>Stores data: id, username.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="client.database.database.ClientDataBase.add_contact">
+<code class="sig-name descname">add_contact</code><span class="sig-paren">(</span><em class="sig-param">username</em><span class="sig-paren">)</span><a class="headerlink" href="#client.database.database.ClientDataBase.add_contact" title="Permalink to this definition">¶</a></dt>
+<dd><p>The method adds the user to the contact list if he is not in the table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>username</strong> (<em>str</em>) – username.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="client.database.database.ClientDataBase.add_register_users">
+<code class="sig-name descname">add_register_users</code><span class="sig-paren">(</span><em class="sig-param">user_list</em><span class="sig-paren">)</span><a class="headerlink" href="#client.database.database.ClientDataBase.add_register_users" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method for adding users from the list to the RegisteredUsers table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>user_list</strong> (<em>str</em>) – list of users registered on the server.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="client.database.database.ClientDataBase.check_contact">
+<code class="sig-name descname">check_contact</code><span class="sig-paren">(</span><em class="sig-param">username</em><span class="sig-paren">)</span><a class="headerlink" href="#client.database.database.ClientDataBase.check_contact" title="Permalink to this definition">¶</a></dt>
+<dd><p>The method returns True if the user is in the contact list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>username</strong> (<em>str</em>) – username.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>bool.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="client.database.database.ClientDataBase.check_registered_user">
+<code class="sig-name descname">check_registered_user</code><span class="sig-paren">(</span><em class="sig-param">username</em><span class="sig-paren">)</span><a class="headerlink" href="#client.database.database.ClientDataBase.check_registered_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>The method returns True if the user is registered on the server.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>username</strong> (<em>str</em>) – username.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>bool.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="client.database.database.ClientDataBase.clear_contacts">
+<code class="sig-name descname">clear_contacts</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#client.database.database.ClientDataBase.clear_contacts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method for clearing the contact list.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="client.database.database.ClientDataBase.delete_contact">
+<code class="sig-name descname">delete_contact</code><span class="sig-paren">(</span><em class="sig-param">username</em><span class="sig-paren">)</span><a class="headerlink" href="#client.database.database.ClientDataBase.delete_contact" title="Permalink to this definition">¶</a></dt>
+<dd><p>The method removes the user from the contact list, if it is in the table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>username</strong> (<em>str</em>) – username.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="client.database.database.ClientDataBase.get_all_contacts">
+<code class="sig-name descname">get_all_contacts</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#client.database.database.ClientDataBase.get_all_contacts" title="Permalink to this definition">¶</a></dt>
+<dd><p>The method returns a list of contacts.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>list of contacts.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="client.database.database.ClientDataBase.get_message_history">
+<code class="sig-name descname">get_message_history</code><span class="sig-paren">(</span><em class="sig-param">sender=None</em>, <em class="sig-param">recipient=None</em>, <em class="sig-param">chat=None</em><span class="sig-paren">)</span><a class="headerlink" href="#client.database.database.ClientDataBase.get_message_history" title="Permalink to this definition">¶</a></dt>
+<dd><p>The method returns the history of correspondence by recipient and/or sender.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sender</strong> (<em>str</em>) – message sender.</p></li>
+<li><p><strong>recipient</strong> (<em>str</em>) – the recipient of the message.</p></li>
+<li><p><strong>chat</strong> (<em>str</em>) – message text.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>list of messages.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="client.database.database.ClientDataBase.get_register_users">
+<code class="sig-name descname">get_register_users</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#client.database.database.ClientDataBase.get_register_users" title="Permalink to this definition">¶</a></dt>
+<dd><p>The method returns a list of registered users.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>list of registered users.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="client.database.database.ClientDataBase.save_message">
+<code class="sig-name descname">save_message</code><span class="sig-paren">(</span><em class="sig-param">sender</em>, <em class="sig-param">recipient</em>, <em class="sig-param">msg_text</em><span class="sig-paren">)</span><a class="headerlink" href="#client.database.database.ClientDataBase.save_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>The method saves the message to the database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sender</strong> (<em>str</em>) – message sender.</p></li>
+<li><p><strong>recipient</strong> (<em>str</em>) – the recipient of the message.</p></li>
+<li><p><strong>msg_text</strong> (<em>str</em>) – message text.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Messenger</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="server.html">Server module documentation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="client.html">Client module documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="client.custom.html">Client custom modules documentation</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Client database module documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-client.database.database">database.py</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="client.gui.html">Client GUI modules documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="client.log.html">Client logging modules documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="client.html#module-client.client_start">client_start.py</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="client.html">Client module documentation</a><ul>
+      <li>Previous: <a href="client.custom.html" title="previous chapter">Client custom modules documentation</a></li>
+      <li>Next: <a href="client.gui.html" title="next chapter">Client GUI modules documentation</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Dronkin Artem.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/client.database.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

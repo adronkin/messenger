@@ -1,0 +1,178 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Client module documentation &#8212; Messenger 1.0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Client custom modules documentation" href="client.custom.html" />
+    <link rel="prev" title="Server descriptors modules documentation" href="server.descriptors.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="client-module-documentation">
+<h1>Client module documentation<a class="headerlink" href="#client-module-documentation" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="client.custom.html">Client custom modules documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="client.custom.html#module-client.custom.variables">variables.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="client.custom.html#module-client.custom.function">function.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="client.custom.html#module-client.custom.decorators">decorators.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="client.custom.html#module-client.custom.metaclass">metaclass.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="client.custom.html#module-client.custom.parse_args">parse_args.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="client.custom.html#module-client.custom.errors">errors.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="client.custom.html#module-client.custom.transport">transport.py</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="client.database.html">Client database module documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="client.database.html#module-client.database.database">database.py</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="client.gui.html">Client GUI modules documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="client.gui.html#module-client.gui.add_contact">add_contact.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="client.gui.html#module-client.gui.delete_contact">delete_contact.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="client.gui.html#module-client.gui.main_window">main_window.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="client.gui.html#module-client.gui.main_window_gui">main_window_gui.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="client.gui.html#module-client.gui.start_menu">start_menu.py</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="client.log.html">Client logging modules documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="client.log.html#module-client.log.log_config">log_config.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="client.log.html#module-client.log.log_variables">log_variables.py</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="module-client.client_start">
+<span id="client-start-py"></span><h2>client_start.py<a class="headerlink" href="#module-client.client_start" title="Permalink to this headline">¶</a></h2>
+<p>Client messaging application. It supports sending messages
+to users on the network, messages are encrypted using the
+RSA algorithm with a 2048 bit key length.</p>
+<p>Supports command line arguments:</p>
+<p><code class="docutils literal notranslate"><span class="pre">python3</span> <span class="pre">client.py</span> <span class="pre">{server</span> <span class="pre">IP</span> <span class="pre">address}</span> <span class="pre">{port}</span> <span class="pre">-n</span> <span class="pre">or</span> <span class="pre">--name</span> <span class="pre">{username}</span> <span class="pre">-p</span> <span class="pre">or</span> <span class="pre">--password</span> <span class="pre">{password}</span></code></p>
+<p>{Server IP address} - the address of the message server.
+{port} - port through which connections are accepted
+-n or –name is the name of the user who will log into the system.
+-p or –password - user password.</p>
+<p>All command line options are optional, but the username and password
+must be used in tandem.</p>
+<p>Examples of using:</p>
+<p><code class="docutils literal notranslate"><span class="pre">python3</span> <span class="pre">client.py</span></code></p>
+<p>Launching the application with default settings.</p>
+<p><code class="docutils literal notranslate"><span class="pre">python3</span> <span class="pre">client.py</span> <span class="pre">127.0.0.1</span> <span class="pre">8888</span></code></p>
+<p>Launching the application with instructions
+to connect to the server at ip_address: port.</p>
+<p><code class="docutils literal notranslate"><span class="pre">python3</span> <span class="pre">-n</span> <span class="pre">test</span> <span class="pre">-p</span> <span class="pre">123</span></code></p>
+<p>Launching the application with user test and password 123.</p>
+<p><code class="docutils literal notranslate"><span class="pre">python3</span> <span class="pre">client.py</span> <span class="pre">127.0.0.1</span> <span class="pre">8888</span> <span class="pre">-n</span> <span class="pre">test</span> <span class="pre">-p</span> <span class="pre">123</span></code></p>
+<p>Launching the application with the user test and password 123 and instructing
+connecting to the server at 127.0.0.1:8888.</p>
+<dl class="function">
+<dt id="client.client_start.main">
+<code class="sig-prename descclassname">client.client_start.</code><code class="sig-name descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#client.client_start.main" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to start the client.</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Messenger</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="server.html">Server module documentation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Client module documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="client.custom.html">Client custom modules documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="client.database.html">Client database module documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="client.gui.html">Client GUI modules documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="client.log.html">Client logging modules documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-client.client_start">client_start.py</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="server.descriptors.html" title="previous chapter">Server descriptors modules documentation</a></li>
+      <li>Next: <a href="client.custom.html" title="next chapter">Client custom modules documentation</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Dronkin Artem.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/client.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

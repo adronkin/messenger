@@ -1,4 +1,4 @@
-"""The module describes the server GUI settings window"""
+"""The module describes the server GUI settings window."""
 
 import sys
 from PyQt5.QtWidgets import QApplication, QMessageBox, QDialog, QLabel, \
@@ -15,6 +15,7 @@ class ConfigWindow(QDialog):
         self.initUI()
 
     def initUI(self):
+        """The method creates interface elements of the main window."""
         self.setFixedSize(370, 200)
         self.setWindowTitle('Настройки сервера')
 
@@ -79,7 +80,6 @@ class ConfigWindow(QDialog):
     def open_path_select(self):
         """
         The handler method opens the path selection window.
-        :return:
         """
         window = QFileDialog()
         path = window.getExistingDirectory()

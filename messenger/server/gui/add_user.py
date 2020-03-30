@@ -1,4 +1,4 @@
-"""The module describes the add user window"""
+"""The module describes the add user window."""
 
 import binascii
 import sys
@@ -7,12 +7,12 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QDialog, QApplication, QMessageBox, QLabel, \
     QLineEdit, QPushButton
 sys.path.append('../')
-from custom.srv_variables import ENCODING
+from server.custom.variables import ENCODING
 
 
 class AddUserWindow(QDialog):
     """
-    Class describes the add user window.
+    The class is a dialog for registering a user on the server.
     """
     def __init__(self, server, database):
         super().__init__()
@@ -77,7 +77,6 @@ class AddUserWindow(QDialog):
         """
         The method checks the correctness of the input
         and saves the new user in the database.
-        :return:
         """
         if not self.username.text():
             self.messages.critical(

@@ -1,4 +1,4 @@
-"""Variables for use in the logging module"""
+"""Variables for use in the logging module."""
 
 from logging import DEBUG
 

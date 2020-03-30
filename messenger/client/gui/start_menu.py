@@ -1,4 +1,4 @@
-"""The module describes a menu for entering a username at program startup"""
+"""The module describes a menu for entering a username at program startup."""
 
 import sys
 from PyQt5.QtWidgets import QDialog, QApplication, QLabel, QLineEdit, \
@@ -52,9 +52,8 @@ class AuthMenu(QDialog):
 
     def check_not_empty(self):
         """
-        Button handler login_button.
-        If the field is not empty, then change the ok_pressed flag to True and close the window.
-        :return:
+        Button handler login_button. If the field is not empty, then change
+        the ok_pressed flag to True and close the window.
         """
         if self.auth_name_field.text() and self.password_field.text():
             self.ok_pressed = True

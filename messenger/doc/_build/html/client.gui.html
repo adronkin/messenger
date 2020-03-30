@@ -1,0 +1,337 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Client GUI modules documentation &#8212; Messenger 1.0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Client logging modules documentation" href="client.log.html" />
+    <link rel="prev" title="Client database module documentation" href="client.database.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="client-gui-modules-documentation">
+<h1>Client GUI modules documentation<a class="headerlink" href="#client-gui-modules-documentation" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-client.gui.add_contact">
+<span id="add-contact-py"></span><h2>add_contact.py<a class="headerlink" href="#module-client.gui.add_contact" title="Permalink to this headline">¶</a></h2>
+<p>A module describes a menu for adding a user to the contact list.</p>
+<dl class="class">
+<dt id="client.gui.add_contact.AddContact">
+<em class="property">class </em><code class="sig-prename descclassname">client.gui.add_contact.</code><code class="sig-name descname">AddContact</code><span class="sig-paren">(</span><em class="sig-param">transport</em>, <em class="sig-param">database</em><span class="sig-paren">)</span><a class="headerlink" href="#client.gui.add_contact.AddContact" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QDialog</span></code></p>
+<p>Dialog for adding a user to the contact list. It offers the user a list
+of possible contacts and adds the selected one to the contacts.</p>
+<dl class="method">
+<dt id="client.gui.add_contact.AddContact.get_possible_contacts">
+<code class="sig-name descname">get_possible_contacts</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#client.gui.add_contact.AddContact.get_possible_contacts" title="Permalink to this definition">¶</a></dt>
+<dd><p>The method of filling out the list of possible contacts.
+Creates a list of all registered users except those already added
+to contacts and himself.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="client.gui.add_contact.AddContact.update_possible_contacts">
+<code class="sig-name descname">update_possible_contacts</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#client.gui.add_contact.AddContact.update_possible_contacts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method for updating the list of possible contacts. Requests a list of
+known users from the server and updates the contents of the window.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-client.gui.delete_contact">
+<span id="delete-contact-py"></span><h2>delete_contact.py<a class="headerlink" href="#module-client.gui.delete_contact" title="Permalink to this headline">¶</a></h2>
+<p>A module describes a menu for removing a user from the contact list.</p>
+<dl class="class">
+<dt id="client.gui.delete_contact.DeleteContact">
+<em class="property">class </em><code class="sig-prename descclassname">client.gui.delete_contact.</code><code class="sig-name descname">DeleteContact</code><span class="sig-paren">(</span><em class="sig-param">database</em><span class="sig-paren">)</span><a class="headerlink" href="#client.gui.delete_contact.DeleteContact" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QDialog</span></code></p>
+<p>Dialog to delete a contact. Displays the current contact list,
+has no handlers for actions.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-client.gui.main_window">
+<span id="main-window-py"></span><h2>main_window.py<a class="headerlink" href="#module-client.gui.main_window" title="Permalink to this headline">¶</a></h2>
+<p>The module describes the main window of clients.</p>
+<dl class="class">
+<dt id="client.gui.main_window.ClientMainWindow">
+<em class="property">class </em><code class="sig-prename descclassname">client.gui.main_window.</code><code class="sig-name descname">ClientMainWindow</code><span class="sig-paren">(</span><em class="sig-param">client_name</em>, <em class="sig-param">database</em>, <em class="sig-param">transport</em>, <em class="sig-param">keys</em><span class="sig-paren">)</span><a class="headerlink" href="#client.gui.main_window.ClientMainWindow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QMainWindow</span></code></p>
+<p>Class - the main window of the user.
+It contains all the basic logic of the client module.</p>
+<dl class="method">
+<dt id="client.gui.main_window.ClientMainWindow.add_contact">
+<code class="sig-name descname">add_contact</code><span class="sig-paren">(</span><em class="sig-param">item</em><span class="sig-paren">)</span><a class="headerlink" href="#client.gui.main_window.ClientMainWindow.add_contact" title="Permalink to this definition">¶</a></dt>
+<dd><p>The method of adding a contact to the server and client database.
+After updating the database, the contents of the window are also updated.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>item</strong> (<em>str</em>) – username.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="client.gui.main_window.ClientMainWindow.add_contact_action">
+<code class="sig-name descname">add_contact_action</code><span class="sig-paren">(</span><em class="sig-param">item</em><span class="sig-paren">)</span><a class="headerlink" href="#client.gui.main_window.ClientMainWindow.add_contact_action" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method gets username from drop_menu.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>item</strong> (<em>obj</em>) – class object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="client.gui.main_window.ClientMainWindow.add_contact_window">
+<code class="sig-name descname">add_contact_window</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#client.gui.main_window.ClientMainWindow.add_contact_window" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method creating a window - dialog for adding a contact</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="client.gui.main_window.ClientMainWindow.client_list_update">
+<code class="sig-name descname">client_list_update</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#client.gui.main_window.ClientMainWindow.client_list_update" title="Permalink to this definition">¶</a></dt>
+<dd><p>The method updates the contact list.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="client.gui.main_window.ClientMainWindow.connection_loss">
+<code class="sig-name descname">connection_loss</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#client.gui.main_window.ClientMainWindow.connection_loss" title="Permalink to this definition">¶</a></dt>
+<dd><p>The slot handler is a loss of connection to the server.
+Gives a warning window and terminates the application.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="client.gui.main_window.ClientMainWindow.delete_contact">
+<code class="sig-name descname">delete_contact</code><span class="sig-paren">(</span><em class="sig-param">item</em><span class="sig-paren">)</span><a class="headerlink" href="#client.gui.main_window.ClientMainWindow.delete_contact" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method removing contact from server and client database. After updating
+the database, the contents of the window are also updated.
+:param obj item: class object.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="client.gui.main_window.ClientMainWindow.history_list_update">
+<code class="sig-name descname">history_list_update</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#client.gui.main_window.ClientMainWindow.history_list_update" title="Permalink to this definition">¶</a></dt>
+<dd><p>The method fills the message history.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="client.gui.main_window.ClientMainWindow.make_connection">
+<code class="sig-name descname">make_connection</code><span class="sig-paren">(</span><em class="sig-param">transport</em><span class="sig-paren">)</span><a class="headerlink" href="#client.gui.main_window.ClientMainWindow.make_connection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Connection Creation Method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>transport</strong> (<em>obj</em>) – socket object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="client.gui.main_window.ClientMainWindow.new_message">
+<code class="sig-name descname">new_message</code><span class="sig-paren">(</span><em class="sig-param">message</em><span class="sig-paren">)</span><a class="headerlink" href="#client.gui.main_window.ClientMainWindow.new_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>The slot handler of incoming messages, decrypts incoming messages
+and stores them in the message history. Asks the user if a message was
+received not from the current interlocutor. If necessary,
+change the interlocutor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>message</strong> (<em>dict</em>) – message dict.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="client.gui.main_window.ClientMainWindow.remove_contact_window">
+<code class="sig-name descname">remove_contact_window</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#client.gui.main_window.ClientMainWindow.remove_contact_window" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method creating a window for deleting a contact.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="client.gui.main_window.ClientMainWindow.select_active_user">
+<code class="sig-name descname">select_active_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#client.gui.main_window.ClientMainWindow.select_active_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method handles double-click on contact.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="client.gui.main_window.ClientMainWindow.send_message">
+<code class="sig-name descname">send_message</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#client.gui.main_window.ClientMainWindow.send_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>The method encrypts and sends messages to the user.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="client.gui.main_window.ClientMainWindow.set_active_user">
+<code class="sig-name descname">set_active_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#client.gui.main_window.ClientMainWindow.set_active_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>The method of activating chat with the interlocutor.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="client.gui.main_window.ClientMainWindow.set_disabled_input">
+<code class="sig-name descname">set_disabled_input</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#client.gui.main_window.ClientMainWindow.set_disabled_input" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deactivate the input field.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="client.gui.main_window.ClientMainWindow.signal_205">
+<code class="sig-name descname">signal_205</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#client.gui.main_window.ClientMainWindow.signal_205" title="Permalink to this definition">¶</a></dt>
+<dd><p>Message slot 205 - a request by the server to update directories of available users and
+contacts. It may turn out that the current person is deleted, you need to check this and
+close the chat with a warning. Otherwise, just update the contact list without giving a
+warning to the user.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-client.gui.main_window_gui">
+<span id="main-window-gui-py"></span><h2>main_window_gui.py<a class="headerlink" href="#module-client.gui.main_window_gui" title="Permalink to this headline">¶</a></h2>
+<p>The module describes the GUI of the main window of clients.</p>
+<dl class="class">
+<dt id="client.gui.main_window_gui.Gui_MainClientWindow">
+<em class="property">class </em><code class="sig-prename descclassname">client.gui.main_window_gui.</code><code class="sig-name descname">Gui_MainClientWindow</code><a class="headerlink" href="#client.gui.main_window_gui.Gui_MainClientWindow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The class describes the GUI of the main window of clients.</p>
+<dl class="method">
+<dt id="client.gui.main_window_gui.Gui_MainClientWindow.retranslateUi">
+<code class="sig-name descname">retranslateUi</code><span class="sig-paren">(</span><em class="sig-param">MainClientWindow</em><span class="sig-paren">)</span><a class="headerlink" href="#client.gui.main_window_gui.Gui_MainClientWindow.retranslateUi" title="Permalink to this definition">¶</a></dt>
+<dd><p>The method assigns Russian-language names to interface elements.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="client.gui.main_window_gui.Gui_MainClientWindow.setupUi">
+<code class="sig-name descname">setupUi</code><span class="sig-paren">(</span><em class="sig-param">MainClientWindow</em><span class="sig-paren">)</span><a class="headerlink" href="#client.gui.main_window_gui.Gui_MainClientWindow.setupUi" title="Permalink to this definition">¶</a></dt>
+<dd><p>The method creates interface elements of the main window.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-client.gui.start_menu">
+<span id="start-menu-py"></span><h2>start_menu.py<a class="headerlink" href="#module-client.gui.start_menu" title="Permalink to this headline">¶</a></h2>
+<p>The module describes a menu for entering a username at program startup.</p>
+<dl class="class">
+<dt id="client.gui.start_menu.AuthMenu">
+<em class="property">class </em><code class="sig-prename descclassname">client.gui.start_menu.</code><code class="sig-name descname">AuthMenu</code><a class="headerlink" href="#client.gui.start_menu.AuthMenu" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QDialog</span></code></p>
+<p>The class describes the start menu for entering a username.</p>
+<dl class="method">
+<dt id="client.gui.start_menu.AuthMenu.check_not_empty">
+<code class="sig-name descname">check_not_empty</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#client.gui.start_menu.AuthMenu.check_not_empty" title="Permalink to this definition">¶</a></dt>
+<dd><p>Button handler login_button. If the field is not empty, then change
+the ok_pressed flag to True and close the window.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Messenger</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="server.html">Server module documentation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="client.html">Client module documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="client.custom.html">Client custom modules documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="client.database.html">Client database module documentation</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Client GUI modules documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-client.gui.add_contact">add_contact.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-client.gui.delete_contact">delete_contact.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-client.gui.main_window">main_window.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-client.gui.main_window_gui">main_window_gui.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-client.gui.start_menu">start_menu.py</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="client.log.html">Client logging modules documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="client.html#module-client.client_start">client_start.py</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="client.html">Client module documentation</a><ul>
+      <li>Previous: <a href="client.database.html" title="previous chapter">Client database module documentation</a></li>
+      <li>Next: <a href="client.log.html" title="next chapter">Client logging modules documentation</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Dronkin Artem.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/client.gui.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

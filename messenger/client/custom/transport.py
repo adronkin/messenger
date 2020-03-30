@@ -1,4 +1,4 @@
-"""The module describes the interaction with the server"""
+"""The module describes the interaction with the server."""
 
 import hmac
 import sys
@@ -11,9 +11,9 @@ from socket import socket, AF_INET, SOCK_STREAM
 from threading import Thread, Lock
 from PyQt5.QtCore import QObject, pyqtSignal
 sys.path.append('../')
-from custom.errors import ServerError
-from custom.clt_function import send_message, get_message
-from custom.clt_variables import CONFIRM_PRESENCE, USER, RESPONSE, ERROR, \
+from client.custom.errors import ServerError
+from client.custom.function import send_message, get_message
+from client.custom.variables import CONFIRM_PRESENCE, USER, RESPONSE, ERROR, \
     ACTION, MESSAGE, TIME, SENDER, RECIPIENT, MESSAGE_TEXT, GET_CONTACTS_DICT, \
     DATA, GET_REGISTERED_DICT, ADD_CONTACT_DICT, ACCOUNT_NAME, DICT_MESSAGE, \
     DEL_CONTACT_DICT, EXIT_MESSAGE, ENCODING, PUBLIC_KEY, RESPONSE_511,\
@@ -32,8 +32,19 @@ class ClientTransport(Thread, QObject):
     """
     # New message alert and connection loss.
     new_message = pyqtSignal(dict)
+    """The slot handler of incoming messages, decrypts incoming messages 
+    and stores them in the message history. Asks the user if a message was 
+    received not from the current interlocutor. If necessary, change the 
+    interlocutor."""
     message_205 = pyqtSignal()
+    """Message slot 205 - a request by the server to update directories 
+    of available users and contacts. It may turn out that the current 
+    person is deleted, you need to check this and close the chat with a 
+    warning. Otherwise, just update the contact list without giving a warning 
+    to the user."""
     connection_loss = pyqtSignal()
+    """The slot handler is a loss of connection to the server. 
+    Gives a warning window and terminates the application."""
 
     def __init__(self, ip_address, port, database, username, password, keys):
         # Ancestor constructor call.
@@ -66,10 +77,9 @@ class ClientTransport(Thread, QObject):
 
     def connection_init(self, ip_address, port):
         """
-        The method initiates a connection to the server.
-        :param {str} ip_address: server IP-address.
-        :param {int} port: server port
-        :return:
+        The method initiates a connection to the server.\n
+        :param str ip_address: server IP-address.
+        :param int port: server port.
         """
         # Create a socket (AF_INET - network socket, SOCK_STREAM - work with TCP packets).
         self.client_sock = socket(AF_INET, SOCK_STREAM)
@@ -142,7 +152,6 @@ class ClientTransport(Thread, QObject):
     def transport_shutdown(self):
         """
         The method of closing the connection, sends an exit message.
-        :return:
         """
         self.running = False
         exit_message = EXIT_MESSAGE
@@ -158,9 +167,8 @@ class ClientTransport(Thread, QObject):
 
     def receive_message(self, message):
         """
-        The function processes the server response.
-        :param {dict} message: message from the server.
-        :return:
+        The function processes the server response.\n
+        :param dict message: message from the server.
         """
         LOGGER.debug(f'Обработка сообщения от сервера {message}.')
 
@@ -192,8 +200,8 @@ class ClientTransport(Thread, QObject):
 
     def get_contact_list_from_server(self):
         """
-        The method requests a list of user contacts from the server.
-        :return {list}: user contact list.
+        The method requests a list of user contacts from the server.\n
+        :return: user contact list.
         """
         self.database.clear_contacts()
         LOGGER.debug(f'Запрос списка контактов пользователя {self.username}.')
@@ -217,8 +225,8 @@ class ClientTransport(Thread, QObject):
 
     def get_registered_user_from_server(self):
         """
-        The method requests from the server a list of registered users.
-        :return {list}: list of registered users.
+        The method requests from the server a list of registered users.\n
+        :return: list of registered users.
         """
         LOGGER.debug(f'Запрос зарегистрированных пользователей {self.username}.')
         get_registered_dict = GET_REGISTERED_DICT
@@ -239,9 +247,8 @@ class ClientTransport(Thread, QObject):
 
     def add_contact_to_server(self, contact):
         """
-        The method sends information about adding a contact to the server.
-        :param {str} contact: username to add to your contact list.
-        :return:
+        The method sends information about adding a contact to the server.\n
+        :param str contact: username to add to your contact list.
         """
         LOGGER.debug(f'Создание контакта {contact}.')
         add_contact_dict = ADD_CONTACT_DICT
@@ -256,8 +263,7 @@ class ClientTransport(Thread, QObject):
     def remove_contact_to_server(self, contact):
         """
         The function sends contact deletion information to the server.
-        :param {str} contact: username to remove from the contact list.
-        :return:
+        :param str contact: username to remove from the contact list.
         """
         LOGGER.debug(f'Удаление контакта {contact}.')
         del_contact_dict = DEL_CONTACT_DICT
@@ -271,10 +277,9 @@ class ClientTransport(Thread, QObject):
 
     def create_message(self, recipient, message):
         """
-        Method for sending a message to the server.
-        :param {obj} recipient: socket object.
-        :param {str} message: message to the recipient.
-        :return:
+        Method for sending a message to the server.\n
+        :param obj recipient: socket object.
+        :param str message: message to the recipient.
         """
         dict_message = DICT_MESSAGE
         dict_message[SENDER] = self.username
@@ -289,9 +294,8 @@ class ClientTransport(Thread, QObject):
 
     def get_key_from_server(self, username):
         """
-        The method requests the public key from the server.
-        :param {str} username: username.
-        :return:
+        The method requests the public key from the server.\n
+        :param str username: username.
         """
         LOGGER.debug(f'Запрос публичного ключа для {username}.')
         dict_message = GET_PUBLIC_KEY
@@ -307,7 +311,6 @@ class ClientTransport(Thread, QObject):
     def run(self):
         """
         Method for starting the process of receiving messages from the server.
-        :return:
         """
         LOGGER.debug('Запущен процесс - приёмник сообщений с сервера.')
         while self.running:

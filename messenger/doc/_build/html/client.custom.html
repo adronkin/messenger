@@ -1,0 +1,402 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Client custom modules documentation &#8212; Messenger 1.0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Client database module documentation" href="client.database.html" />
+    <link rel="prev" title="Client module documentation" href="client.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="client-custom-modules-documentation">
+<h1>Client custom modules documentation<a class="headerlink" href="#client-custom-modules-documentation" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-client.custom.variables">
+<span id="variables-py"></span><h2>variables.py<a class="headerlink" href="#module-client.custom.variables" title="Permalink to this headline">¶</a></h2>
+<p>The module contains global variables for the client application.</p>
+</div>
+<div class="section" id="module-client.custom.function">
+<span id="function-py"></span><h2>function.py<a class="headerlink" href="#module-client.custom.function" title="Permalink to this headline">¶</a></h2>
+<p>Module with function for send_message and get_message.</p>
+<dl class="function">
+<dt id="client.custom.function.get_message">
+<code class="sig-prename descclassname">client.custom.function.</code><code class="sig-name descname">get_message</code><span class="sig-paren">(</span><em class="sig-param">client_server</em><span class="sig-paren">)</span><a class="headerlink" href="#client.custom.function.get_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>The function of receive messages from remote computers. Receives JSON
+messages, decode the received message and verifies that the dictionary
+is received.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>client_server</strong> (<em>obj</em>) – server socket.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="client.custom.function.send_message">
+<code class="sig-prename descclassname">client.custom.function.</code><code class="sig-name descname">send_message</code><span class="sig-paren">(</span><em class="sig-param">sock</em>, <em class="sig-param">message</em><span class="sig-paren">)</span><a class="headerlink" href="#client.custom.function.send_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>The function takes a message dictionary, serializes it in json and sends.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sock</strong> (<em>str</em>) – transmission socket.</p></li>
+<li><p><strong>message</strong> (<em>dict</em>) – message to send.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-client.custom.decorators">
+<span id="decorators-py"></span><h2>decorators.py<a class="headerlink" href="#module-client.custom.decorators" title="Permalink to this headline">¶</a></h2>
+<p>The module contains decorators for the client application.</p>
+<dl class="class">
+<dt id="client.custom.decorators.Log">
+<em class="property">class </em><code class="sig-prename descclassname">client.custom.decorators.</code><code class="sig-name descname">Log</code><a class="headerlink" href="#client.custom.decorators.Log" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A decorator that logs function calls. Saves events containing information
+about the name of the called function, the parameters with which the
+function is called, and the module that calls the function.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-client.custom.metaclass">
+<span id="metaclass-py"></span><h2>metaclass.py<a class="headerlink" href="#module-client.custom.metaclass" title="Permalink to this headline">¶</a></h2>
+<p>Module with metaclass performing basic client check.</p>
+<dl class="class">
+<dt id="client.custom.metaclass.ClientVerified">
+<em class="property">class </em><code class="sig-prename descclassname">client.custom.metaclass.</code><code class="sig-name descname">ClientVerified</code><span class="sig-paren">(</span><em class="sig-param">class_name</em>, <em class="sig-param">bases</em>, <em class="sig-param">class_dict</em><span class="sig-paren">)</span><a class="headerlink" href="#client.custom.metaclass.ClientVerified" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">type</span></code></p>
+<p>A metaclass that performs basic client validation.
+Lack of accept and listen calls for sockets. Using sockets to work on TCP.
+Lack of creating sockets at the class level (class Client: s = socket()).</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-client.custom.parse_args">
+<span id="parse-args-py"></span><h2>parse_args.py<a class="headerlink" href="#module-client.custom.parse_args" title="Permalink to this headline">¶</a></h2>
+<p>The module contains functions for parsing startup parameters
+from the command line.</p>
+<dl class="function">
+<dt id="client.custom.parse_args.args_parser">
+<code class="sig-prename descclassname">client.custom.parse_args.</code><code class="sig-name descname">args_parser</code><span class="sig-paren">(</span><em class="sig-param">*args</em><span class="sig-paren">)</span><a class="headerlink" href="#client.custom.parse_args.args_parser" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function for parsing arguments from the command line.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>args</strong> (<em>tuple</em>) – tuple with arguments for the parser.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>object namespace with arguments.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="client.custom.parse_args.check_address">
+<code class="sig-prename descclassname">client.custom.parse_args.</code><code class="sig-name descname">check_address</code><span class="sig-paren">(</span><em class="sig-param">address</em><span class="sig-paren">)</span><a class="headerlink" href="#client.custom.parse_args.check_address" title="Permalink to this definition">¶</a></dt>
+<dd><p>The function checks the correctness of the address.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>address</strong> (<em>str</em>) – server address.</p>
+</dd>
+<dt class="field-even">Return bool</dt>
+<dd class="field-even"><p>True if the address is correct, False if not.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="client.custom.parse_args.check_port">
+<code class="sig-prename descclassname">client.custom.parse_args.</code><code class="sig-name descname">check_port</code><span class="sig-paren">(</span><em class="sig-param">port</em><span class="sig-paren">)</span><a class="headerlink" href="#client.custom.parse_args.check_port" title="Permalink to this definition">¶</a></dt>
+<dd><p>The function checks the port for correctness.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>port</strong> (<em>int</em>) – server port.</p>
+</dd>
+<dt class="field-even">Return bool</dt>
+<dd class="field-even"><p>True if the port is correct, False if not.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="client.custom.parse_args.get_command_args">
+<code class="sig-prename descclassname">client.custom.parse_args.</code><code class="sig-name descname">get_command_args</code><span class="sig-paren">(</span><em class="sig-param">*args</em><span class="sig-paren">)</span><a class="headerlink" href="#client.custom.parse_args.get_command_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>The function returns the IP address and port of the server
+if it was entered on the command line.
+The default is IP address 127.0.0.1, port 7777.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>args</strong> (<em>tuple</em>) – tuple with arguments for the parser.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>object namespace with arguments.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-client.custom.errors">
+<span id="errors-py"></span><h2>errors.py<a class="headerlink" href="#module-client.custom.errors" title="Permalink to this headline">¶</a></h2>
+<p>The module contains custom exceptions.</p>
+<dl class="exception">
+<dt id="client.custom.errors.ServerError">
+<em class="property">exception </em><code class="sig-prename descclassname">client.custom.errors.</code><code class="sig-name descname">ServerError</code><span class="sig-paren">(</span><em class="sig-param">text</em><span class="sig-paren">)</span><a class="headerlink" href="#client.custom.errors.ServerError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<p>Class is an exception for handling server errors. During generation,
+it requires a string describing the error received from the server.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-client.custom.transport">
+<span id="transport-py"></span><h2>transport.py<a class="headerlink" href="#module-client.custom.transport" title="Permalink to this headline">¶</a></h2>
+<p>The module describes the interaction with the server.</p>
+<dl class="class">
+<dt id="client.custom.transport.ClientTransport">
+<em class="property">class </em><code class="sig-prename descclassname">client.custom.transport.</code><code class="sig-name descname">ClientTransport</code><span class="sig-paren">(</span><em class="sig-param">ip_address</em>, <em class="sig-param">port</em>, <em class="sig-param">database</em>, <em class="sig-param">username</em>, <em class="sig-param">password</em>, <em class="sig-param">keys</em><span class="sig-paren">)</span><a class="headerlink" href="#client.custom.transport.ClientTransport" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">threading.Thread</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtCore.QObject</span></code></p>
+<p>Class - Transport, is responsible for interacting with the server.</p>
+<dl class="method">
+<dt id="client.custom.transport.ClientTransport.add_contact_to_server">
+<code class="sig-name descname">add_contact_to_server</code><span class="sig-paren">(</span><em class="sig-param">contact</em><span class="sig-paren">)</span><a class="headerlink" href="#client.custom.transport.ClientTransport.add_contact_to_server" title="Permalink to this definition">¶</a></dt>
+<dd><p>The method sends information about adding a contact to the server.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>contact</strong> (<em>str</em>) – username to add to your contact list.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="client.custom.transport.ClientTransport.connection_init">
+<code class="sig-name descname">connection_init</code><span class="sig-paren">(</span><em class="sig-param">ip_address</em>, <em class="sig-param">port</em><span class="sig-paren">)</span><a class="headerlink" href="#client.custom.transport.ClientTransport.connection_init" title="Permalink to this definition">¶</a></dt>
+<dd><p>The method initiates a connection to the server.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ip_address</strong> (<em>str</em>) – server IP-address.</p></li>
+<li><p><strong>port</strong> (<em>int</em>) – server port.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="client.custom.transport.ClientTransport.connection_loss">
+<code class="sig-name descname">connection_loss</code><a class="headerlink" href="#client.custom.transport.ClientTransport.connection_loss" title="Permalink to this definition">¶</a></dt>
+<dd><p>The slot handler is a loss of connection to the server. 
+Gives a warning window and terminates the application.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="client.custom.transport.ClientTransport.create_message">
+<code class="sig-name descname">create_message</code><span class="sig-paren">(</span><em class="sig-param">recipient</em>, <em class="sig-param">message</em><span class="sig-paren">)</span><a class="headerlink" href="#client.custom.transport.ClientTransport.create_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method for sending a message to the server.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>recipient</strong> (<em>obj</em>) – socket object.</p></li>
+<li><p><strong>message</strong> (<em>str</em>) – message to the recipient.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="client.custom.transport.ClientTransport.get_contact_list_from_server">
+<code class="sig-name descname">get_contact_list_from_server</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#client.custom.transport.ClientTransport.get_contact_list_from_server" title="Permalink to this definition">¶</a></dt>
+<dd><p>The method requests a list of user contacts from the server.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>user contact list.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="client.custom.transport.ClientTransport.get_key_from_server">
+<code class="sig-name descname">get_key_from_server</code><span class="sig-paren">(</span><em class="sig-param">username</em><span class="sig-paren">)</span><a class="headerlink" href="#client.custom.transport.ClientTransport.get_key_from_server" title="Permalink to this definition">¶</a></dt>
+<dd><p>The method requests the public key from the server.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>username</strong> (<em>str</em>) – username.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="client.custom.transport.ClientTransport.get_registered_user_from_server">
+<code class="sig-name descname">get_registered_user_from_server</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#client.custom.transport.ClientTransport.get_registered_user_from_server" title="Permalink to this definition">¶</a></dt>
+<dd><p>The method requests from the server a list of registered users.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>list of registered users.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="client.custom.transport.ClientTransport.message_205">
+<code class="sig-name descname">message_205</code><a class="headerlink" href="#client.custom.transport.ClientTransport.message_205" title="Permalink to this definition">¶</a></dt>
+<dd><p>Message slot 205 - a request by the server to update directories 
+of available users and contacts. It may turn out that the current 
+person is deleted, you need to check this and close the chat with a 
+warning. Otherwise, just update the contact list without giving a warning 
+to the user.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="client.custom.transport.ClientTransport.new_message">
+<code class="sig-name descname">new_message</code><a class="headerlink" href="#client.custom.transport.ClientTransport.new_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>The slot handler of incoming messages, decrypts incoming messages 
+and stores them in the message history. Asks the user if a message was 
+received not from the current interlocutor. If necessary, change the 
+interlocutor.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="client.custom.transport.ClientTransport.receive_message">
+<code class="sig-name descname">receive_message</code><span class="sig-paren">(</span><em class="sig-param">message</em><span class="sig-paren">)</span><a class="headerlink" href="#client.custom.transport.ClientTransport.receive_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>The function processes the server response.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>message</strong> (<em>dict</em>) – message from the server.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="client.custom.transport.ClientTransport.remove_contact_to_server">
+<code class="sig-name descname">remove_contact_to_server</code><span class="sig-paren">(</span><em class="sig-param">contact</em><span class="sig-paren">)</span><a class="headerlink" href="#client.custom.transport.ClientTransport.remove_contact_to_server" title="Permalink to this definition">¶</a></dt>
+<dd><p>The function sends contact deletion information to the server.
+:param str contact: username to remove from the contact list.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="client.custom.transport.ClientTransport.run">
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#client.custom.transport.ClientTransport.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method for starting the process of receiving messages from the server.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="client.custom.transport.ClientTransport.transport_shutdown">
+<code class="sig-name descname">transport_shutdown</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#client.custom.transport.ClientTransport.transport_shutdown" title="Permalink to this definition">¶</a></dt>
+<dd><p>The method of closing the connection, sends an exit message.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Messenger</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="server.html">Server module documentation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="client.html">Client module documentation</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Client custom modules documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-client.custom.variables">variables.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-client.custom.function">function.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-client.custom.decorators">decorators.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-client.custom.metaclass">metaclass.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-client.custom.parse_args">parse_args.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-client.custom.errors">errors.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-client.custom.transport">transport.py</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="client.database.html">Client database module documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="client.gui.html">Client GUI modules documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="client.log.html">Client logging modules documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="client.html#module-client.client_start">client_start.py</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="client.html">Client module documentation</a><ul>
+      <li>Previous: <a href="client.html" title="previous chapter">Client module documentation</a></li>
+      <li>Next: <a href="client.database.html" title="next chapter">Client database module documentation</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Dronkin Artem.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/client.custom.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

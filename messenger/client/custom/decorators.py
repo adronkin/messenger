@@ -1,18 +1,20 @@
-"""Module for client decorators"""
+"""The module contains decorators for the client application."""
 
 import inspect
 import sys
 from functools import wraps
 from logging import getLogger
 sys.path.append('../')
-import log.log_config
+import client.log.log_config
 
 LOGGER = getLogger('client_logger')
 
 
 class Log:
     """
-    Decorator class for logging the name and arguments of the called function.
+    A decorator that logs function calls. Saves events containing information
+    about the name of the called function, the parameters with which the
+    function is called, and the module that calls the function.
     """
     def __call__(self, func):
         # Copy the attributes of a function to the attributes of a wrapped function.

@@ -1,10 +1,10 @@
-"""Logging module"""
+"""The module contains the configuration of the client logger."""
 
 import os
 import sys
 from logging import getLogger, Formatter, StreamHandler, ERROR, FileHandler
 sys.path.append('../')
-from log.log_variables import ENCODING, LOGGING_LEVEL, LOGGING_FORMAT
+from client.log.log_variables import ENCODING, LOGGING_LEVEL, LOGGING_FORMAT
 
 try:
     os.mkdir(f'{os.path.join(os.path.dirname(__file__))}/log_files')

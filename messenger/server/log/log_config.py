@@ -1,10 +1,10 @@
-"""Logging module"""
+"""The module contains the configuration of the server logger."""
 
 import os
 import sys
 from logging import getLogger, Formatter, StreamHandler, ERROR, handlers
 sys.path.append('../')
-from log.log_variables import ENCODING, LOGGING_LEVEL, LOGGING_FORMAT
+from server.log.log_variables import ENCODING, LOGGING_LEVEL, LOGGING_FORMAT
 
 # Set the path to save the log file.
 try:

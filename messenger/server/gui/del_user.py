@@ -1,4 +1,4 @@
-"""The module describes the user deletion window"""
+"""The module describes the user deletion window."""
 
 import sys
 from PyQt5.QtCore import Qt
@@ -8,7 +8,7 @@ from PyQt5.QtWidgets import QDialog, QApplication, QMessageBox, QLabel, \
 
 class DeleteUserWindow(QDialog):
     """
-    Class describes the user deletion window.
+    Class - dialog for selecting a contact to delete.
     """
     def __init__(self, server, database):
         super().__init__()
@@ -51,7 +51,6 @@ class DeleteUserWindow(QDialog):
     def drop_menu_fill(self):
         """
         The method fills the dropdown menu.
-        :return:
         """
         self.del_drop_menu.addItems([item[0] for item in self.database.get_all_users()])
 
@@ -59,7 +58,6 @@ class DeleteUserWindow(QDialog):
         """
         Method handler deletion. Checks if the client is connected
         and closes the connection, also deleting it from the database.
-        :return:
         """
         self.database.del_user(self.del_drop_menu.currentText())
         if self.del_drop_menu.currentText() in self.server.names:
